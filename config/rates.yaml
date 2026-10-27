@@ -1,0 +1,72 @@
+# =============================================================================
+# config/rates.yaml — P1 single source of truth for ALL fee numbers
+# (CHARTER v2.1 §3.1: pages and articles must never hardcode rates)
+#
+# RULES:
+#   - Every numeric field stays null until the rates-scan workflow
+#     (GitHub Actions, US runner) collects it from the official page
+#     AND a human [核] cross-check confirms it.
+#   - NEVER fill any number from model memory. (待 Actions 采集)
+#   - verified becomes true ONLY after the human cross-check passes.
+# =============================================================================
+
+meta:
+  schema_version: 1
+  updated_at: null          # 待 Actions 采集 (YYYY-MM-DD)
+  updated_by: null          # 待 Actions 采集 (workflow run id)
+
+platforms:
+  ebay:
+    final_value_percent: null   # 待 Actions 采集 — final value fee, % of (price + shipping)
+    per_order_fixed: null       # 待 Actions 采集 — fixed fee per order, USD
+    payment_percent: null       # 待 Actions 采集 — payment processing, %
+    payment_fixed: null         # 待 Actions 采集 — payment processing, USD
+    listing_fee: null           # 待 Actions 采集 — insertion fee, USD
+    source_url: null            # 待 Actions 采集 — official fee page URL
+    scraped_date: null          # 待 Actions 采集 — YYYY-MM-DD
+    verified: false             # human [核] cross-check flag
+  poshmark:
+    final_value_percent: null   # 待 Actions 采集
+    per_order_fixed: null       # 待 Actions 采集
+    payment_percent: null       # 待 Actions 采集
+    payment_fixed: null         # 待 Actions 采集
+    listing_fee: null           # 待 Actions 采集
+    source_url: null            # 待 Actions 采集
+    scraped_date: null          # 待 Actions 采集
+    verified: false             # human [核] cross-check flag
+  mercari:
+    final_value_percent: null   # 待 Actions 采集
+    per_order_fixed: null       # 待 Actions 采集
+    payment_percent: null       # 待 Actions 采集
+    payment_fixed: null         # 待 Actions 采集
+    listing_fee: null           # 待 Actions 采集
+    source_url: null            # 待 Actions 采集
+    scraped_date: null          # 待 Actions 采集
+    verified: false             # human [核] cross-check flag
+  vinted:
+    final_value_percent: null   # 待 Actions 采集
+    per_order_fixed: null       # 待 Actions 采集
+    payment_percent: null       # 待 Actions 采集
+    payment_fixed: null         # 待 Actions 采集
+    listing_fee: null           # 待 Actions 采集
+    source_url: null            # 待 Actions 采集
+    scraped_date: null          # 待 Actions 采集
+    verified: false             # human [核] cross-check flag
+  depop:
+    final_value_percent: null   # 待 Actions 采集
+    per_order_fixed: null       # 待 Actions 采集
+    payment_percent: null       # 待 Actions 采集
+    payment_fixed: null         # 待 Actions 采集
+    listing_fee: null           # 待 Actions 采集
+    source_url: null            # 待 Actions 采集
+    scraped_date: null          # 待 Actions 采集
+    verified: false             # human [核] cross-check flag
+  etsy:
+    final_value_percent: null   # 待 Actions 采集
+    per_order_fixed: null       # 待 Actions 采集
+    payment_percent: null       # 待 Actions 采集
+    payment_fixed: null         # 待 Actions 采集
+    listing_fee: null           # 待 Actions 采集
+    source_url: null            # 待 Actions 采集
+    scraped_date: null          # 待 Actions 采集
+    verified: false             # human [核] cross-check flag

@@ -1,0 +1,33 @@
+name: keywords
+
+# Demand-signal collection for keyword research (CHARTER v2.1 §3.2/§4.3).
+# Autocomplete relative comparisons only — no absolute volume guessing.
+# GitHub-hosted US runners only; results committed to .data/keywords/.
+
+on:
+  schedule:
+    - cron: "0 7 * * 5" # Fridays 07:00 UTC — cadence confirmed at D6 review
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest # GitHub-hosted runner (US)
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Collect demand signals (autocomplete)
+        run: node scripts/collect/keywords.mjs
+
+      - name: Commit results
+        run: |
+          git config user.name "feeside-bot"
+          git config user.email "actions@feeside.com"
+          git add .data
+          git commit -m "data(keywords): signals $(date -u +%F)" || echo "nothing to commit"

@@ -1,0 +1,64 @@
+name: rates-scan
+
+# P1 fee-rate change detection (CHARTER v2.1 §3.1/§3.2).
+# Cross-border rule: scraping happens ONLY here, on GitHub-hosted US runners.
+# Local machines never hit the US sites directly; they only consume .data/.
+#
+# Flow: scan → persist .data/freshness/<date>/ → commit snapshot →
+#       if config changes found → --apply on a bot branch → PR for human [核].
+
+on:
+  schedule:
+    - cron: "0 14 * * 1,4" # Mon & Thu 14:00 UTC — cadence confirmed at D6 review
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest # GitHub-hosted runner (US)
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Scan official fee pages (US runner)
+        run: node scripts/collect/rates-scan.mjs --debug
+
+      - name: Upload debug artifacts (selector calibration)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rates-scan-debug-${{ github.run_id }}
+          path: .data/freshness/**/debug/
+          if-no-files-found: ignore
+
+      - name: Commit freshness snapshot
+        run: |
+          git config user.name "feeside-bot"
+          git config user.email "actions@feeside.com"
+          git add .data
+          git commit -m "data(freshness): scan $(date -u +%F)" || echo "nothing to commit"
+
+      - name: Open PR when rates changed (二档: human [核] review required)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          DATE=$(date -u +%F)
+          COUNT=$(node -e "try{const r=require('./.data/freshness/'+process.argv[1]+'/report.json');console.log(r.changes.length)}catch(e){console.log(0)}" "$DATE")
+          echo "config changes found: $COUNT"
+          if [ "$COUNT" -gt 0 ]; then
+            BR="bot/rates-$DATE"
+            git checkout -b "$BR"
+            node scripts/collect/rates-scan.mjs --apply
+            git add config .data
+            git commit -m "config(rates): scanned changes $DATE — [核] review required"
+            git push -u origin "$BR"
+            gh pr create \
+              --title "rates: scanned changes $DATE" \
+              --body "Automated scan found **$COUNT** config changes (old→new in config/CHANGELOG.md). Human cross-check ([核]) required before verified:true. Full evidence: .data/freshness/$DATE/summary.md" \
+              --fill || true
+          fi

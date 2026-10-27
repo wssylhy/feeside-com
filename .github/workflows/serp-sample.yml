@@ -1,0 +1,41 @@
+name: serp-sample
+
+# SERP sampling for tracked keywords (CHARTER v2.1 §3.2).
+# Runs on GitHub-hosted US runners — local machines never query US SERPs.
+# Results land in .data/serp/ and are committed for offline analysis.
+
+on:
+  schedule:
+    - cron: "0 6 * * 1" # Mondays 06:00 UTC — cadence confirmed at D6 review
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  sample:
+    runs-on: ubuntu-latest # GitHub-hosted runner (US)
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Sample SERPs (Bing web, US market)
+        run: node scripts/collect/serp-sample.mjs --debug
+
+      - name: Upload debug artifacts (parser repair)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: serp-sample-debug-${{ github.run_id }}
+          path: .data/serp/**/debug/
+          if-no-files-found: ignore
+
+      - name: Commit results
+        run: |
+          git config user.name "feeside-bot"
+          git config user.email "actions@feeside.com"
+          git add .data
+          git commit -m "data(serp): sample $(date -u +%F)" || echo "nothing to commit"
