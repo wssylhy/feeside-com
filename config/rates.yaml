@@ -12,16 +12,16 @@
 
 meta:
   schema_version: 1
-  updated_at: null          # 待 Actions 采集 (YYYY-MM-DD)
-  updated_by: null          # 待 Actions 采集 (workflow run id)
+  updated_at: "2026-10-27"
+  updated_by: "rates-scan (GitHub Actions)"
 
 platforms:
   ebay:
-    final_value_percent: null   # 待 Actions 采集 — final value fee, % of (price + shipping)
-    per_order_fixed: null       # 待 Actions 采集 — fixed fee per order, USD
+    final_value_percent: 6   # 待 Actions 采集 — final value fee, % of (price + shipping)
+    per_order_fixed: 0.3       # 待 Actions 采集 — fixed fee per order, USD
     payment_percent: null       # 待 Actions 采集 — payment processing, %
     payment_fixed: null         # 待 Actions 采集 — payment processing, USD
-    listing_fee: null           # 待 Actions 采集 — insertion fee, USD
+    listing_fee: 0.35           # 待 Actions 采集 — insertion fee, USD
     source_url: null            # 待 Actions 采集 — official fee page URL
     scraped_date: null          # 待 Actions 采集 — YYYY-MM-DD
     verified: false             # human [核] cross-check flag

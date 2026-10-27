@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-27T23:51:14.487Z",
+  "generated_at": "2026-10-27T23:51:22.344Z",
   "mode": {
-    "apply": false,
+    "apply": true,
     "offline": false,
     "debug": true
   },
@@ -17,7 +17,7 @@
       "old_value": null,
       "new_value": 6,
       "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
-      "scraped_at": "2026-10-27T23:51:12.624Z"
+      "scraped_at": "2026-10-27T23:51:20.895Z"
     },
     {
       "platform": "ebay",
@@ -25,7 +25,7 @@
       "old_value": null,
       "new_value": 0.3,
       "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
-      "scraped_at": "2026-10-27T23:51:12.624Z"
+      "scraped_at": "2026-10-27T23:51:20.895Z"
     },
     {
       "platform": "ebay",
@@ -33,7 +33,7 @@
       "old_value": null,
       "new_value": 0.35,
       "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
-      "scraped_at": "2026-10-27T23:51:12.624Z"
+      "scraped_at": "2026-10-27T23:51:20.895Z"
     }
   ],
   "platforms": [
@@ -65,7 +65,7 @@
           "note": null,
           "evidence": "er is higher. Sellers not meeting performance expectations Additional final value fees may apply on sales in the following circumstances: If your account is evaluated as Below Standard for the US in the evaluation on the 20th of the month, you'll be charged an additional 6% on the final value fees applicable to sales in the following calendar",
           "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
-          "scraped_at": "2026-10-27T23:51:12.624Z"
+          "scraped_at": "2026-10-27T23:51:20.895Z"
         },
         "per_order_fixed": {
           "old_value": null,
@@ -73,7 +73,7 @@
           "note": null,
           "evidence": "ount of the sale, plus a per order fee. For orders $10.00 or less the per order fee is $0.30, for orders over $10.00 the per order fee is $0.40. The total amount",
           "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
-          "scraped_at": "2026-10-27T23:51:12.624Z"
+          "scraped_at": "2026-10-27T23:51:20.895Z"
         },
         "listing_fee": {
           "old_value": null,
@@ -81,7 +81,7 @@
           "note": null,
           "evidence": "t of the sale (includes 6% sales tax). Your total fees for this item: Insertion fee $0.35 Final value fee (13.6% of $424, + $0.40) $58.06 Total fees $58.41 You",
           "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
-          "scraped_at": "2026-10-27T23:51:12.624Z"
+          "scraped_at": "2026-10-27T23:51:20.895Z"
         }
       }
     },
