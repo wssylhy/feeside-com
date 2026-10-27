@@ -1,0 +1,178 @@
+{
+  "generated_at": "2026-10-27T23:51:14.487Z",
+  "mode": {
+    "apply": false,
+    "offline": false,
+    "debug": true
+  },
+  "counts": {
+    "ok": 0,
+    "partial": 1,
+    "blocked": 5
+  },
+  "changes": [
+    {
+      "platform": "ebay",
+      "field": "final_value_percent",
+      "old_value": null,
+      "new_value": 6,
+      "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+      "scraped_at": "2026-10-27T23:51:12.624Z"
+    },
+    {
+      "platform": "ebay",
+      "field": "per_order_fixed",
+      "old_value": null,
+      "new_value": 0.3,
+      "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+      "scraped_at": "2026-10-27T23:51:12.624Z"
+    },
+    {
+      "platform": "ebay",
+      "field": "listing_fee",
+      "old_value": null,
+      "new_value": 0.35,
+      "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+      "scraped_at": "2026-10-27T23:51:12.624Z"
+    }
+  ],
+  "platforms": [
+    {
+      "platform": "ebay",
+      "status": "partial",
+      "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+      "http_status": 200,
+      "attempts": [
+        {
+          "url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+          "status": 200,
+          "matched": 3
+        },
+        {
+          "url": "https://www.ebay.com/help/error-500",
+          "status": 200,
+          "matched": 0
+        },
+        {
+          "url": "https://pages.ebay.com/selling/fees",
+          "status": 404
+        }
+      ],
+      "fields": {
+        "final_value_percent": {
+          "old_value": null,
+          "new_value": 6,
+          "note": null,
+          "evidence": "er is higher. Sellers not meeting performance expectations Additional final value fees may apply on sales in the following circumstances: If your account is evaluated as Below Standard for the US in the evaluation on the 20th of the month, you'll be charged an additional 6% on the final value fees applicable to sales in the following calendar",
+          "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+          "scraped_at": "2026-10-27T23:51:12.624Z"
+        },
+        "per_order_fixed": {
+          "old_value": null,
+          "new_value": 0.3,
+          "note": null,
+          "evidence": "ount of the sale, plus a per order fee. For orders $10.00 or less the per order fee is $0.30, for orders over $10.00 the per order fee is $0.40. The total amount",
+          "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+          "scraped_at": "2026-10-27T23:51:12.624Z"
+        },
+        "listing_fee": {
+          "old_value": null,
+          "new_value": 0.35,
+          "note": null,
+          "evidence": "t of the sale (includes 6% sales tax). Your total fees for this item: Insertion fee $0.35 Final value fee (13.6% of $424, + $0.40) $58.06 Total fees $58.41 You",
+          "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+          "scraped_at": "2026-10-27T23:51:12.624Z"
+        }
+      }
+    },
+    {
+      "platform": "poshmark",
+      "status": "blocked",
+      "source_url": "https://poshmark.com/faq",
+      "http_status": 200,
+      "attempts": [
+        {
+          "url": "https://poshmark.com/faq",
+          "status": 200,
+          "matched": 0
+        },
+        {
+          "url": "https://help.poshmark.com/hc/en-us",
+          "error": "fetch failed"
+        }
+      ],
+      "fields": {}
+    },
+    {
+      "platform": "mercari",
+      "status": "blocked",
+      "source_url": "https://www.mercari.com/us/help_center/",
+      "http_status": 200,
+      "attempts": [
+        {
+          "url": "https://www.mercari.com/us/help_center/",
+          "status": 200,
+          "matched": 0
+        },
+        {
+          "url": "https://www.mercari.com/us/",
+          "status": 403
+        }
+      ],
+      "fields": {}
+    },
+    {
+      "platform": "vinted",
+      "status": "blocked",
+      "source_url": "https://www.vinted.com/help",
+      "http_status": 200,
+      "attempts": [
+        {
+          "url": "https://www.vinted.com/help",
+          "status": 200,
+          "matched": 0
+        },
+        {
+          "url": "https://www.vinted.com/terms",
+          "status": 404
+        }
+      ],
+      "fields": {}
+    },
+    {
+      "platform": "depop",
+      "status": "blocked",
+      "source_url": null,
+      "http_status": null,
+      "attempts": [
+        {
+          "url": "https://www.depop.com/fees/",
+          "status": 403
+        },
+        {
+          "url": "https://help.depop.com/hc/en-us",
+          "status": 403
+        }
+      ],
+      "fields": {}
+    },
+    {
+      "platform": "etsy",
+      "status": "blocked",
+      "source_url": "https://help.etsy.com/hc/en-us",
+      "http_status": 200,
+      "attempts": [
+        {
+          "url": "https://www.etsy.com/legal/fees/",
+          "status": 403
+        },
+        {
+          "url": "https://help.etsy.com/hc/en-us",
+          "status": 200,
+          "matched": 0
+        }
+      ],
+      "fields": {}
+    }
+  ]
+}
