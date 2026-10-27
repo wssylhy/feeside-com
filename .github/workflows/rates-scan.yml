@@ -43,7 +43,7 @@ jobs:
           git add .data
           git commit -m "data(freshness): scan $(date -u +%F)" || echo "nothing to commit"
 
-      - name: Open PR when rates changed (二档: human [核] review required)
+      - name: "Open PR when rates changed (二档: human [核] review required)"
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
