@@ -39,3 +39,4 @@ jobs:
           git config user.email "actions@feeside.com"
           git add .data
           git commit -m "data(serp): sample $(date -u +%F)" || echo "nothing to commit"
+          git push origin HEAD:main

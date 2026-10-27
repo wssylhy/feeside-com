@@ -31,3 +31,4 @@ jobs:
           git config user.email "actions@feeside.com"
           git add .data
           git commit -m "data(keywords): signals $(date -u +%F)" || echo "nothing to commit"
+          git push origin HEAD:main

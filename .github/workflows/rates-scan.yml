@@ -14,6 +14,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write # gh pr create — explicit permissions block zeroes every unlisted scope
 
 jobs:
   scan:
@@ -42,6 +43,9 @@ jobs:
           git config user.email "actions@feeside.com"
           git add .data
           git commit -m "data(freshness): scan $(date -u +%F)" || echo "nothing to commit"
+          # debug/ HTML stays artifact-only (.gitignore): third-party pages trip
+          # GitHub Push Protection (real case: Mapbox token inside Vinted help HTML)
+          git push origin HEAD:main
 
       - name: "Open PR when rates changed (二档: human [核] review required)"
         env:
