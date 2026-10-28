@@ -5,6 +5,7 @@ export default {
   id: 'poshmark',
   candidates: [
     'https://poshmark.com/faq',
+    'https://poshmark.com/sell',
     'https://help.poshmark.com/hc/en-us',
   ],
   fields: [

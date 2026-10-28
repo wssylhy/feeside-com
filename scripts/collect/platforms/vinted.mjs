@@ -3,7 +3,11 @@
 // buyer-side numbers are deliberately NOT matched into any field here.
 export default {
   id: 'vinted',
-  candidates: ['https://www.vinted.com/help', 'https://www.vinted.com/terms'],
+  candidates: [
+    'https://www.vinted.com/help',
+    'https://www.vinted.com/how-it-works',
+    'https://www.vinted.com/terms',
+  ],
   fields: [
     {
       key: 'final_value_percent',

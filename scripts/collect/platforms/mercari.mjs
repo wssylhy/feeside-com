@@ -5,6 +5,7 @@ export default {
   id: 'mercari',
   candidates: [
     'https://www.mercari.com/us/help_center/',
+    'https://www.mercari.com/us/sell/',
     'https://www.mercari.com/us/',
   ],
   fields: [
