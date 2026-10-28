@@ -1,0 +1,58 @@
+name: pages-deploy
+
+# Zero-account deployment path (DD4): builds the static export against the
+# GitHub Pages project URL and publishes it. The canonical feeside.com build
+# (no env overrides) remains the production target once DNS/Vercel land.
+# .data bot pushes do NOT trigger this (paths filter) — only site code/config.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'app/**'
+      - 'components/**'
+      - 'lib/**'
+      - 'config/**'
+      - 'public/**'
+      - 'package.json'
+      - 'next.config.mjs'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: npm install
+
+      - name: Build static export (GitHub Pages target)
+        env:
+          DEPLOY_BASE: /feeside-com
+          SITE_URL_OVERRIDE: https://wssylhy.github.io/feeside-com
+        run: npm run build
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
