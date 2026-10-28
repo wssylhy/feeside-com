@@ -16,6 +16,10 @@ permissions:
   contents: write
   pull-requests: write # gh pr create — explicit permissions block zeroes every unlisted scope
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   scan:
     runs-on: ubuntu-latest # GitHub-hosted runner (US)
@@ -45,6 +49,8 @@ jobs:
           git commit -m "data(freshness): scan $(date -u +%F)" || echo "nothing to commit"
           # debug/ HTML stays artifact-only (.gitignore): third-party pages trip
           # GitHub Push Protection (real case: Mapbox token inside Vinted help HTML)
+          # other data workflows may have advanced main since checkout
+          git pull --rebase --autostash origin main
           git push origin HEAD:main
 
       - name: "Open PR when rates changed (二档: human [核] review required)"
