@@ -5,7 +5,9 @@ const base = process.env.DEPLOY_BASE || undefined;
 
 const nextConfig = {
   output: 'export',
-  ...(base ? { basePath: base, assetPrefix: base } : {}),
+  // GH Pages serves plain static files: extensionless URLs need
+  // directory-style output (/calculators/ebay/index.html).
+  ...(base ? { basePath: base, assetPrefix: base, trailingSlash: true } : {}),
   images: { unoptimized: true },
   eslint: { ignoreDuringBuilds: true },
 };
