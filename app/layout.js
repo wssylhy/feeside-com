@@ -1,13 +1,14 @@
 import './globals.css';
+import { SITE } from '../lib/seo';
 
 export const metadata = {
-  metadataBase: new URL('https://feeside.com'),
+  metadataBase: new URL(SITE.url),
   title: {
     default: 'Marketplace Fee Calculators — see what you keep',
     template: '%s | Feeside',
   },
   description:
-    'Enter a sale price and see exactly what each marketplace takes — eBay, Poshmark, Mercari, Vinted, Depop and Etsy. Every fee number comes from a verified config scanned from official fee pages.',
+    'Enter a sale price and see exactly what each marketplace takes — eBay, Poshmark, Mercari, Vinted, Depop and Etsy. Every fee number is scanned from official fee pages and cross-checked before display.',
   openGraph: {
     type: 'website',
     siteName: 'Feeside',
@@ -39,7 +40,9 @@ export default function RootLayout({ children }) {
         </header>
         <main>{children}</main>
         <footer className="site">
-          Fee numbers come from a verified config, collected by automated scans of official fee pages. Unverified numbers are never shown.
+          Fee numbers are machine-scanned from official fee pages and cross-checked
+          by an independent extraction pass before display; each calculator labels
+          its review status. Independent tool — not affiliated with any marketplace.
         </footer>
       </body>
     </html>
