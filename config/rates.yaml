@@ -17,11 +17,11 @@ meta:
 
 platforms:
   ebay:
-    final_value_percent: null   # 待 Actions 采集 — final value fee, % of (price + shipping)
-    per_order_fixed: null       # 待 Actions 采集 — fixed fee per order, USD
-    payment_percent: null       # 待 Actions 采集 — payment processing, %
-    payment_fixed: null         # 待 Actions 采集 — payment processing, USD
-    listing_fee: null           # 待 Actions 采集 — insertion fee, USD
+    final_value_percent: 13.6   # Actions scan 2026-10-28, cross-check: 3-path agree
+    per_order_fixed: 0.4        # Actions scan 2026-10-28 (over-$10 tier)
+    payment_percent: 0          # Actions scan: bundled into FVF (zero-match)
+    payment_fixed: 0            # Actions scan: bundled into FVF (zero-match)
+    listing_fee: 0.35           # Actions scan 2026-10-28
     source_url: https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822   # Actions run 40606889836
     scraped_date: "2026-10-28"  # Actions run 40606889836
     verified: false             # human [核] cross-check flag
