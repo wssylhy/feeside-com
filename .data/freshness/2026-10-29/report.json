@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-29T00:11:17.637Z",
+  "generated_at": "2026-10-29T00:18:19.998Z",
   "mode": {
     "apply": false,
     "offline": false,
@@ -31,7 +31,7 @@
           "note": null,
           "evidence": "tors fees . First 250 listings free per month, then $0.35 per listing 13.6% on total amount of the sale up to $7,500 calculated per item 2.35% on the portion of the sale ove",
           "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
-          "scraped_at": "2026-10-29T00:08:11.340Z"
+          "scraped_at": "2026-10-29T00:15:11.029Z"
         },
         "per_order_fixed": {
           "old_value": 0.4,
@@ -39,7 +39,7 @@
           "note": null,
           "evidence": "order fee. For orders $10.00 or less the per order fee is $0.30, for orders over $10.00 the per order fee is $0.40. The total amount of the sale includes the item price, any handling c",
           "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
-          "scraped_at": "2026-10-29T00:08:11.340Z"
+          "scraped_at": "2026-10-29T00:15:11.029Z"
         },
         "payment_percent": {
           "old_value": 0,
@@ -47,7 +47,7 @@
           "note": "zero-match",
           "evidence": "nal value fee when your item sells, and you don't have to worry about third-party payment processing fees. This fee is calculated as a percentage of the total amount of t",
           "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
-          "scraped_at": "2026-10-29T00:08:11.340Z"
+          "scraped_at": "2026-10-29T00:15:11.029Z"
         },
         "payment_fixed": {
           "old_value": 0,
@@ -55,7 +55,7 @@
           "note": "zero-match",
           "evidence": "nal value fee when your item sells, and you don't have to worry about third-party payment processing fees. This fee is calculated as a percentage of the total amount of t",
           "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
-          "scraped_at": "2026-10-29T00:08:11.340Z"
+          "scraped_at": "2026-10-29T00:15:11.029Z"
         },
         "listing_fee": {
           "old_value": 0.35,
@@ -63,7 +63,7 @@
           "note": null,
           "evidence": "t of the sale (includes 6% sales tax). Your total fees for this item: Insertion fee $0.35 Final value fee (13.6% of $424, + $0.40) $58.06 Total fees $58.41 You",
           "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
-          "scraped_at": "2026-10-29T00:08:11.340Z"
+          "scraped_at": "2026-10-29T00:15:11.029Z"
         }
       }
     },
@@ -88,8 +88,9 @@
           "error": "fetch failed"
         },
         {
-          "url": "https://web.archive.org/web/2026/https://poshmark.com/faq",
-          "status": 429
+          "url": "https://web.archive.org/web/20261008204842/https://poshmark.com/faq",
+          "status": 200,
+          "matched": 0
         }
       ],
       "fields": {}
@@ -114,9 +115,12 @@
           "status": 403
         },
         {
-          "url": "https://web.archive.org/web/20260924201047/https://www.mercari.com/us/help_center/",
-          "status": 200,
-          "matched": 0
+          "url": "https://web.archive.org/web/2026/https://www.mercari.com/us/sell/",
+          "status": 404
+        },
+        {
+          "url": "https://web.archive.org/web/2026/https://www.mercari.com/us/help_center/",
+          "status": 429
         }
       ],
       "fields": {}
