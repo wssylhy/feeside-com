@@ -13,12 +13,19 @@ export const BROWSER_HEADERS = {
   'Accept-Language': 'en-US,en;q=0.9',
 };
 
-export async function fetchText(url, { timeoutMs = 20000 } = {}) {
-  const res = await fetch(url, {
-    headers: BROWSER_HEADERS,
-    redirect: 'follow',
-    signal: AbortSignal.timeout(timeoutMs),
-  });
+export async function fetchText(url, { timeoutMs = 30000 } = {}) {
+  // web.archive.org rate-limits shared runner IPs (429) — back off and retry
+  // once per URL rather than losing the candidate for the whole scan.
+  let res;
+  for (let attempt = 0; ; attempt++) {
+    res = await fetch(url, {
+      headers: BROWSER_HEADERS,
+      redirect: 'follow',
+      signal: AbortSignal.timeout(timeoutMs),
+    });
+    if (res.status !== 429 || attempt >= 2) break;
+    await new Promise((r) => setTimeout(r, 20000 * (attempt + 1)));
+  }
   const text = await res.text();
   return { status: res.status, url: res.url, text };
 }
