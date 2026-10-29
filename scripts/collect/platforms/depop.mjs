@@ -3,7 +3,12 @@
 // the zero-match.
 export default {
   id: 'depop',
-  candidates: ['https://www.depop.com/fees/', 'https://help.depop.com/hc/en-us'],
+  candidates: [
+    'https://www.depop.com/fees/',
+    'https://help.depop.com/hc/en-us',
+    // Wayback fallback: datacenter-blocked pages via archived official copy
+    'https://web.archive.org/web/2026/https://www.depop.com/fees/',
+  ],
   fields: [
     {
       key: 'final_value_percent',

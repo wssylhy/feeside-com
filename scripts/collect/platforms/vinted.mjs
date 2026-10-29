@@ -7,6 +7,8 @@ export default {
     'https://www.vinted.com/help',
     'https://www.vinted.com/how-it-works',
     'https://www.vinted.com/terms',
+    // Wayback fallback: datacenter-blocked pages via archived official copy
+    'https://web.archive.org/web/2026/https://www.vinted.com/help',
   ],
   fields: [
     {

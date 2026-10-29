@@ -3,7 +3,12 @@
 // scope for the base calculator (specialist pages come later).
 export default {
   id: 'etsy',
-  candidates: ['https://www.etsy.com/legal/fees/', 'https://help.etsy.com/hc/en-us'],
+  candidates: [
+    'https://www.etsy.com/legal/fees/',
+    'https://help.etsy.com/hc/en-us',
+    // Wayback fallback: datacenter-blocked pages via archived official copy
+    'https://web.archive.org/web/2026/https://www.etsy.com/legal/fees/',
+  ],
   fields: [
     {
       key: 'final_value_percent',

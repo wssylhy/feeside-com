@@ -7,6 +7,9 @@ export default {
     'https://poshmark.com/faq',
     'https://poshmark.com/sell',
     'https://help.poshmark.com/hc/en-us',
+    // Datacenter IPs get blocked by the live site; Wayback serves archived
+    // copies of the SAME official pages. Date-labeled, Actions-collected.
+    'https://web.archive.org/web/2026/https://poshmark.com/faq',
   ],
   fields: [
     {

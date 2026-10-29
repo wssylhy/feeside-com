@@ -7,6 +7,8 @@ export default {
     'https://www.mercari.com/us/help_center/',
     'https://www.mercari.com/us/sell/',
     'https://www.mercari.com/us/',
+    // Wayback fallback: datacenter-blocked pages via archived official copy
+    'https://web.archive.org/web/2026/https://www.mercari.com/us/help_center/',
   ],
   fields: [
     {
