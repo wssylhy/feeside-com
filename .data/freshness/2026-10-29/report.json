@@ -1,0 +1,193 @@
+{
+  "generated_at": "2026-10-29T00:03:21.466Z",
+  "mode": {
+    "apply": false,
+    "offline": false,
+    "debug": true
+  },
+  "counts": {
+    "ok": 1,
+    "partial": 0,
+    "blocked": 5
+  },
+  "changes": [],
+  "platforms": [
+    {
+      "platform": "ebay",
+      "status": "ok",
+      "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+      "http_status": 200,
+      "attempts": [
+        {
+          "url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+          "status": 200,
+          "matched": 5
+        }
+      ],
+      "fields": {
+        "final_value_percent": {
+          "old_value": 13.6,
+          "new_value": 13.6,
+          "note": null,
+          "evidence": "tors fees . First 250 listings free per month, then $0.35 per listing 13.6% on total amount of the sale up to $7,500 calculated per item 2.35% on the portion of the sale ove",
+          "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+          "scraped_at": "2026-10-29T00:03:11.254Z"
+        },
+        "per_order_fixed": {
+          "old_value": 0.4,
+          "new_value": 0.4,
+          "note": null,
+          "evidence": "order fee. For orders $10.00 or less the per order fee is $0.30, for orders over $10.00 the per order fee is $0.40. The total amount of the sale includes the item price, any handling c",
+          "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+          "scraped_at": "2026-10-29T00:03:11.254Z"
+        },
+        "payment_percent": {
+          "old_value": 0,
+          "new_value": 0,
+          "note": "zero-match",
+          "evidence": "nal value fee when your item sells, and you don't have to worry about third-party payment processing fees. This fee is calculated as a percentage of the total amount of t",
+          "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+          "scraped_at": "2026-10-29T00:03:11.254Z"
+        },
+        "payment_fixed": {
+          "old_value": 0,
+          "new_value": 0,
+          "note": "zero-match",
+          "evidence": "nal value fee when your item sells, and you don't have to worry about third-party payment processing fees. This fee is calculated as a percentage of the total amount of t",
+          "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+          "scraped_at": "2026-10-29T00:03:11.254Z"
+        },
+        "listing_fee": {
+          "old_value": 0.35,
+          "new_value": 0.35,
+          "note": null,
+          "evidence": "t of the sale (includes 6% sales tax). Your total fees for this item: Insertion fee $0.35 Final value fee (13.6% of $424, + $0.40) $58.06 Total fees $58.41 You",
+          "source_url": "https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822",
+          "scraped_at": "2026-10-29T00:03:11.254Z"
+        }
+      }
+    },
+    {
+      "platform": "poshmark",
+      "status": "blocked",
+      "source_url": "https://poshmark.com/faq",
+      "http_status": 200,
+      "attempts": [
+        {
+          "url": "https://poshmark.com/faq",
+          "status": 200,
+          "matched": 0
+        },
+        {
+          "url": "https://poshmark.com/sell",
+          "status": 200,
+          "matched": 0
+        },
+        {
+          "url": "https://help.poshmark.com/hc/en-us",
+          "error": "fetch failed"
+        },
+        {
+          "url": "https://web.archive.org/web/2026/https://poshmark.com/faq",
+          "status": 429
+        }
+      ],
+      "fields": {}
+    },
+    {
+      "platform": "mercari",
+      "status": "blocked",
+      "source_url": "https://www.mercari.com/us/help_center/",
+      "http_status": 200,
+      "attempts": [
+        {
+          "url": "https://www.mercari.com/us/help_center/",
+          "status": 200,
+          "matched": 0
+        },
+        {
+          "url": "https://www.mercari.com/us/sell/",
+          "status": 403
+        },
+        {
+          "url": "https://www.mercari.com/us/",
+          "status": 403
+        },
+        {
+          "url": "https://web.archive.org/web/2026/https://www.mercari.com/us/help_center/",
+          "status": 429
+        }
+      ],
+      "fields": {}
+    },
+    {
+      "platform": "vinted",
+      "status": "blocked",
+      "source_url": "https://www.vinted.com/help",
+      "http_status": 200,
+      "attempts": [
+        {
+          "url": "https://www.vinted.com/help",
+          "status": 200,
+          "matched": 0
+        },
+        {
+          "url": "https://www.vinted.com/how-it-works",
+          "status": 404
+        },
+        {
+          "url": "https://www.vinted.com/terms",
+          "status": 404
+        },
+        {
+          "url": "https://web.archive.org/web/2026/https://www.vinted.com/help",
+          "status": 429
+        }
+      ],
+      "fields": {}
+    },
+    {
+      "platform": "depop",
+      "status": "blocked",
+      "source_url": null,
+      "http_status": null,
+      "attempts": [
+        {
+          "url": "https://www.depop.com/fees/",
+          "status": 403
+        },
+        {
+          "url": "https://help.depop.com/hc/en-us",
+          "status": 403
+        },
+        {
+          "url": "https://web.archive.org/web/2026/https://www.depop.com/fees/",
+          "status": 429
+        }
+      ],
+      "fields": {}
+    },
+    {
+      "platform": "etsy",
+      "status": "blocked",
+      "source_url": "https://help.etsy.com/hc/en-us",
+      "http_status": 200,
+      "attempts": [
+        {
+          "url": "https://www.etsy.com/legal/fees/",
+          "status": 403
+        },
+        {
+          "url": "https://help.etsy.com/hc/en-us",
+          "status": 200,
+          "matched": 0
+        },
+        {
+          "url": "https://web.archive.org/web/2026/https://www.etsy.com/legal/fees/",
+          "status": 429
+        }
+      ],
+      "fields": {}
+    }
+  ]
+}
