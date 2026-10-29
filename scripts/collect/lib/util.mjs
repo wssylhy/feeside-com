@@ -13,7 +13,7 @@ export const BROWSER_HEADERS = {
   'Accept-Language': 'en-US,en;q=0.9',
 };
 
-export async function fetchText(url, { timeoutMs = 30000 } = {}) {
+export async function fetchText(url, { timeoutMs = 60000 } = {}) {
   // web.archive.org rate-limits shared runner IPs (429) — back off and retry
   // once per URL rather than losing the candidate for the whole scan.
   let res;

@@ -7,7 +7,10 @@ export default {
     'https://www.mercari.com/us/help_center/',
     'https://www.mercari.com/us/sell/',
     'https://www.mercari.com/us/',
-    // Wayback fallback: datacenter-blocked pages via archived official copy
+    // Wayback fallback: datacenter-blocked pages via archived official copy.
+    // help_center is a JS portal even in archive — the /us/sell/ landing page
+    // carries the fee text as static HTML.
+    'https://web.archive.org/web/2026/https://www.mercari.com/us/sell/',
     'https://web.archive.org/web/2026/https://www.mercari.com/us/help_center/',
   ],
   fields: [
