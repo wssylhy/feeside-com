@@ -9,6 +9,7 @@
     "test:collect": "node scripts/collect/test/run-tests.mjs"
   },
   "dependencies": {
+    "marked": "^18.1.2",
     "next": "^15.5.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

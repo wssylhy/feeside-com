@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { loadRates, PLATFORM_LABELS } from '../lib/rates';
+import { guideSlugs } from '../lib/guides';
 import { jsonLd, webSiteJsonLd, og } from '../lib/seo';
 
 export const metadata = {
@@ -26,6 +27,15 @@ export default function Home() {
         Enter a sale price, see exactly what each marketplace takes and what lands in your payout.
         Every fee number comes from a verified config scanned from official fee pages — nothing is guessed.
       </p>
+
+      <h2 className="section-title" id="guides">Guides</h2>
+      <div className="guides-list">
+        {guideSlugs().map((slug) => (
+          <Link key={slug} href={`/guides/${slug}/`} className="guide-link">
+            {slug.replace(/-/g, ' ')} →
+          </Link>
+        ))}
+      </div>
 
       <div className="grid">
         {PLATFORM_LABELS.map(({ key, label }) => {

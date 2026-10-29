@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 
-const PENDING_ZH = '费率数据待采集核验';
+const PENDING_NOTE =
+  'Fee data is pending collection and cross-check — numbers unlock as soon as they pass.';
 
 function money(n) {
   return '$' + n.toFixed(2);
@@ -33,8 +34,7 @@ export default function FeeCalculator({ label, rates }) {
 
       {!hasCore && (
         <div className="pending" role="status">
-          <p className="pending-zh">{PENDING_ZH}</p>
-          <p className="pending-en">Fee data is pending collection and human verification.</p>
+          <p>{PENDING_NOTE}</p>
         </div>
       )}
 
