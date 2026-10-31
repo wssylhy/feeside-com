@@ -23,13 +23,24 @@ export default {
       ],
     },
     {
-      // Headline tier is $0.40 ("orders over $10.00"); the $0.30 tier only
-      // applies to orders ≤ $10, which are atypical for resellers.
+      // Headline tier: "for orders over $10.00 the per order fee is $0.40".
+      // The ≤$10 tier is a separate field (per_order_fixed_under_10) — the
+      // two-tier split was confirmed by human [核] against the live page
+      // (zh + en) on 2026-10-31 after the flat-0.40 simplification was caught.
       key: 'per_order_fixed',
       patterns: [
         /orders? over \$10(?:\.00)?[^.]{0,40}?per order fee is \$\s?(\d+\.\d{2})/i,
         /\$\s?(\d+\.\d{2})\s*(?:per order|for each order|for every order)/i,
         /per order[^.\n]{0,40}?\$\s?(\d+\.\d{2})/i,
+      ],
+    },
+    {
+      // "For orders $10.00 or less the per order fee is $0.30" — the small
+      // order tier. Other marketplaces without such a tier stay null.
+      key: 'per_order_fixed_under_10',
+      patterns: [
+        /orders? \$10(?:\.00)? or less[^.]{0,40}?per order fee is \$\s?(\d+\.\d{2})/i,
+        /\$\s?(\d+\.\d{2})\s*per order fee[^.\n]{0,40}?\$10(?:\.00)? or less/i,
       ],
     },
     {

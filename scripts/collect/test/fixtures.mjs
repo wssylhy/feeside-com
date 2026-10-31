@@ -11,7 +11,7 @@ export const FIXTURES = {
     html: `<html><body>
       <h2>Final value fees</h2>
       <p>Most sellers pay a final value fee of 13.6% on the portion of the sale up to the threshold.</p>
-      <p>We charge a $0.40 per order fee on every completed sale.</p>
+      <p>This fee is calculated as a percentage of the total amount of the sale, plus a per order fee. For orders $10.00 or less the per order fee is $0.30, for orders over $10.00 the per order fee is $0.40.</p>
       <p>Payment processing is included in the final value fee, so there is no separate charge.</p>
       <h2>Listing fees</h2>
       <p>After 250 free listings, an insertion fee of $0.35 applies per listing.</p>
@@ -19,6 +19,7 @@ export const FIXTURES = {
     expected: {
       final_value_percent: 13.6,
       per_order_fixed: 0.4,
+      per_order_fixed_under_10: 0.3,
       payment_percent: 0,
       payment_fixed: 0,
       listing_fee: 0.35,

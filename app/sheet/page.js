@@ -27,9 +27,20 @@ function money(n) {
 // listing, not per sale; noted in the fine print).
 function perSaleFees(r, gross) {
   const fv = (gross * (r.final_value_percent || 0)) / 100;
-  const fixed = r.per_order_fixed || 0;
+  const fixed =
+    gross <= 10 && r.per_order_fixed_under_10 != null
+      ? r.per_order_fixed_under_10
+      : r.per_order_fixed || 0;
   const pay = (gross * (r.payment_percent || 0)) / 100 + (r.payment_fixed || 0);
   return fv + fixed + pay;
+}
+
+function fixedFeeCell(r) {
+  if (r.per_order_fixed == null) return '—';
+  if (r.per_order_fixed_under_10 != null && r.per_order_fixed_under_10 !== r.per_order_fixed) {
+    return `${money(r.per_order_fixed_under_10)} ≤$10 · ${money(r.per_order_fixed)} >$10`;
+  }
+  return money(r.per_order_fixed);
 }
 
 const DEMO_PRICES = [10, 50, 150];
@@ -109,7 +120,7 @@ export default function SheetPage() {
                   <td>Fixed fee per order</td>
                   {verified.map((p) => (
                     <td key={p.key} className="num">
-                      {p.r.per_order_fixed != null ? money(p.r.per_order_fixed) : '—'}
+                      {fixedFeeCell(p.r)}
                     </td>
                   ))}
                 </tr>

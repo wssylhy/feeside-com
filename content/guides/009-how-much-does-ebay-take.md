@@ -2,7 +2,7 @@
 page_type: qa
 primary_keyword: how much does ebay take
 secondary_keywords: [ebay cut per sale]
-config_deps: [rates.ebay.final_value_percent, rates.ebay.per_order_fixed, rates.ebay.payment_percent, rates.ebay.payment_fixed]
+config_deps: [rates.ebay.final_value_percent, rates.ebay.per_order_fixed, rates.ebay.per_order_fixed_under_10, rates.ebay.payment_percent, rates.ebay.payment_fixed]
 batch: 2
 ---
 
@@ -12,7 +12,7 @@ Intro: Short answer: for most categories eBay takes `{{rates.ebay.final_value_pe
 
 ## The three lines, one by one
 1. **Final value fee:** `{{rates.ebay.final_value_percent}}`% of the total amount of the sale. "Total amount" includes the shipping the buyer pays — the single most common source of fee surprises.
-2. **Per-order fixed fee:** `{{rates.ebay.per_order_fixed}}` on most categories, charged once per order no matter the size.
+2. **Per-order fixed fee:** `${{rates.ebay.per_order_fixed}}` on most categories — `${{rates.ebay.per_order_fixed_under_10}}` if the order total is $10.00 or less, `${{rates.ebay.per_order_fixed}}` above that. Charged once per order.
 3. **Payment processing:** `{{rates.ebay.payment_percent}}`% + `{{rates.ebay.payment_fixed}}`, charged on the same total.
 
 ## Worked example (example only)

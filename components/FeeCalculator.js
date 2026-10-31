@@ -23,7 +23,11 @@ export default function FeeCalculator({ label, rates }) {
   const gross = p + s;
 
   const fv = gross * ((r.final_value_percent || 0) / 100);
-  const fixed = r.per_order_fixed || 0;
+  // Small-order tier (e.g. eBay: ≤$10 → $0.30, >$10 → $0.40). Tier applies to
+  // the sale total incl. shipping, matching the marketplace's own definition.
+  const smallTier = r.per_order_fixed_under_10;
+  const tiered = gross <= 10 && smallTier != null;
+  const fixed = tiered ? smallTier : r.per_order_fixed || 0;
   const pay = gross * ((r.payment_percent || 0) / 100) + (r.payment_fixed || 0);
   const listing = r.listing_fee || 0;
   const net = gross - fv - fixed - pay - listing;
@@ -65,7 +69,7 @@ export default function FeeCalculator({ label, rates }) {
           <table className="breakdown">
             <tbody>
               <tr><td>Final value fee ({r.final_value_percent}%)</td><td className="num">−{money(fv)}</td></tr>
-              <tr><td>Fixed fee per order</td><td className="num">−{money(fixed)}</td></tr>
+              <tr><td>Fixed fee per order{tiered ? ' (≤$10 order)' : ''}</td><td className="num">−{money(fixed)}</td></tr>
               <tr><td>Payment processing ({r.payment_percent}%)</td><td className="num">−{money(pay)}</td></tr>
               <tr><td>Listing fee</td><td className="num">−{money(listing)}</td></tr>
             </tbody>
