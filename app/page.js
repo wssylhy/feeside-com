@@ -37,6 +37,20 @@ export default function Home() {
         ))}
       </div>
 
+      <div className="buy">
+        <div className="buy-copy">
+          <h3>Printable fee sheet — $3</h3>
+          <p>
+            One page, current seller fees across the six marketplaces. eBay verified
+            against the official fee page; the rest unlock as they pass verification.
+            Free updates.
+          </p>
+        </div>
+        <p>
+          <Link href="/sheet/">See what's on the sheet →</Link>
+        </p>
+      </div>
+
       <div className="grid">
         {PLATFORM_LABELS.map(({ key, label }) => {
           const r = platforms[key] || {};

@@ -1,6 +1,5 @@
 import { loadRates, PLATFORM_LABELS } from '../../lib/rates';
 import { jsonLd, breadcrumbJsonLd, og, SITE } from '../../lib/seo';
-
 // /sheet — printable one-page fee comparison (G6: the paid Gumroad PDF is
 // generated from this page; the site version is free and always current).
 // Charter gate: only platforms with verified:true rates render numbers.
@@ -84,6 +83,26 @@ export default function SheetPage() {
             ? ` as of ${verified.map((v) => v.r.scraped_date).filter(Boolean).sort().pop()}`
             : ''}
         </p>
+
+        <div className="buy">
+          <div className="buy-copy">
+            <h2>Get the printable fee sheet — $3</h2>
+            <p>
+              One page, current seller fees, no tab-hopping. eBay&apos;s numbers are
+              verified against eBay&apos;s official fee page and refreshed by automated
+              scans. Poshmark, Mercari, Vinted, Depop and Etsy are collected the same
+              way and unlock in your copy as each passes verification — updates
+              included free.
+            </p>
+          </div>
+          <a className="buy-btn" href={SITE.checkoutUrl} target="_blank" rel="noopener nofollow">
+            Buy the printable sheet — $3
+          </a>
+          <p className="footnote">
+            The interactive calculators on this site stay free and always current.
+            Payments are handled by Creem (merchant of record).
+          </p>
+        </div>
 
         {!ready && (
           <div className="pending" role="status">

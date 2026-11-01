@@ -131,6 +131,29 @@ footer.site {
   font-size: 0.85rem;
 }
 
+/* buy CTA */
+.buy {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin: 16px 0;
+}
+.buy h2, .buy h3 { margin-top: 0; }
+.buy-btn {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  padding: 12px 22px;
+  border-radius: 8px;
+  margin: 4px 0 8px;
+}
+.buy-btn:hover { filter: brightness(1.08); }
+.buy .footnote { color: var(--muted); font-size: 0.8rem; }
+
 /* legal pages */
 .legal { max-width: 760px; margin: 0 auto; }
 .legal h2 { margin-top: 1.6rem; }
