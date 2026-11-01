@@ -42,10 +42,7 @@ jobs:
 
       - run: npm install
 
-      - name: Build static export (GitHub Pages target)
-        env:
-          DEPLOY_BASE: /feeside-com
-          SITE_URL_OVERRIDE: https://wssylhy.github.io/feeside-com
+      - name: Build static export (canonical feeside.com target)
         run: npm run build
 
       - uses: actions/configure-pages@v5
