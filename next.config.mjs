@@ -6,8 +6,10 @@ const base = process.env.DEPLOY_BASE || undefined;
 const nextConfig = {
   output: 'export',
   // GH Pages serves plain static files: extensionless URLs need
-  // directory-style output (/calculators/ebay/index.html).
-  ...(base ? { basePath: base, assetPrefix: base, trailingSlash: true } : {}),
+  // directory-style output (/calculators/ebay/index.html) — required on the
+  // canonical domain too, since feeside.com is a Pages custom domain.
+  trailingSlash: true,
+  ...(base ? { basePath: base, assetPrefix: base } : {}),
   images: { unoptimized: true },
   eslint: { ignoreDuringBuilds: true },
 };
