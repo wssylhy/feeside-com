@@ -25,7 +25,7 @@ platforms:
     listing_fee: 0.35           # Actions scan 2026-10-28
     source_url: https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822   # Actions run 40606889836
     scraped_date: "2026-10-28"  # Actions run 40606889836
-    verified: false             # human [核] cross-check flag
+    verified: true              # human [核] 2026-10-31 PASSED — user verified 13.6/0.30/0.40/0.35 against live official page (zh)
   poshmark:
     final_value_percent: null   # 待 Actions 采集
     per_order_fixed: null       # 待 Actions 采集
