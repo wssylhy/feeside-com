@@ -9,6 +9,8 @@ export default function sitemap() {
     { url: SITE.url + '/', changeFrequency: 'weekly', priority: 1 },
     { url: SITE.url + '/compare', changeFrequency: 'weekly', priority: 0.9 },
     { url: SITE.url + '/sheet', changeFrequency: 'weekly', priority: 0.7 },
+    { url: SITE.url + '/privacy', changeFrequency: 'yearly', priority: 0.3 },
+    { url: SITE.url + '/terms', changeFrequency: 'yearly', priority: 0.3 },
     ...PLATFORM_LABELS.map(({ key }) => ({
       url: `${SITE.url}/calculators/${key}/`,
       changeFrequency: 'weekly',

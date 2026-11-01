@@ -131,6 +131,11 @@ footer.site {
   font-size: 0.85rem;
 }
 
+/* legal pages */
+.legal { max-width: 760px; margin: 0 auto; }
+.legal h2 { margin-top: 1.6rem; }
+.legal p, .legal li { line-height: 1.65; }
+
 /* guides */
 .guide { max-width: 860px; margin: 0 auto; }
 .guide h1 { font-size: 1.7rem; margin-bottom: 0.8rem; }

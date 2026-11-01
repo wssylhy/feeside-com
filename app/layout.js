@@ -1,6 +1,5 @@
 import './globals.css';
 import { SITE } from '../lib/seo';
-
 export const metadata = {
   metadataBase: new URL(SITE.url),
   title: {
@@ -40,9 +39,18 @@ export default function RootLayout({ children }) {
         </header>
         <main>{children}</main>
         <footer className="site">
-          Fee numbers are machine-scanned from official fee pages and cross-checked
-          by an independent extraction pass before display; each calculator labels
-          its review status. Independent tool — not affiliated with any marketplace.
+          <p>
+            Fee numbers are machine-scanned from official fee pages and cross-checked
+            by an independent extraction pass before display; each calculator labels
+            its review status. Independent tool — not affiliated with any marketplace.
+          </p>
+          <p>
+            <a href="/privacy">Privacy Policy</a>
+            {' · '}
+            <a href="/terms">Terms of Service</a>
+            {' · '}
+            Support: <a href={`mailto:${SITE.supportEmail}`}>{SITE.supportEmail}</a>
+          </p>
         </footer>
       </body>
     </html>
