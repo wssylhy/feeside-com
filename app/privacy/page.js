@@ -17,7 +17,7 @@ export default function PrivacyPage() {
     <div className="legal">
       {jsonLd([breadcrumbJsonLd([['Home', '/'], ['Privacy Policy', '/privacy']])])}
       <h1>Privacy Policy</h1>
-      <p className="meta-line">Last updated: 2026-11-01</p>
+      <p className="meta-line">Last updated: 2026-11-03</p>
 
       <h2>Short version</h2>
       <p>
@@ -32,6 +32,22 @@ export default function PrivacyPage() {
         into a calculator (sale price, shipping) are processed on your device
         and are never sent to us. We don&apos;t see them, store them, or log
         them.
+      </p>
+
+      <h2 id="extension">FeeSide browser extension</h2>
+      <p>
+        The FeeSide extension for Chrome does not collect, transmit, or sell
+        any personal data. The item cost you enter is stored locally in your
+        own browser profile (chrome.storage.sync) and is never sent to any
+        server. The extension reads only the listed price from a listing page
+        to prefill the calculator, and it does not transmit page content
+        anywhere. There is no analytics, no advertising, and no account
+        system.
+      </p>
+      <p>
+        Fee rates displayed by the extension ship inside the extension after
+        automated collection and human verification against official eBay and
+        Etsy fee pages. No browsing history or behavior is recorded.
       </p>
 
       <h2>Purchases</h2>
