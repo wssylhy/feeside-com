@@ -1,6 +1,6 @@
 # rates-scan 2026-11-05
 
-Status: 1 ok / 0 partial / 5 blocked. Changes: 0.
+Status: 1 ok / 1 partial / 4 blocked. Changes: 2.
 
 | platform | status | source | field | old → new | evidence |
 |---|---|---|---|---|---|
@@ -14,4 +14,5 @@ Status: 1 ok / 0 partial / 5 blocked. Changes: 0.
 | mercari | blocked | https://www.mercari.com/us/help_center/ | — | — | — |
 | vinted | blocked | https://www.vinted.com/help | — | — | — |
 | depop | blocked | — | — | — | — |
-| etsy | blocked | https://help.etsy.com/hc/en-us | — | — | — |
+| etsy | partial | https://web.archive.org/web/20261024151150/https://www.etsy.com/legal/fees/ | final_value_percent | (unset) → 6.5 | ion Fees When you make a sale through Etsy.com, you will be charged a transaction fee of 6 |
+| etsy | partial | https://web.archive.org/web/20261024151150/https://www.etsy.com/legal/fees/ | listing_fee | (unset) → 0.2 | Currency Conversion section below for more details on the set-up fee. Listing Fees You wil |
