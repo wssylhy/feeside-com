@@ -6,8 +6,6 @@ export default {
   candidates: [
     'https://www.etsy.com/legal/fees/',
     'https://help.etsy.com/hc/en-us',
-    // Wayback fallback: datacenter-blocked pages via archived official copy
-    'https://web.archive.org/web/2026/https://www.etsy.com/legal/fees/',
   ],
   // 2026-10-24 snapshot of legal/fees carries transaction 6.5% + listing
   // $0.20 inline, but payment processing numbers moved to the Etsy Payments

@@ -7,17 +7,15 @@ export default {
     'https://poshmark.com/faq',
     'https://poshmark.com/sell',
     'https://help.poshmark.com/hc/en-us',
-    // Datacenter IPs get blocked by the live site; Wayback serves archived
-    // copies of the SAME official pages. Date-labeled, Actions-collected.
-    'https://web.archive.org/web/2026/https://poshmark.com/faq',
   ],
-  // Recent faq snapshots are SPA shells (no fee text server-side). Two
-  // content-type hopes: Zendesk help articles (server-rendered) archived
-  // under help.poshmark.com, and older faq captures. Fee regime stable at
-  // 20%/$2.95 since the 2024-10 revert → `from: 2025` keeps it safe.
+  // 2026-11-09 evidence: 4 archived faq snapshots (2025-2026, raw id_ mode)
+  // are ALL SPA shells with zero fee text — the faq page has been
+  // client-rendered since before our `from` window. Content-type hope is the
+  // Zendesk help center (server-rendered) under help.poshmark.com; CDX
+  // prefix discovery finds archived fee/commission articles. Fee regime
+  // stable at 20%/$2.95 since the 2024-10 revert → `from: 2025` is safe.
   waybackTargets: [
-    { prefix: 'help.poshmark.com/hc/en-us/', match: /fee|commission/i, limit: 5 },
-    { url: 'https://poshmark.com/faq', from: '2025', limit: 3 },
+    { prefix: 'help.poshmark.com/hc/en-us/', match: /[Ff]ee|[Cc]ommission/, from: '2025', limit: 5 },
   ],
   fields: [
     {

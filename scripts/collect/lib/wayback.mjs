@@ -2,9 +2,36 @@
 // Live official pages hard-block datacenter traffic, but the Wayback archive
 // serves full HTML of the SAME official pages. `id_` raw mode returns the
 // original capture without the Wayback toolbar.
+//
+// archive.org throttles hard once one IP bursts: requests start failing at
+// the connection level for a long window. Every wayback call is therefore
+// paced, capped by a per-run budget, and retried once on network failure.
+// Evidence: 2026-11-09 run — poshmark burned the budget on 4 shell snapshots,
+// everything after failed with "fetch failed".
 import { fetchText } from './util.mjs';
 
 const CDX = 'https://web.archive.org/cdx/search/cdx';
+const PACE_MS = 4000;
+let budget = 24;
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+async function wf(url, { timeoutMs = 60000 } = {}) {
+  if (budget <= 0) return { status: 0, url, text: '', error: 'wayback budget exhausted' };
+  await sleep(PACE_MS);
+  budget -= 1;
+  try {
+    return await fetchText(url, { timeoutMs });
+  } catch (e) {
+    await sleep(15000);
+    if (budget <= 0) return { status: 0, url, text: '', error: 'wayback budget exhausted' };
+    budget -= 1;
+    try {
+      return await fetchText(url, { timeoutMs });
+    } catch (e2) {
+      return { status: 0, url, text: '', error: String((e2 && e2.message) || e2).slice(0, 120) };
+    }
+  }
+}
 
 // Parse a CDX JSON response into [{ts, original, status}] rows (pure — unit
 // tested). Returns [] on any parse failure.
@@ -33,42 +60,35 @@ export async function snapshotCandidates(originalUrl, { from = '2025', limit = 3
   const api =
     `${CDX}?url=${encodeURIComponent(originalUrl)}` +
     `&output=json&fl=timestamp,original,statuscode&collapse=timestamp:6&from=${from}&limit=60`;
-  try {
-    const r = await fetchText(api, { timeoutMs: 30000 });
-    if (r.status !== 200) return [];
-    return parseCdx(r.text)
-      .sort((a, b) => (a.ts < b.ts ? 1 : -1))
-      .slice(0, limit)
-      .map((e) => `https://web.archive.org/web/${e.ts}id_/${e.original}`);
-  } catch {
-    return [];
-  }
+  const r = await wf(api, { timeoutMs: 30000 });
+  if (r.status !== 200) return [];
+  return parseCdx(r.text)
+    .sort((a, b) => (a.ts < b.ts ? 1 : -1))
+    .slice(0, limit)
+    .map((e) => `https://web.archive.org/web/${e.ts}id_/${e.original}`);
 }
 
 // Prefix discovery: archived URLs under a prefix whose path matches a regex
 // (e.g. Zendesk help articles containing "fee"). Filtering happens inside
-// CDX (filter=original) so big prefixes stay cheap.
+// CDX (filter=original) so big prefixes stay cheap. NOTE: CDX regexes are
+// case-sensitive — pass [Ff]ee-style patterns.
 export async function discoverUrls(prefixUrl, matchRe, { from = '2023', limit = 5 } = {}) {
   const api =
     `${CDX}?url=${encodeURIComponent(prefixUrl)}&matchType=prefix` +
     `&output=json&fl=timestamp,original,statuscode&collapse=urlkey` +
     `&filter=original:${encodeURIComponent(matchRe.source)}&from=${from}&limit=1000`;
-  try {
-    const r = await fetchText(api, { timeoutMs: 30000 });
-    if (r.status !== 200) return [];
-    const seen = new Set();
-    const out = [];
-    for (const e of parseCdx(r.text)) {
-      if (!seen.has(e.original)) {
-        seen.add(e.original);
-        out.push(e.original);
-        if (out.length >= limit) break;
-      }
+  const r = await wf(api, { timeoutMs: 30000 });
+  if (r.status !== 200) return [];
+  const seen = new Set();
+  const out = [];
+  for (const e of parseCdx(r.text)) {
+    if (matchRe.test(e.original) && !seen.has(e.original)) {
+      seen.add(e.original);
+      out.push(e.original);
+      if (out.length >= limit) break;
     }
-    return out;
-  } catch {
-    return [];
   }
+  return out;
 }
 
 // Resolve a platform's waybackTargets into concrete snapshot URLs.

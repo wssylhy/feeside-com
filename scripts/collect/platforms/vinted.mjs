@@ -5,17 +5,13 @@ export default {
   id: 'vinted',
   candidates: [
     'https://www.vinted.com/help',
-    'https://www.vinted.com/how-it-works',
-    'https://www.vinted.com/terms',
-    // Wayback fallback: datacenter-blocked pages via archived official copy
-    'https://web.archive.org/web/2026/https://www.vinted.com/help',
   ],
-  // Zero-seller-fee model is stable across eras — terms/how-it-works
-  // snapshots from any recent year carry the "no selling fees" wording the
-  // zero-match patterns need.
+  // 2026-11-09: /how-it-works and /terms live 404 (bad paths — dropped).
+  // Zero-seller-fee wording is stable across eras, so a broad CDX discovery
+  // over the vinted.com prefix for archived fee-related pages is safe —
+  // any era's "no selling fees" text satisfies the zero-match patterns.
   waybackTargets: [
-    { url: 'https://www.vinted.com/terms', from: '2024', limit: 3 },
-    { url: 'https://www.vinted.com/how-it-works', from: '2024', limit: 2 },
+    { prefix: 'www.vinted.com/', match: /[Ff]ee/, from: '2023', limit: 5 },
   ],
   fields: [
     {

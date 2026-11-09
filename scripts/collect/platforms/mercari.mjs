@@ -7,18 +7,13 @@ export default {
     'https://www.mercari.com/us/help_center/',
     'https://www.mercari.com/us/sell/',
     'https://www.mercari.com/us/',
-    // Wayback fallback: datacenter-blocked pages via archived official copy.
-    // help_center is a JS portal even in archive — the /us/sell/ landing page
-    // carries the fee text as static HTML.
-    'https://web.archive.org/web/2026/https://www.mercari.com/us/sell/',
-    'https://web.archive.org/web/2026/https://www.mercari.com/us/help_center/',
   ],
   // Fee model stable since the 2025-01 rework → `from: 2025`. help_center
-  // article pages are Zendesk-style server-rendered; discover archived ones
-  // with fee-related slugs via CDX prefix search.
+  // article pages are Zendesk-style server-rendered; archived fee articles
+  // come from CDX prefix discovery. (2026-11-09: archived /us/sell/ and
+  // help_center snapshots proved to be portals — dropped.)
   waybackTargets: [
-    { prefix: 'www.mercari.com/us/help_center/article/', match: /fee/i, limit: 5 },
-    { url: 'https://www.mercari.com/us/sell/', from: '2025', limit: 2 },
+    { prefix: 'www.mercari.com/us/help_center/article/', match: /[Ff]ee/, from: '2025', limit: 5 },
   ],
   fields: [
     {

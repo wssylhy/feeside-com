@@ -6,15 +6,13 @@ export default {
   candidates: [
     'https://www.depop.com/fees/',
     'https://help.depop.com/hc/en-us',
-    // Wayback fallback: datacenter-blocked pages via archived official copy
-    'https://web.archive.org/web/2026/https://www.depop.com/fees/',
   ],
   // Current regime (selling fee removed, processing 3.3% + $0.45) dates from
   // 2024-07 US → `from: 2025` avoids the old 10%-era captures. help.depop.com
   // is Zendesk (server-rendered) — discover archived fee articles.
   waybackTargets: [
     { url: 'https://www.depop.com/fees/', from: '2025', limit: 3 },
-    { prefix: 'help.depop.com/hc/en-us/', match: /fee/i, limit: 5 },
+    { prefix: 'help.depop.com/hc/en-us/', match: /[Ff]ee/, from: '2024', limit: 5 },
   ],
   fields: [
     {

@@ -30,7 +30,10 @@ import {
 import { parseRatesYaml } from './lib/rates-yaml.mjs';
 import { resolveTargets } from './lib/wayback.mjs';
 
-const PLATFORMS = [ebay, poshmark, mercari, vinted, depop, etsy];
+// eBay first: cheap sanity check with a live-fetchable page. Etsy second:
+// closest to a breakthrough (11-05 run got 2 fields via Wayback) and the
+// wayback budget is freshest right after the cheap platform.
+const PLATFORMS = [ebay, etsy, poshmark, mercari, vinted, depop];
 
 const argv = process.argv.slice(2);
 const APPLY = argv.includes('--apply');
