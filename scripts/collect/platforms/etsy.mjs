@@ -9,6 +9,14 @@ export default {
     // Wayback fallback: datacenter-blocked pages via archived official copy
     'https://web.archive.org/web/2026/https://www.etsy.com/legal/fees/',
   ],
+  // 2026-10-24 snapshot of legal/fees carries transaction 6.5% + listing
+  // $0.20 inline, but payment processing numbers moved to the Etsy Payments
+  // Policy page (linked from legal/fees) — chase both, newest snapshots
+  // first. Fee regime stable since 2022, so `from: 2025` is safe.
+  waybackTargets: [
+    { url: 'https://www.etsy.com/legal/fees/', from: '2025', limit: 2 },
+    { url: 'https://www.etsy.com/legal/etsy-payments', from: '2025', limit: 2 },
+  ],
   fields: [
     {
       key: 'final_value_percent',

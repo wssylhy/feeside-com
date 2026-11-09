@@ -11,6 +11,14 @@ export default {
     // copies of the SAME official pages. Date-labeled, Actions-collected.
     'https://web.archive.org/web/2026/https://poshmark.com/faq',
   ],
+  // Recent faq snapshots are SPA shells (no fee text server-side). Two
+  // content-type hopes: Zendesk help articles (server-rendered) archived
+  // under help.poshmark.com, and older faq captures. Fee regime stable at
+  // 20%/$2.95 since the 2024-10 revert → `from: 2025` keeps it safe.
+  waybackTargets: [
+    { prefix: 'help.poshmark.com/hc/en-us/', match: /fee|commission/i, limit: 5 },
+    { url: 'https://poshmark.com/faq', from: '2025', limit: 3 },
+  ],
   fields: [
     {
       key: 'final_value_percent',

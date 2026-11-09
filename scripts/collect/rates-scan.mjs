@@ -28,6 +28,7 @@ import {
   writeFileEnsured,
 } from './lib/util.mjs';
 import { parseRatesYaml } from './lib/rates-yaml.mjs';
+import { resolveTargets } from './lib/wayback.mjs';
 
 const PLATFORMS = [ebay, poshmark, mercari, vinted, depop, etsy];
 
@@ -53,7 +54,17 @@ async function scanPlatform(def, config, fixtures) {
   const attempts = [];
   let best = null;
 
-  for (const url of def.candidates) {
+  // Fetch list = live candidates + Wayback-resolved snapshots. Live pages
+  // hard-block datacenter IPs for 5 of 6 platforms; archived copies of the
+  // SAME official pages are the fallback (DD4 evidence chain keeps source_url).
+  const urls = [...(def.candidates || [])];
+  if (!OFFLINE && Array.isArray(def.waybackTargets) && def.waybackTargets.length) {
+    const resolved = await resolveTargets(def.waybackTargets);
+    urls.push(...resolved);
+    attempts.push({ waybackResolved: resolved.length });
+  }
+
+  for (const url of urls) {
     let html = '';
     let finalUrl = url;
     let status = 0;
@@ -116,9 +127,12 @@ async function scanPlatform(def, config, fixtures) {
 
 // Line-preserving config update: swaps only targeted `null` leaves so all
 // comments and structure survive. Never touches `verified` — that flag is
-// human-only.
-function applyToConfig(file, changes) {
+// human-only. Provenance (source_url/scraped_date) is auto-filled for any
+// platform that got values this run — the numbers must always carry their
+// official source and collection date.
+function applyToConfig(file, changes, provenance, date) {
   const changeMap = new Map(changes.map((c) => [c.platform + '.' + c.field, c]));
+  const provMap = new Map(Object.entries(provenance || {}));
   const lines = fs.readFileSync(file, 'utf8').split(/\r?\n/);
   let section = null;
   let platform = null;
@@ -151,6 +165,17 @@ function applyToConfig(file, changes) {
         if (c && rest.trim() === 'null') {
           applied += 1;
           return line.replace('null', String(c.new_value));
+        }
+        const prov = provMap.get(platform);
+        if (prov && rest.trim() === 'null') {
+          if (key === 'source_url') {
+            applied += 1;
+            return line.replace('null', '"' + prov + '"');
+          }
+          if (key === 'scraped_date') {
+            applied += 1;
+            return line.replace('null', '"' + date + '"');
+          }
         }
       }
     }
@@ -259,7 +284,13 @@ async function main() {
   writeFileEnsured(path.join(OUT, 'summary.md'), lines.join('\n') + '\n');
 
   if (APPLY && changes.length) {
-    const applied = applyToConfig(path.join(ROOT, 'config', 'rates.yaml'), changes);
+    // provenance: any platform that received values this run gets its scan
+    // source URL + today's date filled alongside the numbers
+    const provenance = {};
+    for (const r of results) {
+      if (Object.keys(r.fields).length && r.source_url) provenance[r.platform] = r.source_url;
+    }
+    const applied = applyToConfig(path.join(ROOT, 'config', 'rates.yaml'), changes, provenance, todayUTC());
     appendChangelog(
       path.join(ROOT, 'config', 'CHANGELOG.md'),
       todayUTC(),

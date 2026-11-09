@@ -10,6 +10,13 @@ export default {
     // Wayback fallback: datacenter-blocked pages via archived official copy
     'https://web.archive.org/web/2026/https://www.vinted.com/help',
   ],
+  // Zero-seller-fee model is stable across eras — terms/how-it-works
+  // snapshots from any recent year carry the "no selling fees" wording the
+  // zero-match patterns need.
+  waybackTargets: [
+    { url: 'https://www.vinted.com/terms', from: '2024', limit: 3 },
+    { url: 'https://www.vinted.com/how-it-works', from: '2024', limit: 2 },
+  ],
   fields: [
     {
       key: 'final_value_percent',

@@ -12,9 +12,36 @@ import vinted from '../platforms/vinted.mjs';
 import depop from '../platforms/depop.mjs';
 import etsy from '../platforms/etsy.mjs';
 import { textify, scanFields } from '../lib/util.mjs';
+import { parseCdx } from '../lib/wayback.mjs';
 import { FIXTURES } from './fixtures.mjs';
 
 const PLATFORMS = { ebay, poshmark, mercari, vinted, depop, etsy };
+
+// parseCdx: newest-first 200-only snapshot mapping from a CDX JSON payload
+{
+  const sample = JSON.stringify([
+    ['timestamp', 'original', 'statuscode'],
+    ['20260101000000', 'https://x/page/', '200'],
+    ['20250601000000', 'https://x/page/', '200'],
+    ['20250101000000', 'https://x/page/', '404'],
+    ['garbage'],
+  ]);
+  const got = parseCdx(sample).map((e) => e.ts);
+  try {
+    assert.deepStrictEqual(got, ['20260101000000', '20250601000000']);
+    console.log('PASS parseCdx (2 rows, newest-first, 200-only)');
+  } catch {
+    failures += 1;
+    console.log('FAIL parseCdx: ' + JSON.stringify(got));
+  }
+  try {
+    assert.deepStrictEqual(parseCdx('not json'), []);
+    console.log('PASS parseCdx (garbage input → [])');
+  } catch {
+    failures += 1;
+    console.log('FAIL parseCdx garbage case');
+  }
+}
 
 let failures = 0;
 for (const [id, fx] of Object.entries(FIXTURES)) {
