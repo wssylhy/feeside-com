@@ -10,7 +10,11 @@ name: rates-scan
 on:
   schedule:
     - cron: "0 14 * * 1,4" # Mon & Thu 14:00 UTC — cadence confirmed at D6 review
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      wayback_platforms:
+        description: "Restrict Wayback probing to these platform ids, comma-separated (e.g. etsy,poshmark). Empty = date-rotation picks one."
+        default: ""
 
 permissions:
   contents: write
@@ -31,6 +35,8 @@ jobs:
           node-version: 22
 
       - name: Scan official fee pages (US runner)
+        env:
+          WAYBACK_PLATFORMS: ${{ inputs.wayback_platforms }}
         run: node scripts/collect/rates-scan.mjs --debug
 
       - name: Upload debug artifacts (selector calibration)

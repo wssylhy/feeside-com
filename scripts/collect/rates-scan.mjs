@@ -35,6 +35,18 @@ import { resolveTargets } from './lib/wayback.mjs';
 // wayback budget is freshest right after the cheap platform.
 const PLATFORMS = [ebay, etsy, poshmark, mercari, vinted, depop];
 
+// Wayback probing rotation: archive.org blocks a runner IP after ~10-15
+// requests, so an all-platform probe in one job starves the tail platforms
+// (2026-11-09 run A). Default = one rotation platform per run (day-of-year
+// driven); WAYBACK_PLATFORMS=etsy,poshmark focuses specific platforms.
+const WAYBACK_ROTATION = [etsy, poshmark, mercari, vinted, depop];
+const ONLY = (process.env.WAYBACK_PLATFORMS || '').split(',').map((s) => s.trim()).filter(Boolean);
+function waybackAllowed(def) {
+  if (ONLY.length) return ONLY.includes(def.id);
+  const doy = Math.floor(Date.now() / 86400000);
+  return WAYBACK_ROTATION[doy % WAYBACK_ROTATION.length].id === def.id;
+}
+
 const argv = process.argv.slice(2);
 const APPLY = argv.includes('--apply');
 const DEBUG = argv.includes('--debug') || APPLY;
@@ -55,13 +67,19 @@ function sanitize(url) {
 
 async function scanPlatform(def, config, fixtures) {
   const attempts = [];
-  let best = null;
+  // Fields merge ACROSS candidates (official pages split the fee table —
+  // etsy carries 2 fields on legal/fees and 2 on legal/etsy-payments).
+  // bestUrl = the single URL that contributed the most fields.
+  const merged = {};
+  let bestUrl = null;
+  let bestStatus = null;
+  let bestCount = 0;
 
   // Fetch list = live candidates + Wayback-resolved snapshots. Live pages
   // hard-block datacenter IPs for 5 of 6 platforms; archived copies of the
   // SAME official pages are the fallback (DD4 evidence chain keeps source_url).
   const urls = [...(def.candidates || [])];
-  if (!OFFLINE && Array.isArray(def.waybackTargets) && def.waybackTargets.length) {
+  if (!OFFLINE && Array.isArray(def.waybackTargets) && def.waybackTargets.length && waybackAllowed(def)) {
     const resolved = await resolveTargets(def.waybackTargets);
     urls.push(...resolved);
     attempts.push({ waybackResolved: resolved.length });
@@ -102,20 +120,28 @@ async function scanPlatform(def, config, fixtures) {
       writeFileEnsured(path.join(OUT, 'debug', def.id, sanitize(url) + '.txt'), text);
     }
 
-    if (!best || score > best.score) best = { url: finalUrl, status, fields, score };
-    if (best.score === def.fields.length) break;
+    for (const [key, hit] of Object.entries(fields)) {
+      if (!merged[key]) merged[key] = hit;
+    }
+    if (score > bestCount) {
+      bestCount = score;
+      bestUrl = finalUrl;
+      bestStatus = status;
+    }
+    if (Object.keys(merged).length === def.fields.length) break;
   }
 
   const cfg = (config.platforms || {})[def.id] || {};
   const result = {
     platform: def.id,
-    status: !best || best.score === 0 ? 'blocked' : best.score === def.fields.length ? 'ok' : 'partial',
-    source_url: best ? best.url : null,
-    http_status: best ? best.status : null,
+    status:
+      !Object.keys(merged).length ? 'blocked' : Object.keys(merged).length === def.fields.length ? 'ok' : 'partial',
+    source_url: bestUrl,
+    http_status: bestStatus,
     attempts,
     fields: {},
   };
-  for (const [key, hit] of Object.entries(best ? best.fields : {})) {
+  for (const [key, hit] of Object.entries(merged)) {
     result.fields[key] = {
       old_value: cfg[key] == null ? null : cfg[key],
       new_value: hit.value,

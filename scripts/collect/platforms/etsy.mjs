@@ -14,6 +14,9 @@ export default {
   waybackTargets: [
     { url: 'https://www.etsy.com/legal/fees/', from: '2025', limit: 2 },
     { url: 'https://www.etsy.com/legal/etsy-payments', from: '2025', limit: 2 },
+    // US fee summary article (id evidenced in legal/fees page hrefs) —
+    // Zendesk, server-rendered
+    { url: 'https://help.etsy.com/hc/articles/115014483627', from: '2025', limit: 2, prefixMatch: true },
   ],
   fields: [
     {
@@ -24,12 +27,20 @@ export default {
       ],
     },
     {
+      // Processing rates live in the Etsy Payments Policy country table
+      // ("United States 3% + 0.25 USD" — 2026-11-02 snapshot verified).
       key: 'payment_percent',
-      patterns: [/payment processing[^.\n]{0,100}?(\d+(?:\.\d+)?)\s*%/i],
+      patterns: [
+        /United States\s+(\d+(?:\.\d+)?)\s*%\s*\+\s*\d[\d,]*(?:\.\d+)?\s*USD/i,
+        /payment processing[^.\n]{0,100}?(\d+(?:\.\d+)?)\s*%/i,
+      ],
     },
     {
       key: 'payment_fixed',
-      patterns: [/payment processing[^$]{0,100}?\$\s?(\d+\.\d{2})/i],
+      patterns: [
+        /United States\s+\d+(?:\.\d+)?\s*%\s*\+\s*(\d[\d,]*(?:\.\d+)?)\s*USD/i,
+        /payment processing[^$]{0,100}?\$\s?(\d+\.\d{2})/i,
+      ],
     },
     {
       key: 'listing_fee',

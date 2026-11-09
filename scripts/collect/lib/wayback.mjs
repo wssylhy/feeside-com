@@ -11,8 +11,8 @@
 import { fetchText } from './util.mjs';
 
 const CDX = 'https://web.archive.org/cdx/search/cdx';
-const PACE_MS = 4000;
-let budget = 24;
+const PACE_MS = 10000;
+let budget = 12;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 async function wf(url, { timeoutMs = 60000 } = {}) {
@@ -53,12 +53,13 @@ export function parseCdx(text) {
   }
 }
 
-// Newest-first snapshot URLs (raw id_ mode) for one exact original URL.
-// `from` bounds the era — platform fee regimes changed over time, so each
-// wayback target pins its own safe starting year.
-export async function snapshotCandidates(originalUrl, { from = '2025', limit = 3 } = {}) {
+// Newest-first snapshot URLs (raw id_ mode) for one original URL. With
+// prefixMatch=true the CDX query resolves every capture under the prefix
+// (useful for Zendesk id-links whose canonical URL carries a slug).
+export async function snapshotCandidates(originalUrl, { from = '2025', limit = 3, prefixMatch = false } = {}) {
   const api =
     `${CDX}?url=${encodeURIComponent(originalUrl)}` +
+    (prefixMatch ? '&matchType=prefix' : '') +
     `&output=json&fl=timestamp,original,statuscode&collapse=timestamp:6&from=${from}&limit=60`;
   const r = await wf(api, { timeoutMs: 30000 });
   if (r.status !== 200) return [];
@@ -100,7 +101,7 @@ export async function resolveTargets(targets = []) {
       if (t.prefix) {
         urls.push(...(await discoverUrls(t.prefix, t.match, { from: t.from, limit: t.limit })));
       } else if (t.url) {
-        urls.push(...(await snapshotCandidates(t.url, { from: t.from, limit: t.limit })));
+        urls.push(...(await snapshotCandidates(t.url, { from: t.from, limit: t.limit, prefixMatch: t.prefixMatch })));
       }
     } catch {
       // a failed target must not poison the rest of the scan
