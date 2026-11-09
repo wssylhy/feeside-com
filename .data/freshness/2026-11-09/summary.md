@@ -1,6 +1,6 @@
 # rates-scan 2026-11-09
 
-Status: 1 ok / 1 partial / 4 blocked. Changes: 2.
+Status: 1 ok / 0 partial / 5 blocked. Changes: 0.
 
 | platform | status | source | field | old → new | evidence |
 |---|---|---|---|---|---|
@@ -10,9 +10,8 @@ Status: 1 ok / 1 partial / 4 blocked. Changes: 2.
 | ebay | ok | https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822 | payment_percent (zero-match) | 0 → 0 | nal value fee when your item sells, and you don't have to worry about third-party payment  |
 | ebay | ok | https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822 | payment_fixed (zero-match) | 0 → 0 | nal value fee when your item sells, and you don't have to worry about third-party payment  |
 | ebay | ok | https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822 | listing_fee | 0.35 → 0.35 | t of the sale (includes 6% sales tax). Your total fees for this item: Insertion fee $0.35  |
-| etsy | partial | https://web.archive.org/web/20260609230637id_/https://www.etsy.com/legal/fees/ | final_value_percent | (unset) → 6.5 | ion Fees When you make a sale through Etsy.com, you will be charged a transaction fee of 6 |
-| etsy | partial | https://web.archive.org/web/20260609230637id_/https://www.etsy.com/legal/fees/ | listing_fee | (unset) → 0.2 | Currency Conversion section below for more details on the set-up fee. Listing Fees You wil |
-| poshmark | blocked | https://poshmark.com/faq | — | — | — |
-| mercari | blocked | https://www.mercari.com/us/help_center/ | — | — | — |
-| vinted | blocked | https://www.vinted.com/help | — | — | — |
+| etsy | blocked | — | — | — | — |
+| poshmark | blocked | — | — | — | — |
+| mercari | blocked | — | — | — | — |
+| vinted | blocked | — | — | — | — |
 | depop | blocked | — | — | — | — |
