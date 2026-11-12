@@ -11,6 +11,7 @@ export default function sitemap() {
     { url: SITE.url + '/sheet', changeFrequency: 'weekly', priority: 0.7 },
     { url: SITE.url + '/privacy', changeFrequency: 'yearly', priority: 0.3 },
     { url: SITE.url + '/terms', changeFrequency: 'yearly', priority: 0.3 },
+    { url: SITE.url + '/extension', changeFrequency: 'weekly', priority: 0.6 },
     ...PLATFORM_LABELS.map(({ key }) => ({
       url: `${SITE.url}/calculators/${key}/`,
       changeFrequency: 'weekly',
