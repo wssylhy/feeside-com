@@ -27,15 +27,16 @@ platforms:
     scraped_date: "2026-10-28"  # Actions run 40606889836
     verified: true              # human [核] 2026-10-31 PASSED — user verified 13.6/0.30/0.40/0.35 against live official page (zh)
   poshmark:
-    final_value_percent: null   # 待 Actions 采集
-    per_order_fixed: null       # 待 Actions 采集
+    final_value_percent: 20   # 官方 Fees 页：≥$15 销售 20% 佣金（卖家拿 80%）；<$15 固定 $2.95
+    min_commission: 2.95      # 官方：<$15 销售固定佣金 $2.95（fee = max(20%×售价, $2.95) 精确复现官方两档）
+    per_order_fixed: 0          # 无独立每单费
     per_order_fixed_under_10: null  # 待 Actions 采集（无该档位则保持 null）
-    payment_percent: null       # 待 Actions 采集
-    payment_fixed: null         # 待 Actions 采集
-    listing_fee: null           # 待 Actions 采集
-    source_url: null            # 待 Actions 采集
-    scraped_date: null          # 待 Actions 采集
-    verified: false             # human [核] cross-check flag
+    payment_percent: 0          # Poshmark 无独立支付处理费（运费标签内置）
+    payment_fixed: 0            # 无
+    listing_fee: 0              # 无上架费
+    source_url: "https://poshmark.com/faq"  # 用户 2026-11-12 转贴官方 fee policy 页（佣金问答所在）
+    scraped_date: "2026-11-12"  # 官方页获取日
+    verified: true              # 用户转贴官方费率页原文核验
   mercari:
     final_value_percent: 10   # 官方 Fees 页（更新 2026-10-23）：10% selling fee 于商品价+买家付运费（2025-01-06 生效的新/更新 listing）
     per_order_fixed: 0          # 无独立每单费

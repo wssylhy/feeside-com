@@ -22,7 +22,11 @@ export default function FeeCalculator({ label, rates }) {
   const s = parseFloat(shipping) || 0;
   const gross = p + s;
 
-  const fv = gross * ((r.final_value_percent || 0) / 100);
+  let fv = gross * ((r.final_value_percent || 0) / 100);
+  // Minimum commission clamp (e.g. Poshmark: sales under $15 pay a flat $2.95 —
+  // max(20% × sale, $2.95) reproduces the official two-tier schedule exactly).
+  const minC = r.min_commission;
+  if (minC != null && fv < minC) fv = minC;
   // Small-order tier (e.g. eBay: ≤$10 → $0.30, >$10 → $0.40). Tier applies to
   // the sale total incl. shipping, matching the marketplace's own definition.
   const smallTier = r.per_order_fixed_under_10;
@@ -68,7 +72,7 @@ export default function FeeCalculator({ label, rates }) {
         <>
           <table className="breakdown">
             <tbody>
-              <tr><td>Final value fee ({r.final_value_percent}%)</td><td className="num">−{money(fv)}</td></tr>
+              <tr><td>Final value fee ({r.final_value_percent}%{minC != null ? ', min ' + money(minC) : ''})</td><td className="num">−{money(fv)}</td></tr>
               <tr><td>Fixed fee per order{tiered ? ' (≤$10 order)' : ''}</td><td className="num">−{money(fixed)}</td></tr>
               <tr><td>Payment processing ({r.payment_percent}%)</td><td className="num">−{money(pay)}</td></tr>
               <tr><td>Listing fee</td><td className="num">−{money(listing)}</td></tr>
