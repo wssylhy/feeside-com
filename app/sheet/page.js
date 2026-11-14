@@ -88,11 +88,15 @@ export default function SheetPage() {
           <div className="buy-copy">
             <h2>Get the printable fee sheet — $3</h2>
             <p>
-              One page, current seller fees, no tab-hopping. eBay&apos;s numbers are
-              verified against eBay&apos;s official fee page and refreshed by automated
-              scans. Poshmark, Mercari, Vinted, Depop and Etsy are collected the same
-              way and unlock in your copy as each passes verification — updates
-              included free.
+              All six marketplaces on one page — and all six verified against
+              each platform&apos;s official fee page
+              {verified.length > 0
+                ? ` as of ${verified.map((v) => v.r.scraped_date).filter(Boolean).sort().pop()}`
+                : ''}
+              . No tab-hopping, no stale numbers: it&apos;s the same data our
+              free calculators use, laid out for print or your phone. When a
+              marketplace changes its fees, the sheet is re-verified and the
+              updated copy is yours free.
             </p>
           </div>
           <a className="buy-btn" href={SITE.checkoutUrl} target="_blank" rel="noopener nofollow">
