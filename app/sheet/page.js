@@ -78,6 +78,7 @@ export default function SheetPage() {
           .sheet table { margin: 0.55rem 0; }
           .sheet th, .sheet td { padding: 0.35rem 0.5rem; }
           .sheet th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+          .sheet .footnote { font-size: 0.72rem; margin: 0.3rem 0 0; }
           body { background: #fff; }
         }
       `}</style>
