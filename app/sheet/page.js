@@ -71,7 +71,8 @@ export default function SheetPage() {
         .sheet .pending { border: 1px dashed #999; padding: 1rem; background: #fafafa; }
         @page { size: A4 landscape; margin: 12mm; }
         @media print {
-          .sheet header nav, .sheet .no-print { display: none; }
+          .sheet header nav, .sheet .no-print, .sheet .buy { display: none; }
+          .sheet th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
           body { background: #fff; }
         }
       `}</style>
