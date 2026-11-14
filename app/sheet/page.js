@@ -1,31 +1,28 @@
-import { loadRates, PLATFORM_LABELS } from '../../lib/rates';
+import { loadRates, PLATFORM_LABELS, money } from '../../lib/rates';
 import { jsonLd, breadcrumbJsonLd, og, SITE } from '../../lib/seo';
-// /sheet — printable one-page fee comparison (G6: the paid Gumroad PDF is
-// generated from this page; the site version is free and always current).
-// Charter gate: only platforms with verified:true rates render numbers.
-// Anything less renders the pending state — the sheet is never sold with
-// unverified numbers on it.
+// /sheet — printable one-page fee comparison (the paid PDF is generated from
+// this page; the site version is free and always current). Charter gate: only
+// platforms with verified:true rates render numbers. Anything less renders the
+// pending state — the sheet is never sold with unverified numbers on it.
 
 export const metadata = {
-  title: 'Marketplace Fee Comparison Sheet — 6 platforms, 1 page',
+  title: 'Marketplace Fee Comparison 2026 — 6 Resale Platforms, One Page',
   description:
-    'Printable one-page comparison of seller fees across eBay, Poshmark, Mercari, Vinted, Depop and Etsy. Same sale, six marketplaces, net proceeds side by side.',
+    'Resale marketplace fee comparison for 2026: seller fees across eBay, Poshmark, Mercari, Vinted, Depop and Etsy on one printable page. Same sale, six marketplaces, net proceeds side by side.',
   alternates: { canonical: '/sheet' },
   openGraph: og({
-    title: 'Marketplace Fee Comparison Sheet',
+    title: 'Marketplace Fee Comparison 2026 — 6 Resale Platforms',
     description: 'Same sale, six marketplaces — fees and net proceeds on one printable page.',
     path: '/sheet',
   }),
 };
 
-function money(n) {
-  return '$' + n.toFixed(2);
-}
-
 // Per-sale fee basis (insertion/listing fees excluded — they bill per
-// listing, not per sale; noted in the fine print).
+// listing, not per sale; noted in the fine print). min_commission clamps the
+// commission side only (Poshmark: flat $2.95 on small sales).
 function perSaleFees(r, gross) {
-  const fv = (gross * (r.final_value_percent || 0)) / 100;
+  let fv = (gross * (r.final_value_percent || 0)) / 100;
+  if (r.min_commission != null && fv < r.min_commission) fv = r.min_commission;
   const fixed =
     gross <= 10 && r.per_order_fixed_under_10 != null
       ? r.per_order_fixed_under_10
@@ -42,7 +39,7 @@ function fixedFeeCell(r) {
   return money(r.per_order_fixed);
 }
 
-const DEMO_PRICES = [10, 50, 150];
+const DEMO_PRICES = [8, 15, 50, 150];
 
 export default function SheetPage() {
   const rates = loadRates().platforms || {};
@@ -69,6 +66,9 @@ export default function SheetPage() {
         .sheet .num { text-align: right; white-space: nowrap; }
         .sheet .footnote { font-size: 0.78rem; color: #555; }
         .sheet .pending { border: 1px dashed #999; padding: 1rem; background: #fafafa; }
+        .sheet .inside { margin: 0.7rem 0 0; padding-left: 1.1rem; font-size: 0.85rem; color: #444; }
+        .sheet .inside li { margin: 0.15rem 0; }
+        .sheet .preview { display: block; width: 100%; max-width: 420px; border: 1px solid #ddd; margin: 0.8rem 0 0; }
         @page { size: A4 landscape; margin: 10mm; }
         @media print {
           header.site, footer.site, .sheet .no-print, .sheet .buy { display: none !important; }
@@ -105,6 +105,17 @@ export default function SheetPage() {
               marketplace changes its fees, the sheet is re-verified and the
               updated copy is yours free.
             </p>
+            <ul className="inside">
+              <li>Every fee line for all six marketplaces, from official pages</li>
+              <li>Same-sale payout comparison at $8 / $15 / $50 / $150</li>
+              <li>Pick-a-platform cheat table for common price points</li>
+              <li>Source links and the verification date printed on the sheet</li>
+            </ul>
+            <img
+              className="preview no-print"
+              src="/sheet-preview.png"
+              alt="Preview of the printable fee sheet"
+            />
           </div>
           <a className="buy-btn" href={SITE.checkoutUrl} target="_blank" rel="noopener nofollow">
             Buy the printable sheet — $3
@@ -143,6 +154,9 @@ export default function SheetPage() {
                   {verified.map((p) => (
                     <td key={p.key}>
                       {p.r.final_value_percent}% of sale total
+                      {p.r.min_commission != null
+                        ? ` (min ${money(p.r.min_commission)})`
+                        : ''}
                     </td>
                   ))}
                 </tr>
@@ -207,6 +221,41 @@ export default function SheetPage() {
                     })}
                   </tr>
                 ))}
+              </tbody>
+            </table>
+
+            <h2>Which marketplace keeps you the most?</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Sale price</th>
+                  <th>Keep the most</th>
+                  <th>Runner-up</th>
+                  <th>What to know</th>
+                </tr>
+              </thead>
+              <tbody>
+                {DEMO_PRICES.map((price) => {
+                  const ranked = verified
+                    .map((p) => ({ p, keep: price - perSaleFees(p.r, price) }))
+                    .sort((a, b) => b.keep - a.keep);
+                  const best = ranked[0];
+                  const second = ranked[1];
+                  const note =
+                    price < 15
+                      ? 'Flat minimum commissions bite hardest under $15 — check the small-sale column above'
+                      : 'Shipping costs often decide the deal — compare those before you list';
+                  return (
+                    <tr key={price}>
+                      <td className="num">${price}</td>
+                      <td>
+                        {best.p.label} — {money(best.keep)}
+                      </td>
+                      <td>{second ? `${second.p.label} — ${money(second.keep)}` : '—'}</td>
+                      <td>{note}</td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
 
