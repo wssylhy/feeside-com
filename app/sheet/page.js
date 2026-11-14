@@ -69,9 +69,14 @@ export default function SheetPage() {
         .sheet .num { text-align: right; white-space: nowrap; }
         .sheet .footnote { font-size: 0.78rem; color: #555; }
         .sheet .pending { border: 1px dashed #999; padding: 1rem; background: #fafafa; }
-        @page { size: A4 landscape; margin: 12mm; }
+        @page { size: A4 landscape; margin: 10mm; }
         @media print {
-          .sheet header nav, .sheet .no-print, .sheet .buy { display: none; }
+          header.site, footer.site, .sheet .no-print, .sheet .buy { display: none !important; }
+          .sheet { max-width: none; }
+          .sheet h1 { font-size: 1.55rem; margin-bottom: 0.1rem; }
+          .sheet .sub { margin-bottom: 0.7rem; }
+          .sheet table { margin: 0.55rem 0; }
+          .sheet th, .sheet td { padding: 0.35rem 0.5rem; }
           .sheet th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
           body { background: #fff; }
         }
