@@ -117,7 +117,7 @@ export default function SheetPage() {
               alt="Preview of the printable fee sheet"
             />
           </div>
-          <a className="buy-btn" href={SITE.checkoutUrl} target="_blank" rel="noopener nofollow">
+          <a className="buy-btn" href="/buy/" target="_blank" rel="noopener">
             Buy the printable sheet — $3
           </a>
           <p className="footnote">
