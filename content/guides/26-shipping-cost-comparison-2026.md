@@ -65,7 +65,7 @@ The label price is only half the story. The other half is **whether your platfor
 | eBay | Total amount of the sale **including shipping** (most categories) | {{rates.ebay.final_value_percent}}% × $38 + per-order fee |
 | Etsy | Item price **+ shipping + gift wrap** | {{rates.etsy.final_value_percent}}% × $38 + payment fee + listing fee |
 | Vinted | Seller pays **nothing** — 0% commission | **$0** |
-| Depop | 0% selling fee (US); Depop Payments on the total sale | payment processing only |
+| Depop | 0% selling fee (US); Depop Payments charged on the item price + shipping | payment processing only |
 
 Numbers from each platform's official fee page, cross-checked before publishing — see the calculators below for live math.
 

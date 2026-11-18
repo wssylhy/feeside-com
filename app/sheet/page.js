@@ -153,9 +153,10 @@ export default function SheetPage() {
                   <td>Selling / final value fee</td>
                   {verified.map((p) => (
                     <td key={p.key}>
-                      {p.r.final_value_percent}% of sale total
+                      {p.r.final_value_percent}% of{' '}
+                      {p.r.fee_base === 'item_only' ? 'item price' : 'sale total'}
                       {p.r.min_commission != null
-                        ? ` (min ${money(p.r.min_commission)})`
+                        ? ` (flat ${money(p.r.min_commission)}${p.r.commission_threshold_price != null ? ` under $${p.r.commission_threshold_price}` : ''})`
                         : ''}
                     </td>
                   ))}

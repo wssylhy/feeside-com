@@ -22,11 +22,21 @@ export default function FeeCalculator({ label, rates }) {
   const s = parseFloat(shipping) || 0;
   const gross = p + s;
 
-  let fv = gross * ((r.final_value_percent || 0) / 100);
-  // Minimum commission clamp (e.g. Poshmark: sales under $15 pay a flat $2.95 —
-  // max(20% × sale, $2.95) reproduces the official two-tier schedule exactly).
+  // Commission base follows each platform's official policy (r.fee_base):
+  // item_plus_shipping = item + buyer-paid shipping (eBay/Mercari/Etsy/Depop);
+  // item_only = item price only — buyer-paid shipping never enters the
+  // seller's payout (Poshmark: buyers pay the label fee straight to Poshmark).
+  const fvBase = r.fee_base === 'item_only' ? p : gross;
+  const thr = r.commission_threshold_price != null ? Number(r.commission_threshold_price) : null;
+  let fv = fvBase * ((r.final_value_percent || 0) / 100);
+  // Two-tier schedule (e.g. Poshmark official: under $15 → flat $2.95;
+  // $15 and above → 20%), followed by the min-commission clamp.
   const minC = r.min_commission;
-  if (minC != null && fv < minC) fv = minC;
+  if (thr != null && minC != null) {
+    fv = p < thr ? minC : fv;
+  } else if (minC != null && fv < minC) {
+    fv = minC;
+  }
   // Small-order tier (e.g. eBay: ≤$10 → $0.30, >$10 → $0.40). Tier applies to
   // the sale total incl. shipping, matching the marketplace's own definition.
   const smallTier = r.per_order_fixed_under_10;
@@ -72,7 +82,7 @@ export default function FeeCalculator({ label, rates }) {
         <>
           <table className="breakdown">
             <tbody>
-              <tr><td>Final value fee ({r.final_value_percent}%{minC != null ? ', min ' + money(minC) : ''})</td><td className="num">−{money(fv)}</td></tr>
+              <tr><td>Final value fee ({r.final_value_percent}%{r.fee_base === 'item_only' ? ' of item price' : ''}{minC != null ? (thr != null ? ', flat ' + money(minC) + ' under $' + thr : ', min ' + money(minC)) : ''})</td><td className="num">−{money(fv)}</td></tr>
               <tr><td>Fixed fee per order{tiered ? ' (≤$10 order)' : ''}</td><td className="num">−{money(fixed)}</td></tr>
               <tr><td>Payment processing ({r.payment_percent}%)</td><td className="num">−{money(pay)}</td></tr>
               <tr><td>Listing fee</td><td className="num">−{money(listing)}</td></tr>

@@ -21,7 +21,7 @@ export default function Page() {
     ? [
         {
           q: 'How much does Depop charge?',
-          a: `US sellers pay no selling fee on Depop — 0% commission. The only deduction is Depop Payments processing: ${rates.payment_percent}% + ${money(rates.payment_fixed)} of the total sale.`,
+          a: `US sellers pay no selling fee on Depop — 0% commission. The only deduction is Depop Payments processing: ${rates.payment_percent}% + ${money(rates.payment_fixed)} charged on the item sale price plus shipping costs.`,
         },
         {
           q: 'Does Depop charge listing fees?',

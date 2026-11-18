@@ -21,11 +21,11 @@ export default function Page() {
     ? [
         {
           q: 'How much does Poshmark charge sellers?',
-          a: `Poshmark takes a ${rates.final_value_percent}% commission on sales of $15 or more. Sales under $15 carry a flat ${money(rates.min_commission)} commission instead. There is no separate payment processing fee for sellers.`,
+          a: `Poshmark takes a ${rates.final_value_percent}% commission on the item price for sales of $15 or more. Sales under $15 carry a flat ${money(rates.min_commission)} commission instead. There is no separate payment processing fee, and buyer-paid shipping goes directly to Poshmark — it is never commissioned.`,
         },
         {
           q: 'What percent does Poshmark take?',
-          a: `${rates.final_value_percent}% of the sale price — you keep 80%. On sales under $15 the flat ${money(rates.min_commission)} commission applies instead.`,
+          a: `${rates.final_value_percent}% of the item price — you keep 80%. On sales under $15 the flat ${money(rates.min_commission)} commission applies instead.`,
         },
       ]
     : [];
