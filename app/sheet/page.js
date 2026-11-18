@@ -69,17 +69,17 @@ export default function SheetPage() {
         .sheet .inside { margin: 0.7rem 0 0; padding-left: 1.1rem; font-size: 0.85rem; color: #444; }
         .sheet .inside li { margin: 0.15rem 0; }
         .sheet .preview { display: block; width: 100%; max-width: 420px; border: 1px solid #ddd; margin: 0.8rem 0 0; }
-        @page { size: A4 landscape; margin: 9mm; }
+        @page { size: A4 landscape; margin: 8mm; }
         @media print {
           header.site, footer.site, .sheet .no-print, .sheet .buy { display: none !important; }
           .sheet { max-width: none; }
-          .sheet h1 { font-size: 1.45rem; margin-bottom: 0.1rem; }
-          .sheet .sub { margin-bottom: 0.55rem; font-size: 0.85rem; }
-          .sheet h2 { font-size: 1.05rem; margin: 0.6rem 0 0.2rem; }
-          .sheet table { margin: 0.4rem 0; }
-          .sheet th, .sheet td { padding: 0.28rem 0.4rem; font-size: 0.8rem; }
+          .sheet h1 { font-size: 1.35rem; margin-bottom: 0.08rem; }
+          .sheet .sub { margin-bottom: 0.45rem; font-size: 0.8rem; }
+          .sheet h2 { font-size: 0.95rem; margin: 0.45rem 0 0.15rem; }
+          .sheet table { margin: 0.3rem 0; }
+          .sheet th, .sheet td { padding: 0.22rem 0.35rem; font-size: 0.74rem; }
           .sheet th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-          .sheet .footnote { font-size: 0.66rem; margin: 0.25rem 0 0; }
+          .sheet .footnote { font-size: 0.62rem; margin: 0.2rem 0 0; }
           body { background: #fff; }
         }
       `}</style>
