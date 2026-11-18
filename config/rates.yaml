@@ -23,20 +23,23 @@ platforms:
     payment_percent: 0          # Actions scan: bundled into FVF (zero-match)
     payment_fixed: 0            # Actions scan: bundled into FVF (zero-match)
     listing_fee: 0.35           # Actions scan 2026-10-28
+    fee_base: item_plus_shipping   # 官方「total amount of the sale」含买家运费（009 指南已表述，官方页原文）
     source_url: https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822   # Actions run 40606889836
     scraped_date: "2026-10-28"  # Actions run 40606889836
     verified: true              # human [核] 2026-10-31 PASSED — user verified 13.6/0.30/0.40/0.35 against live official page (zh)
   poshmark:
-    final_value_percent: 20   # 官方 Fees 页：≥$15 销售 20% 佣金（卖家拿 80%）；<$15 固定 $2.95
-    min_commission: 2.95      # 官方：<$15 销售固定佣金 $2.95（fee = max(20%×售价, $2.95) 精确复现官方两档）
+    final_value_percent: 20   # 官方法律中心 terms#fee-policy（2026-11-18 live 提取）：≥$15 佣金 20%，卖家拿 80%
+    min_commission: 2.95      # 官方：<$15 固定佣金 $2.95
+    commission_threshold_price: 15   # 官方两档为阶跃：<$15 → $2.95；≥$15 → 20%（2026-11-18 起精确阶跃，替代 max 近似）
+    fee_base: item_only       # 官方原文：fee 从 final order price 扣除；买家运费直付 Poshmark（固定标签费），永不进入卖家收款 → 费基=商品价（2026-11-18 live 核验）
     per_order_fixed: 0          # 无独立每单费
     per_order_fixed_under_10: null  # 待 Actions 采集（无该档位则保持 null）
     payment_percent: 0          # Poshmark 无独立支付处理费（运费标签内置）
     payment_fixed: 0            # 无
     listing_fee: 0              # 无上架费
-    source_url: "https://poshmark.com/faq"  # 用户 2026-11-12 转贴官方 fee policy 页（佣金问答所在）
-    scraped_date: "2026-11-12"  # 官方页获取日
-    verified: true              # 用户转贴官方费率页原文核验
+    source_url: "https://support.poshmark.com/s/article/297755057?language=en_US"  # 官方费用文章（2026-11-18 用户 Chrome live 提取；费基细则在 poshmark.com/terms#fee-policy）
+    scraped_date: "2026-11-18"  # 官方页 live 复核日（数值不变，费基+来源当日核验）
+    verified: true              # 2026-11-12 转贴核验 + 2026-11-18 官方页 live 复核（费基确认）
   mercari:
     final_value_percent: 10   # 官方 Fees 页（更新 2026-10-23）：10% selling fee 于商品价+买家付运费（2025-01-06 生效的新/更新 listing）
     per_order_fixed: 0          # 无独立每单费
@@ -44,6 +47,7 @@ platforms:
     payment_percent: 0          # 2025-01-06 起卖家无独立支付处理费
     payment_fixed: 0            # 同上
     listing_fee: 0              # Mercari 上架永远免费
+    fee_base: item_plus_shipping   # 官方原文「item price + buyer-paid shipping」（2026-11-18 官方页 live 复核 verbatim）
     source_url: "https://www.mercari.com/help/"  # 用户 2026-11-12 转贴官方 Fees on Mercari 页（更新 2026-10-23）
     scraped_date: "2026-11-12"  # 官方页获取日
     verified: true              # 用户转贴官方费率页全文核验
@@ -54,6 +58,7 @@ platforms:
     payment_percent: 0          # 卖家侧无支付手续费
     payment_fixed: 0            # 无
     listing_fee: 0              # 基础上架免费
+    fee_base: item_plus_shipping   # 卖家侧全 0，费基无实际影响（字段为 schema 完整性而设）
     source_url: "https://www.vinted.com/help"  # 用户 2026-11-12 官方原文转贴
     scraped_date: "2026-11-12"  # 官方文本获取日
     verified: true              # 用户转贴官方原文核验
@@ -64,7 +69,9 @@ platforms:
     payment_percent: 3.3        # Depop Payments (Stripe) US：3.3% + $0.45，按商品价+运费计
     payment_fixed: 0.45         # 同上
     listing_fee: 0              # Depop 无上架费
-    source_url: "https://www.depop.com/help"  # 用户 2026-11-12 转贴官方 Seller fees and charges 政策
+    fee_base: item_plus_shipping   # 官方 Fee Basis 列原文：「item sale price plus shipping costs and any applicable taxes」（税不建模，2026-11-18 官方页 live 核验）
+    source_url: "https://depophelp.zendesk.com/hc/en-gb/articles/360001791127-Seller-fees-and-charges"  # 官方文章直达（2026-11-18 用户 Chrome live 提取）
+    scraped_date: "2026-11-18"  # 官方页 live 复核日（数值不变，费基当日核验）
     scraped_date: "2026-11-12"  # 官方政策获取日
     verified: true              # 用户转贴官方政策原文核验
   etsy:
@@ -74,6 +81,7 @@ platforms:
     payment_percent: 3          # Etsy Payments Policy US 行 "3% + 0.25 USD"（归档快照实证；用户 2026-11-12 转贴官方页二次确认）
     payment_fixed: 0.25         # 同上
     listing_fee: 0.2            # Actions 采集 (run 42623676473) — "a listing fee of $0.20 USD for each item"
+    fee_base: item_plus_shipping   # 官方：6.5% 于 item + shipping + gift wrap（2026-11-12 转贴全文核验）
     source_url: "https://web.archive.org/web/20260609230637id_/https://www.etsy.com/legal/fees/"  # Actions 采集源（存档官方页）
     scraped_date: "2026-11-09"  # Actions 采集日
     verified: true              # 用户 2026-11-12 转贴官方 legal/fees 全文核验：6.5% + $0.20 与 Actions 双路一致
