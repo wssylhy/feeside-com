@@ -94,7 +94,7 @@ export default function SheetPage() {
 
         <div className="buy">
           <div className="buy-copy">
-            <h2>Get the printable fee sheet — $3</h2>
+            <h2>Get the printable fee sheet — $1</h2>
             <p>
               All six marketplaces on one page — and all six verified against
               each platform&apos;s official fee page
@@ -119,7 +119,7 @@ export default function SheetPage() {
             />
           </div>
           <a className="buy-btn" href="/buy/" target="_blank" rel="noopener">
-            Buy the printable sheet — $3
+            Buy the printable sheet — $1
           </a>
           <p className="footnote">
             The interactive calculators on this site stay free and always current.
