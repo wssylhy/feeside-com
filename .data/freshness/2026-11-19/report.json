@@ -1,0 +1,136 @@
+{
+  "generated_at": "2026-11-19T22:02:55.952Z",
+  "mode": {
+    "apply": false,
+    "offline": false,
+    "debug": true
+  },
+  "counts": {
+    "ok": 0,
+    "partial": 0,
+    "blocked": 6
+  },
+  "changes": [],
+  "platforms": [
+    {
+      "platform": "ebay",
+      "status": "blocked",
+      "source_url": null,
+      "http_status": null,
+      "attempts": [
+        {
+          "url": "https://www.ebay.com/splashui/captcha?ap=1&appName=orch&ru=https%3A%2F%2Fwww.ebay.com%2Fhelp%2Fselling%2Ffees-credits-invoices%2Fselling-fees%3Fid%3D4822&iid=b3a340b2-5163-46df-a1b6-4739481d283a&iim=YMy40ME&iia=AaS4yMTTS&iiz=aVOAuMTIwcZm",
+          "status": 200,
+          "matched": 0
+        },
+        {
+          "url": "https://www.ebay.com/splashui/captcha?ap=1&appName=orch&ru=https%3A%2F%2Fwww.ebay.com%2Fhelp%2Fselling%2Ffees-credits-invoices%2Ffees&iid=c9e2cc3a-e266-4c91-8184-337512f2f996&iim=OMy40MI&iia=YzS4yMTPD&iiz=QLqAuMTIwvXU",
+          "status": 200,
+          "matched": 0
+        },
+        {
+          "url": "https://pages.ebay.com/selling/fees",
+          "status": 404
+        }
+      ],
+      "fields": {}
+    },
+    {
+      "platform": "etsy",
+      "status": "blocked",
+      "source_url": null,
+      "http_status": null,
+      "attempts": [
+        {
+          "url": "https://www.etsy.com/legal/fees/",
+          "status": 403
+        },
+        {
+          "url": "https://help.etsy.com/hc/en-us",
+          "status": 200,
+          "matched": 0
+        }
+      ],
+      "fields": {}
+    },
+    {
+      "platform": "poshmark",
+      "status": "blocked",
+      "source_url": null,
+      "http_status": null,
+      "attempts": [
+        {
+          "waybackResolved": 0
+        },
+        {
+          "url": "https://poshmark.com/faq",
+          "status": 200,
+          "matched": 0
+        },
+        {
+          "url": "https://poshmark.com/sell",
+          "status": 200,
+          "matched": 0
+        },
+        {
+          "url": "https://help.poshmark.com/hc/en-us",
+          "error": "fetch failed"
+        }
+      ],
+      "fields": {}
+    },
+    {
+      "platform": "mercari",
+      "status": "blocked",
+      "source_url": null,
+      "http_status": null,
+      "attempts": [
+        {
+          "url": "https://www.mercari.com/us/help_center/",
+          "status": 200,
+          "matched": 0
+        },
+        {
+          "url": "https://www.mercari.com/us/sell/",
+          "status": 403
+        },
+        {
+          "url": "https://www.mercari.com/us/",
+          "status": 403
+        }
+      ],
+      "fields": {}
+    },
+    {
+      "platform": "vinted",
+      "status": "blocked",
+      "source_url": null,
+      "http_status": null,
+      "attempts": [
+        {
+          "url": "https://www.vinted.com/help",
+          "status": 200,
+          "matched": 0
+        }
+      ],
+      "fields": {}
+    },
+    {
+      "platform": "depop",
+      "status": "blocked",
+      "source_url": null,
+      "http_status": null,
+      "attempts": [
+        {
+          "url": "https://www.depop.com/fees/",
+          "status": 403
+        },
+        {
+          "url": "https://help.depop.com/hc/en-us",
+          "status": 403
+        }
+      ],
+      "fields": {}
+    }
+  ]
+}
