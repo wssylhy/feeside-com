@@ -1,12 +1,12 @@
 ---
 page_type: table
 primary_keyword: selling app fees comparison
-secondary_keywords: [marketplace fees comparison 2026]
+secondary_keywords: [marketplace fees comparison 2026, resale marketplace fees comparison 2026]
 config_deps: [rates.* 全表]
 batch: 2
 ---
 
-# Marketplace Fees Comparison 2026: All Six Platforms on One Page
+# Resale Marketplace Fees Comparison 2026: All Six Platforms on One Page
 
 Intro: Every selling app advertises a headline rate; the payout you actually receive stacks two or three lines on top of it. This comparison lays out all six marketplaces — eBay, Poshmark, Mercari, Vinted, Depop, Etsy — with each fee line separated, so the difference between "the advertised rate" and "your payout" is visible at a glance. *(对比表主体由 config 渲染组件输出，本骨架是页面文案与说明区)*
 

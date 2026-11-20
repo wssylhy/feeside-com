@@ -1,7 +1,7 @@
 ---
 page_type: qa
 primary_keyword: how much does ebay take
-secondary_keywords: [ebay cut per sale]
+secondary_keywords: [ebay cut per sale, what percent does ebay take from sales, how much does ebay charge]
 config_deps: [rates.ebay.final_value_percent, rates.ebay.per_order_fixed, rates.ebay.per_order_fixed_under_10, rates.ebay.payment_percent, rates.ebay.payment_fixed]
 batch: 2
 ---
@@ -24,6 +24,9 @@ On a $60 sale with $9 shipping: the fee base is $69. Apply the percentage, add t
 - **International sales:** additional fees can apply; this calculator covers domestic US sales.
 
 ## FAQ
+**What percent does eBay take from sales?**
+`{{rates.ebay.final_value_percent}}%` of the total sale amount on most categories, plus a per-order fixed fee (${{rates.ebay.per_order_fixed_under_10}} on orders of $10 or less, ${{rates.ebay.per_order_fixed}} above). Payment processing is bundled into the same percentage rather than billed separately.
+
 **Does eBay take a cut of shipping?**
 Yes — the final value fee percentage applies to the total including buyer-paid shipping.
 

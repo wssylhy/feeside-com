@@ -1,7 +1,7 @@
 ---
 page_type: qa
 primary_keyword: how much does poshmark take
-secondary_keywords: [poshmark commission]
+secondary_keywords: [poshmark commission, poshmark seller fees, poshmark selling fees]
 config_deps: [rates.poshmark.final_value_percent, rates.poshmark.per_order_fixed]
 batch: 3
 ---
@@ -22,6 +22,9 @@ Poshmark's commission is a single flat percentage above the $15 line: `{{rates.p
 A $25 dress: one line — the flat percentage — leaves you the rest. Three $9 items sold separately: each pays the flat fee; sold as one $27 bundle, one percentage line instead. The calculator shows both routes.
 
 ## FAQ
+**What are Poshmark seller fees?**
+One line: `{{rates.poshmark.final_value_percent}}%` of the item price on sales of $15 or more, and a flat `{{rates.poshmark.per_order_fixed}}` per order below $15. There is no separate payment processing fee, and listing is free.
+
 **What is Poshmark's commission?**
 `{{rates.poshmark.final_value_percent}}%` on sales of $15 or more, rendered from our verified config above.
 
