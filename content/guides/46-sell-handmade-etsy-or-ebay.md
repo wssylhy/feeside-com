@@ -13,8 +13,8 @@ Intro: For handmade goods, both platforms are legal venues and both take a real 
 ## The fee math on a $50 handmade piece
 
 No shipping in the example, item sells at $50:
-- **Etsy:** transaction $3.25 + processing $1.75 = $5.00, you keep $45.00. The ${{rates.etsy.listing_fee}} listing fee sits on top, once per four-month cycle.
-- **eBay:** {{rates.ebay.final_value_percent}}% = $6.80 + ${{rates.ebay.per_order_fixed}} fixed = $7.20, you keep $42.80.
+- **Etsy:** transaction + processing = {{calc:fee:etsy:50}}, you keep {{calc:keep:etsy:50}}. The ${{rates.etsy.listing_fee}} listing fee sits on top, once per four-month cycle.
+- **eBay:** {{calc:fee:ebay:50}} total ({{rates.ebay.final_value_percent}}% of $50 plus the ${{rates.ebay.per_order_fixed}} per-order fee), you keep {{calc:keep:ebay:50}}.
 
 Etsy keeps about $2.20 more on this sale, and more as the price climbs, because 9.5% beats 13.6% once the fixed fees wash out. On cheap handmade items ($15-20), the two platforms close in on each other and the per-order fee starts to matter more for eBay.
 
