@@ -18,12 +18,28 @@ Intro: Short answer: Etsy takes three automatic lines on most sales — a `{{rat
 ## The optional fourth line
 Offsite Ads: if the sale came from an ad Etsy placed off-site, an extra percentage applies, banded by your shop's annual revenue. That scenario has its own calculator (linked below) because the attribution rules matter as much as the rate.
 
+## Six sale totals on current rates
+
+Fees computed on the order total (item plus shipping), listing fee excluded — it bills per listing, not per sale.
+
+| Order total | Etsy fees | You keep | Effective % |
+| --- | --- | --- | --- |
+| $8 | {{calc:fee:etsy:8}} | {{calc:keep:etsy:8}} | {{calc:pct:etsy:8}} |
+| $15 | {{calc:fee:etsy:15}} | {{calc:keep:etsy:15}} | {{calc:pct:etsy:15}} |
+| $25 | {{calc:fee:etsy:25}} | {{calc:keep:etsy:25}} | {{calc:pct:etsy:25}} |
+| $50 | {{calc:fee:etsy:50}} | {{calc:keep:etsy:50}} | {{calc:pct:etsy:50}} |
+| $100 | {{calc:fee:etsy:100}} | {{calc:keep:etsy:100}} | {{calc:pct:etsy:100}} |
+| $200 | {{calc:fee:etsy:200}} | {{calc:keep:etsy:200}} | {{calc:pct:etsy:200}} |
+
 ## Worked example (example only)
 A $32 order with $7 shipping: transaction and processing apply to $39, plus one listing fee. On a $12 order the listing fee is a visibly larger share — small sellers feel the per-listing line most.
 
 ## FAQ
 **What are Etsy's fees per sale?**
 Listing `{{rates.etsy.listing_fee}}` + transaction `{{rates.etsy.final_value_percent}}%` (incl. shipping) + processing `{{rates.etsy.payment_percent}}% + ${{rates.etsy.payment_fixed}}` — rendered from our verified config.
+
+**What percent does Etsy take per sale?**
+Count both percentage lines: {{rates.etsy.final_value_percent}}% transaction plus {{rates.etsy.payment_percent}}% processing, plus ${{rates.etsy.payment_fixed}} and the ${{rates.etsy.listing_fee}} listing fee. The table above shows the effective percentage at six order sizes.
 
 **Does Etsy charge for shipping in fees?**
 Yes — the transaction fee applies to the total including buyer-paid shipping.

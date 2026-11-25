@@ -16,6 +16,19 @@ Intro: Short answer: one line — a selling fee of `{{rates.mercari.final_value_
 
 The reason payouts sometimes feel smaller than expected is the fee base: under the Mercari label flow, shipping rides inside the base, so a lower item price with heavy shipping still pays commission on both.
 
+## Six sale totals on current rates
+
+Fee base: item price plus the buyer-paid label (standard Mercari flow). No processing line, no listing fee — both render zero on current rates.
+
+| Sale total | Mercari fee | You keep | Effective % |
+| --- | --- | --- | --- |
+| $8 | {{calc:fee:mercari:8}} | {{calc:keep:mercari:8}} | {{calc:pct:mercari:8}} |
+| $15 | {{calc:fee:mercari:15}} | {{calc:keep:mercari:15}} | {{calc:pct:mercari:15}} |
+| $25 | {{calc:fee:mercari:25}} | {{calc:keep:mercari:25}} | {{calc:pct:mercari:25}} |
+| $50 | {{calc:fee:mercari:50}} | {{calc:keep:mercari:50}} | {{calc:pct:mercari:50}} |
+| $100 | {{calc:fee:mercari:100}} | {{calc:keep:mercari:100}} | {{calc:pct:mercari:100}} |
+| $200 | {{calc:fee:mercari:200}} | {{calc:keep:mercari:200}} | {{calc:pct:mercari:200}} |
+
 ## Worked example (example only)
 A $55 order with $9 shipping on a Mercari label: the fee applies to $64. The calculator prints the line and the net that arrives in your balance — the two numbers to check against the order breakdown in the app.
 

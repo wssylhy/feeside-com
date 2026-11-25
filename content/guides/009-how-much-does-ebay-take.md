@@ -15,6 +15,19 @@ Intro: Short answer: for most categories eBay takes `{{rates.ebay.final_value_pe
 2. **Per-order fixed fee:** `${{rates.ebay.per_order_fixed}}` on most categories — `${{rates.ebay.per_order_fixed_under_10}}` if the order total is $10.00 or less, `${{rates.ebay.per_order_fixed}}` above that. Charged once per order.
 3. **Payment processing:** `{{rates.ebay.payment_percent}}`% + `{{rates.ebay.payment_fixed}}`, charged on the same total.
 
+## Six sale totals on current rates
+
+Fees computed on the sale total (item plus shipping), per-order fee tiered at $10. Listing fees ({{rates.ebay.listing_fee}} per 30-day cycle) are not in the table — they bill per listing, not per sale.
+
+| Sale total | eBay fees | You keep | Effective % |
+| --- | --- | --- | --- |
+| $8 | {{calc:fee:ebay:8}} | {{calc:keep:ebay:8}} | {{calc:pct:ebay:8}} |
+| $15 | {{calc:fee:ebay:15}} | {{calc:keep:ebay:15}} | {{calc:pct:ebay:15}} |
+| $25 | {{calc:fee:ebay:25}} | {{calc:keep:ebay:25}} | {{calc:pct:ebay:25}} |
+| $50 | {{calc:fee:ebay:50}} | {{calc:keep:ebay:50}} | {{calc:pct:ebay:50}} |
+| $100 | {{calc:fee:ebay:100}} | {{calc:keep:ebay:100}} | {{calc:pct:ebay:100}} |
+| $200 | {{calc:fee:ebay:200}} | {{calc:keep:ebay:200}} | {{calc:pct:ebay:200}} |
+
 ## Worked example (example only)
 On a $60 sale with $9 shipping: the fee base is $69. Apply the percentage, add the fixed fee, add processing. The calculator above does it live — but the point of the breakdown is that you can verify every line against your own eBay invoice, because eBay's fee breakdown on each order shows exactly these lines.
 
@@ -32,6 +45,9 @@ Yes — the final value fee percentage applies to the total including buyer-paid
 
 **Why is my first eBay sale's fee different?**
 New-seller promotions can hold or reduce final value fees for a limited time; after the promo ends, standard rates apply. Check your promotion's terms. *(以平台最新公告为准)*
+
+**How much does eBay take from a $1,000 sale?**
+On most categories the same formula applies — the calculator and the table above scale linearly, plus the flat per-order fee. Vehicles, heavy equipment and a few other categories have their own rate tables, so confirm the category before listing.
 
 **Where do I see exactly what eBay charged?**
 Seller Hub → Payments → per-order fee breakdown shows every line this page describes.
