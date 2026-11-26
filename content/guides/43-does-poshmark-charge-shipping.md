@@ -4,6 +4,8 @@ primary_keyword: does poshmark charge shipping
 secondary_keywords: [does poshmark charge sellers for shipping, poshmark shipping fees for sellers]
 config_deps: [rates.poshmark.final_value_percent, rates.poshmark.min_commission, rates.poshmark.commission_threshold_price]
 batch: 9
+description: The buyer pays shipping on Poshmark, and Poshmark's commission is charged on the item price only. Sellers pay nothing toward the label under the standard flow.
+updated: 2026-11-26
 ---
 
 # Does Poshmark Charge Shipping?

@@ -1,45 +1,58 @@
 ---
 page_type: compare
 primary_keyword: etsy vs depop fees
-secondary_keywords: [depop fees vs etsy, etsy or depop for selling]
-config_deps: [rates.etsy.final_value_percent, rates.etsy.payment_percent, rates.etsy.payment_fixed, rates.etsy.listing_fee, rates.depop.payment_percent, rates.depop.payment_fixed]
-batch: 7
+secondary_keywords: [depop fees vs etsy, etsy or depop for selling, which is cheaper etsy or depop]
+config_deps: [rates.etsy.final_value_percent, rates.etsy.payment_percent, rates.etsy.payment_fixed, rates.etsy.listing_fee, rates.depop.final_value_percent, rates.depop.payment_percent, rates.depop.payment_fixed]
+batch: 9
+title: Etsy vs Depop Fees: Which Leaves You More?
+description: Etsy takes {{rates.etsy.final_value_percent}}% plus {{rates.etsy.payment_percent}}% and a listing fee. Depop takes no commission from US sellers and charges {{rates.depop.payment_percent}}% + {{rates.depop.payment_fixed}} for payment processing. Side by side at three sale totals.
+updated: 2026-11-26
 ---
 
-# Etsy vs Depop Fees: The 9.5% Stack Against 3.3% Plus 45 Cents
+# Etsy vs Depop Fees: Which Leaves You More?
 
-Intro: Etsy stacks {{rates.etsy.final_value_percent}}% transaction (item plus shipping) with {{rates.etsy.payment_percent}}% and ${{rates.etsy.payment_fixed}} processing, and ${{rates.etsy.listing_fee}} per listing. Depop has no selling commission for US sellers; its only line is Depop Payments at {{rates.depop.payment_percent}}% plus ${{rates.depop.payment_fixed}}. Both percentages land on item plus shipping, so the comparison is direct, and Depop's line is smaller at every price we checked. *(渲染自 config；派生数按 verified 费率复算)*
+Intro: Etsy takes a {{rates.etsy.final_value_percent}}% transaction fee on the item price plus shipping, then {{rates.etsy.payment_percent}}% + {{rates.etsy.payment_fixed}} for payment processing, and charges {{rates.etsy.listing_fee}} to list each item. Depop charges US sellers no commission. Its only line is Depop Payments at {{rates.depop.payment_percent}}% + {{rates.depop.payment_fixed}}. Both percentages apply to the item plus shipping, so the comparison is direct, and Depop's fee is lower at every sale size.
+
+## The two fee structures
+
+Etsy charges three lines: {{rates.etsy.listing_fee}} per listing, a {{rates.etsy.final_value_percent}}% transaction fee, and payment processing of {{rates.etsy.payment_percent}}% + {{rates.etsy.payment_fixed}}. The two percentages together come to well over what Depop charges on the same sale.
+
+Depop charges one line: payment processing of {{rates.depop.payment_percent}}% + {{rates.depop.payment_fixed}} on the item plus shipping. Listing is free.
 
 ## Side by side at three sale totals
 
-Fees on current verified rates, item plus shipping:
-- $26 total: Etsy $2.72, you keep $23.28; Depop $1.31, you keep $24.69.
-- $60 total ($50 item, $10 shipping): Etsy $5.95, you keep $54.05; Depop $2.43, you keep $57.57.
-- $150 total: Etsy $14.50, you keep $135.50; Depop $5.40, you keep $144.60.
+| Sale total (item plus shipping) | Etsy fee | Etsy leaves you | Depop fee | Depop leaves you |
+| --- | --- | --- | --- | --- |
+| $26 | {{calc:fee:etsy:26}} | {{calc:keep:etsy:26}} | {{calc:fee:depop:26}} | {{calc:keep:depop:26}} |
+| $60 | {{calc:fee:etsy:60}} | {{calc:keep:etsy:60}} | {{calc:fee:depop:60}} | {{calc:keep:depop:60}} |
+| $150 | {{calc:fee:etsy:150}} | {{calc:keep:etsy:150}} | {{calc:fee:depop:150}} | {{calc:keep:depop:150}} |
 
-The gap is mostly the percentage: Etsy's two lines sum to 9.5% against Depop's 3.3%, and Etsy adds 55 cents of fixed fees (${{rates.etsy.payment_fixed}} processing plus ${{rates.etsy.listing_fee}} listing) where Depop adds ${{rates.depop.payment_fixed}}.
+Etsy's {{rates.etsy.listing_fee}} listing fee comes on top of each Etsy figure.
 
-## Where the same item can actually go on both
+The gap comes from the percentages. Etsy charges {{rates.etsy.final_value_percent}}% and then {{rates.etsy.payment_percent}}% on top. Depop charges {{rates.depop.payment_percent}}% once. The fixed fees are level: Etsy's {{rates.etsy.payment_fixed}} processing plus its {{rates.etsy.listing_fee}} listing fee equals Depop's {{rates.depop.payment_fixed}}.
 
-Vintage is the overlap. Anything 20 years or older qualifies as vintage on Etsy and sells as vintage on Depop, so a 1990s band tee or a leather jacket from 2003 is a genuine two-platform decision. There the fee gap says Depop: on a $60 jacket you keep $3.52 more.
-Modern streetwear and thrift fashion has no Etsy route at all. Handmade goods, craft supplies, and pre-2005 antiques have no real audience on Depop. Category rules remove most items from this comparison before fees enter it.
+## Where the same item can go on both
 
-## The listing fee changes with time on market
+Vintage is the overlap. Anything 20 years or older counts as vintage on Etsy and sells as vintage on Depop, so a 1990s band shirt or a leather jacket from 2003 can be listed on either. There the fee says Depop: on a $60 sale Depop's fee is {{calc:gap:etsy_depop:60}} lower.
 
-Etsy's ${{rates.etsy.listing_fee}} recurs every four months while an item sits. A quick sale makes it rounding error; a coat that takes a year and three renewals carries $0.60 of listing fees before it moves. Depop listings are free and indefinite.
+Modern streetwear and thrift fashion has no route onto Etsy. Handmade goods and craft supplies have their buyers on Etsy. The category rules settle most items before fees come into it.
+
+## Etsy's listing fee on slow stock
+
+Etsy's {{rates.etsy.listing_fee}} is charged again each time an unsold listing renews after four months. A quick sale makes it a small cost. A coat that sits through three renewals carries {{calc:listings:etsy:4}} of listing fees before it sells. Listing on Depop is free.
 
 ## FAQ
 
 **Who charges less, Etsy or Depop?**
-Depop at every price we checked. Its 3.3% plus ${{rates.depop.payment_fixed}} payment line stays well under Etsy's 9.5% stack at any sale price.
+Depop, at every sale size. Its {{rates.depop.payment_percent}}% plus {{rates.depop.payment_fixed}} payment line stays below Etsy's two percentages and fixed fees at any price.
 
 **Can I sell the same vintage item on both?**
-Yes, if it is 20 years or older. Fees favor Depop by roughly $3.50 on a $60 sale; Etsy's audience searches vintage deliberately and often pays more for it. Price the item, not the platform, when both are allowed.
+Yes, if it is 20 years or older. Depop's fee is {{calc:gap:etsy_depop:60}} lower on a $60 sale. Which platform's buyer pays more for the item depends on the item.
 
 **Does Depop take a percentage of shipping?**
-Yes. The payment line applies to item plus shipping, same as Etsy's transaction fee. There is no shipping exemption on either side.
+Yes. The payment fee applies to the item price plus shipping, the same as Etsy's transaction fee and processing fee.
 
 **Does Depop have any selling commission at all?**
-Not for US, UK, and Australian sellers. The 10% commission applies only to sellers in other regions.
+Not for sellers in the US, the UK and Australia. The 10% commission applies only to sellers in other regions.
 
-Internal links: Etsy fee calculator (#7) · Depop fee calculator (#6) · how much Etsy takes (#16) · how much Depop takes (#28) · fees comparison table (#8)
+Internal links: Etsy fee calculator (#7) · Depop fee calculator (#6) · how much Etsy takes (#16) · how much Depop takes (#28) · Etsy listing fee (#45) · fees comparison table (#8)

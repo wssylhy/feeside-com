@@ -1,41 +1,70 @@
 ---
 page_type: compare
 primary_keyword: poshmark vs depop fees
-secondary_keywords: [depop vs poshmark fees, poshmark or depop for selling]
-config_deps: [rates.poshmark.final_value_percent, rates.poshmark.min_commission, rates.poshmark.commission_threshold_price, rates.depop.payment_percent, rates.depop.payment_fixed]
-batch: 6
+secondary_keywords: [depop vs poshmark fees, poshmark or depop for selling, which is cheaper poshmark or depop]
+config_deps: [rates.poshmark.final_value_percent, rates.poshmark.min_commission, rates.poshmark.commission_threshold_price, rates.depop.final_value_percent, rates.depop.payment_percent, rates.depop.payment_fixed]
+batch: 9
+title: Poshmark vs Depop Fees: Which Leaves You More?
+description: Poshmark takes {{rates.poshmark.final_value_percent}}% of the item price, or a flat {{rates.poshmark.min_commission}} under $15. Depop takes no commission from US sellers and charges {{rates.depop.payment_percent}}% + {{rates.depop.payment_fixed}} for payment processing. Side by side at four prices.
+updated: 2026-11-26
 ---
 
-# Poshmark vs Depop Fees: Two Ways to Charge a Fashion Seller
+# Poshmark vs Depop Fees: Which Leaves You More?
 
-Intro: Poshmark takes `{{rates.poshmark.final_value_percent}}%` commission on sales of ${{rates.poshmark.commission_threshold_price}} and up, and a flat ${{rates.poshmark.min_commission}} below that, computed on the item price only. Depop takes no commission in the US; its line is payment processing, {{rates.depop.payment_percent}}% + ${{rates.depop.payment_fixed}} on the item plus shipping. Written out, the fee race is not close at most prices. What Poshmark's fee buys is the part the numbers cannot settle. *(渲染自 config；派生数为当前 verified 费率下的复算)*
+Intro: Poshmark takes {{rates.poshmark.final_value_percent}}% of the item price on sales of ${{rates.poshmark.commission_threshold_price}} and up, and a flat {{rates.poshmark.min_commission}} below that. Depop takes no commission from US sellers. Its one charge is payment processing: {{rates.depop.payment_percent}}% + {{rates.depop.payment_fixed}} on the item price plus shipping. Depop's fee is lower at every price in the tables below, on any ordinary shipping cost.
 
-## The structures
-Poshmark: one commission line on the item price, flat below ${{rates.poshmark.commission_threshold_price}}, percentage at ${{rates.poshmark.commission_threshold_price}} and above. The buyer pays the label separately.
-Depop: no commission; payment processing on the item price plus shipping.
+## The two fee structures
 
-## Side by side at three prices
-Fee totals and payouts on current verified rates:
-- $12 item, $5 shipping: Poshmark ${{rates.poshmark.min_commission}}, keep $9.05. Depop ≈ $1.01, keep $15.99.
-- $25 item, $8 shipping: Poshmark $5.00, keep $20.00. Depop ≈ $1.54, keep $31.46.
-- $60 item, $10 shipping: Poshmark $12.00, keep $48.00. Depop ≈ $2.76, keep $67.24.
+Poshmark charges one commission line, computed on the item price only. The buyer pays Poshmark for the shipping label, so shipping never enters the fee. Listing is free.
 
-Note the fee bases while reading those totals: Poshmark's percentage applies to a smaller number (item only) yet still loses on size, because {{rates.poshmark.final_value_percent}}% is a lot of percentage.
+Depop charges sellers in the US no selling commission. Its one line is Depop Payments processing: {{rates.depop.payment_percent}}% + {{rates.depop.payment_fixed}}, charged on the item price plus shipping. Listing is free here too.
 
-## Why the gap is not the whole decision
-Fee totals this lopsided usually mean the platforms sell sellers different things. Poshmark's commission funds its social selling format and a buyer base that shows up for it; Depop's lean fee sheet comes with leaner selling machinery. Sellers who move steady volume tend to weigh days-to-sale and the buyer's willingness to pay your price more heavily than a few points of percentage.
+## The same items on both platforms
+
+| Item price | Shipping | Poshmark fee | Poshmark leaves you | Depop fee | Depop leaves you |
+| --- | --- | --- | --- | --- | --- |
+| $12 | $5 | {{calc:fee:poshmark:12:5}} | {{calc:net:poshmark:12:5}} | {{calc:fee:depop:12:5}} | {{calc:net:depop:12:5}} |
+| $20 | $7 | {{calc:fee:poshmark:20:7}} | {{calc:net:poshmark:20:7}} | {{calc:fee:depop:20:7}} | {{calc:net:depop:20:7}} |
+| $25 | $8 | {{calc:fee:poshmark:25:8}} | {{calc:net:poshmark:25:8}} | {{calc:fee:depop:25:8}} | {{calc:net:depop:25:8}} |
+| $60 | $10 | {{calc:fee:poshmark:60:10}} | {{calc:net:poshmark:60:10}} | {{calc:fee:depop:60:10}} | {{calc:net:depop:60:10}} |
+
+"Leaves you" is the item price minus the fee. On Depop the shipping money arrives with the sale and goes out again to pay for the label.
+
+Poshmark's smaller fee base does not make up for its larger percentage. Its {{rates.poshmark.final_value_percent}}% of the item price is more than Depop's {{rates.depop.payment_percent}}% of the item and shipping together at every price in the table.
+
+## Cheap items
+
+Under ${{rates.poshmark.commission_threshold_price}} Poshmark charges its flat {{rates.poshmark.min_commission}} whatever the price. Depop's fee shrinks with the price.
+
+| Item price (no shipping) | Poshmark fee | Poshmark leaves you | Depop fee | Depop leaves you |
+| --- | --- | --- | --- | --- |
+| $5 | {{calc:fee:poshmark:5}} | {{calc:net:poshmark:5}} | {{calc:fee:depop:5}} | {{calc:net:depop:5}} |
+| $12 | {{calc:fee:poshmark:12}} | {{calc:net:poshmark:12}} | {{calc:fee:depop:12}} | {{calc:net:depop:12}} |
+| $14.99 | {{calc:fee:poshmark:14.99}} | {{calc:net:poshmark:14.99}} | {{calc:fee:depop:14.99}} | {{calc:net:depop:14.99}} |
+
+## Is there a case where Poshmark is cheaper?
+
+Only with a shipping cost far above the item price, because Poshmark's commission ignores shipping and Depop's does not. On a $20 item the shipping would have to be about $88 before the two fees were level. That is not a realistic parcel, so in practice the answer is no.
+
+## What the fees leave out
+
+Both are fashion marketplaces. Depop is built like a social feed and leans toward streetwear and vintage. Poshmark is built around offers, bundles and a social feed of its own, and its buyer pays Poshmark a set price for the label. If one of them has the buyer who wants your item, that is worth more than the fee gap.
 
 ## FAQ
+
 **Which is cheaper, Poshmark or Depop?**
-Depop at the prices we checked: its processing line stays under $3 on sales up to about $70 total, while Poshmark's {{rates.poshmark.final_value_percent}}% climbs with price.
+Depop, at every price on this page. Poshmark's commission leaves shipping out, and it is still the higher fee.
 
 **Does Poshmark charge commission on shipping?**
-No. The base is the item price only; the buyer pays the label. Depop's processing base includes shipping, which is why its percentage applies to a bigger number and still totals less.
+No. Poshmark's commission is on the item price only, and the buyer pays Poshmark for the label. Depop's processing fee does apply to shipping.
 
-**Why does Poshmark charge a flat fee under $15?**
-The ${{rates.poshmark.min_commission}} flat replaces the percentage on small sales. On an $8 item that flat is over a third of the price, which is exactly where fee structure matters most.
+**What does Poshmark charge under $15?**
+A flat {{rates.poshmark.min_commission}} in place of the {{rates.poshmark.final_value_percent}}%. On a $5 item that leaves {{calc:net:poshmark:5}}.
 
 **Where should a $20 dress go?**
-Run both calculators at your listing price with realistic shipping. At a representative $20 dress plus $7 shipping, Poshmark's commission is $4.00 (keep $16.00) against Depop's ≈ $1.34 (keep $25.66); what the calculators cannot tell you is which platform's buyers are looking for that dress.
+By fees, Depop. A $20 dress with $7 of shipping leaves {{calc:net:depop:20:7}} there against {{calc:net:poshmark:20:7}} on Poshmark. Whether Depop's buyers are looking for that dress is the other half of the question.
 
-Internal links: Poshmark fee calculator (#3) · Depop fee calculator (#6) · how much Poshmark takes (#13) · how much Depop takes (#28) · fees comparison table (#8)
+**Does Depop have any selling commission?**
+Not for sellers in the US, the UK and Australia. The 10% selling fee applies to sellers elsewhere.
+
+Internal links: Poshmark fee calculator (#3) · Depop fee calculator (#6) · how much Poshmark takes (#13) · how much Depop takes (#28) · Poshmark fee under $15 (#50) · fees comparison table (#8)

@@ -1,40 +1,47 @@
 ---
 page_type: qa
 primary_keyword: depop boosting cost
-secondary_keywords: [how much does depop boosting cost, depop promote listing fee]
-config_deps: [rates.depop.payment_percent, rates.depop.payment_fixed]
-batch: 8
+secondary_keywords: [how much does depop boosting cost, does boosting cost money on depop, depop promote listing fee, depop boosting fee]
+config_deps: [rates.depop.payment_percent, rates.depop.payment_fixed, rates.depop.boosting_percent]
+batch: 9
+title: What Does Depop Boosting Cost? {{rates.depop.boosting_percent}}% on Top of the Normal Fee
+description: Boosting a Depop listing adds a {{rates.depop.boosting_percent}}% fee on sales it brings, on top of the usual {{rates.depop.payment_percent}}% + {{rates.depop.payment_fixed}} payment processing. See the full cost on a $40 sale.
+updated: 2026-11-26
 ---
 
 # What Does Depop Boosting Cost?
 
-Intro: Boosting is Depop's optional paid placement: you pay an extra 12% fee on boosted sales in exchange for the item appearing in more feeds, including the Explore page. It sits on top of the regular Depop Payments line of `{{rates.depop.payment_percent}}%` plus ${{rates.depop.payment_fixed}}, and it is always your choice per item, never automatic. *(渲染自 config；Boosting 费率出自 Depop 官方政策，不含 config 建模)*
+Intro: Boosting is Depop's optional paid placement. You pay an extra {{rates.depop.boosting_percent}}% fee on sales that come from a boosted listing. It sits on top of the regular Depop Payments line of {{rates.depop.payment_percent}}% plus {{rates.depop.payment_fixed}}, and you choose it per item.
 
 ## The full cost when a boosted item sells
 
 A boosted $40 sale carries two lines instead of one:
-- Depop Payments: `{{rates.depop.payment_percent}}%` + ${{rates.depop.payment_fixed}} ≈ $1.77
-- Boosting: 12% of the sale ≈ $4.80
 
-Roughly $6.57 of a $40 sale, against $1.77 unboosted. The boost more than quadruples the platform's take on that item, so the question is never whether you can afford it (you can, at $0 up front) but whether the extra exposure converts.
+- Depop Payments: {{rates.depop.payment_percent}}% + {{rates.depop.payment_fixed}} = {{calc:fee:depop:40}}
+- Boosting: {{rates.depop.boosting_percent}}% of the sale = {{calc:boost:depop:40}}
+
+Together that is {{calc:boosted:depop:40}} of a $40 sale, against {{calc:fee:depop:40}} unboosted. The boost more than triples what Depop takes on that item.
 
 ## When the 12% pays for itself
 
-Boosting makes sense on three occasions: the item has been listed a while with no traction and has photos worth showing, you have sold similar items at that price before (so the audience exists), or you are offloading in bulk and one fast sale beats a month of sitting. It wastes money on items that were mispriced from the start, because a boost shows a bad price to more people, faster.
+Boosting only pays for itself if it leads to a sale that would not have happened otherwise. That is most likely on an item that is priced right and has clear photos. On an overpriced item a boost shows the price to more people and still makes no sale, so check the price against recently sold items first.
 
-## The cheaper alternative first
+## The free moves first
 
-Before paying 12%, spend the free moves: relist to reset freshness, improve the first photo, and check your price against sold listings. Feed placement and search both respond to those, and they cost nothing. Boost what still has no traction after that.
+Before paying {{rates.depop.boosting_percent}}%, do what costs nothing: retake the first photo, write the brand and size where search can find them, and compare your price with sold listings. Boost what still has no traction after that.
 
 ## FAQ
 
 **Is Depop Boosting a subscription?**
-No. You choose which listings to boost and can stop boosting at any time; the 12% only applies to sales of boosted items.
+No. You choose which listings to boost and can stop boosting at any time. The {{rates.depop.boosting_percent}}% applies to sales of boosted items.
 
 **Does Boosting change the selling fee?**
 No. Depop still charges US sellers no selling commission. Boosting is an additional promotional fee, separate from the payment processing line.
 
 **Do I pay for a boost if the item does not sell?**
-No. The fee attaches to a completed sale of a boosted listing, not to the listing itself.
+No. The fee is charged on the sale, not on the listing.
 
-Internal links: Depop fee calculator (#6) · how much Depop takes (#28) · eBay vs Depop fees (#33)
+**How much does Depop take on a boosted sale?**
+Payment processing of {{rates.depop.payment_percent}}% + {{rates.depop.payment_fixed}} plus {{rates.depop.boosting_percent}}% of the sale. On a $40 sale that is {{calc:boosted:depop:40}} in total.
+
+Internal links: Depop fee calculator (#6) · how much Depop takes (#28) · eBay vs Depop fees (#33) · Etsy vs Depop fees (#37)

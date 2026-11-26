@@ -4,6 +4,8 @@ primary_keyword: vinted buyer fees
 secondary_keywords: [vinted buyer protection fee, why does vinted charge buyers]
 config_deps: [rates.vinted.final_value_percent]
 batch: 9
+description: Vinted charges sellers nothing. Buyers pay a protection fee plus the shipping at checkout. What that means for sellers, and for how an item is priced.
+updated: 2026-11-26
 ---
 
 # Vinted Buyer Fees Explained

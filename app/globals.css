@@ -170,3 +170,34 @@ footer.site {
 .guides-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0.5rem; margin: 0.8rem 0 1.5rem; }
 .guide-link { display: block; padding: 0.45rem 0.6rem; border: 1px solid #e5e7eb; border-radius: 6px; text-decoration: none; font-size: 0.9rem; }
 .guide-link:hover { border-color: #9ca3af; }
+
+/* guide tables and page chrome */
+.guide table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+.guide th, .guide td { border: 1px solid var(--line); padding: 0.4rem 0.55rem; text-align: left; vertical-align: top; font-size: 0.88rem; }
+.guide th { background: #f3f4f6; }
+.guide tr:nth-child(even) td { background: #fafafa; }
+.guide td code, .guide th code { background: none; padding: 0; font-size: inherit; }
+.crumbs { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.4rem; }
+.crumbs span { margin: 0 7px; }
+.crumbs a { color: var(--muted); }
+.updated { color: var(--muted); font-size: 0.82rem; margin-top: -0.4rem; }
+
+/* home: platform guide hubs and calculator cards */
+.card h3 a { color: var(--ink); }
+.card-summary { color: var(--muted); font-size: 0.88rem; min-height: 2.6em; }
+.hub-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin: 0.8rem 0 1.5rem; }
+.hub { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; }
+.hub h3 { margin-bottom: 6px; }
+.hub ul, .calc-related ul { list-style: none; margin: 0; padding: 0; }
+.hub li, .calc-related li { margin: 6px 0; font-size: 0.92rem; line-height: 1.4; }
+.hub-wide { grid-column: 1 / -1; }
+.hub-wide ul { columns: 2; column-gap: 24px; }
+
+/* calculator extras */
+.calc-related { max-width: 660px; margin: 2.2rem auto 0; }
+.calc-related h2 { font-size: 1.15rem; }
+.calc-related li a { font-weight: 500; }
+.ship-note { margin: 0; align-self: center; max-width: 280px; }
+.toggle { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: var(--muted); margin-top: 4px; font-weight: 400; }
+.toggle input { width: auto; margin: 0; }
+td.struct { font-size: 0.88rem; }

@@ -15,15 +15,19 @@ export const metadata = {
   },
 };
 
+// Links carry the trailing slash because the site is exported with
+// trailingSlash: true; slashless links would 308-redirect first.
 const NAV = [
   ['/', 'Home'],
-  ['/compare', 'Compare all'],
-  ['/calculators/ebay', 'eBay'],
-  ['/calculators/poshmark', 'Poshmark'],
-  ['/calculators/mercari', 'Mercari'],
-  ['/calculators/vinted', 'Vinted'],
-  ['/calculators/depop', 'Depop'],
-  ['/calculators/etsy', 'Etsy'],
+  ['/compare/', 'Compare all'],
+  ['/#guides', 'Guides'],
+  ['/sheet/', 'Fee sheet'],
+  ['/calculators/ebay/', 'eBay'],
+  ['/calculators/poshmark/', 'Poshmark'],
+  ['/calculators/mercari/', 'Mercari'],
+  ['/calculators/vinted/', 'Vinted'],
+  ['/calculators/depop/', 'Depop'],
+  ['/calculators/etsy/', 'Etsy'],
 ];
 
 export default function RootLayout({ children }) {
@@ -40,14 +44,15 @@ export default function RootLayout({ children }) {
         <main>{children}</main>
         <footer className="site">
           <p>
-            Fee numbers are machine-scanned from official fee pages and cross-checked
-            by an independent extraction pass before display; each calculator labels
-            its review status. Independent tool — not affiliated with any marketplace.
+            Fee numbers are collected from each marketplace&apos;s official fee page, checked by
+            hand, and dated on every calculator. Independent tool, not affiliated with any marketplace.
           </p>
           <p>
-            <a href="/privacy">Privacy Policy</a>
+            <a href="/privacy/">Privacy Policy</a>
             {' · '}
-            <a href="/terms">Terms of Service</a>
+            <a href="/terms/">Terms of Service</a>
+            {' · '}
+            <a href="/extension/">Browser extension</a>
             {' · '}
             Support: <a href={`mailto:${SITE.supportEmail}`}>{SITE.supportEmail}</a>
           </p>

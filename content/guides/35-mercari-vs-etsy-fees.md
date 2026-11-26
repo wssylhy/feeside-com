@@ -4,6 +4,9 @@ primary_keyword: mercari vs etsy fees
 secondary_keywords: [etsy fees vs mercari, mercari or etsy for selling]
 config_deps: [rates.mercari.final_value_percent, rates.etsy.final_value_percent, rates.etsy.payment_percent, rates.etsy.payment_fixed, rates.etsy.listing_fee]
 batch: 7
+title: Mercari vs Etsy Fees: Which Is Cheaper for Sellers?
+description: Mercari takes a flat {{rates.mercari.final_value_percent}}% of the sale total. Etsy takes {{rates.etsy.final_value_percent}}% plus payment processing and a listing fee. The two cross at a $50 sale total. See which is cheaper at your price.
+updated: 2026-11-26
 ---
 
 # Mercari vs Etsy Fees: The Flat 10% Against the 9.5% Stack

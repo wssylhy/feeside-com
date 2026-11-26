@@ -1,45 +1,59 @@
 ---
 page_type: compare
 primary_keyword: poshmark vs vinted fees
-secondary_keywords: [vinted fees vs poshmark, poshmark or vinted for selling]
-config_deps: [rates.poshmark.final_value_percent, rates.poshmark.min_commission, rates.poshmark.commission_threshold_price, rates.vinted.final_value_percent]
-batch: 7
+secondary_keywords: [vinted fees vs poshmark, poshmark or vinted for selling, which pays more poshmark or vinted]
+config_deps: [rates.poshmark.final_value_percent, rates.poshmark.min_commission, rates.poshmark.commission_threshold_price, rates.ebay.per_order_fixed, rates.ebay.per_order_fixed_under_10, rates.vinted.final_value_percent]
+batch: 9
+title: Poshmark vs Vinted Fees: Which Leaves You More?
+description: Poshmark takes {{rates.poshmark.final_value_percent}}% of the item price, or a flat {{rates.poshmark.min_commission}} under $15. Vinted takes nothing from sellers on standard sales. Side by side at five item prices, with the $15 step explained.
+updated: 2026-11-26
 ---
 
-# Poshmark vs Vinted Fees: The 20% Commission Against Zero
+# Poshmark vs Vinted Fees: Which Leaves You More?
 
-Intro: Poshmark takes a commission on every sale: `{{rates.poshmark.min_commission}}` flat on items under ${{rates.poshmark.commission_threshold_price}}, then {{rates.poshmark.final_value_percent}}% of the item price at ${{rates.poshmark.commission_threshold_price}} and above. Vinted takes nothing from sellers; its 5% buyer fee is charged to the person buying. On fees alone, Vinted keeps more for the seller at every price point we checked. *(渲染自 config；派生数按 verified 费率复算)*
+Intro: Poshmark takes a commission on every sale: a flat {{rates.poshmark.min_commission}} on items under ${{rates.poshmark.commission_threshold_price}}, then {{rates.poshmark.final_value_percent}}% of the item price at ${{rates.poshmark.commission_threshold_price}} and above. Vinted takes nothing from sellers on standard sales. The buyer pays a protection fee instead. On fees alone, Vinted leaves you more at every price.
 
 ## Where each fee applies
 
-Poshmark's percentage is on the item price only. Shipping never enters the math because the buyer pays Poshmark directly for the label, and that money never passes through your proceeds.
-Vinted's seller side is zero regardless of price or shipping choice. The buyer pays a protection fee at checkout, which is why Vinted can afford to take nothing from you.
+Poshmark's percentage is on the item price only. The buyer pays Poshmark directly for the label, so shipping never enters the fee.
 
-## Side by side at four item prices
+Vinted's seller side is zero whatever the price or the shipping. The buyer pays Vinted a protection fee at checkout, which is how Vinted takes nothing from the seller.
 
-Fees on current verified rates, item price only:
-- $10 item: Poshmark $2.95, you keep $7.05; Vinted keeps you $10.00.
-- $14 item: Poshmark $2.95, you keep $11.05; Vinted keeps you $14.00.
-- $15 item: Poshmark $3.00, you keep $12.00; Vinted keeps you $15.00.
-- $60 item: Poshmark $12.00, you keep $48.00; Vinted keeps you $60.00.
+## Side by side at five item prices
 
-## The pricing quirk at the $15 line
+| Item price | Poshmark fee | Poshmark leaves you | Vinted leaves you |
+| --- | --- | --- | --- |
+| $10 | {{calc:fee:poshmark:10}} | {{calc:net:poshmark:10}} | {{calc:net:vinted:10}} |
+| $14 | {{calc:fee:poshmark:14}} | {{calc:net:poshmark:14}} | {{calc:net:vinted:14}} |
+| $15 | {{calc:fee:poshmark:15}} | {{calc:net:poshmark:15}} | {{calc:net:vinted:15}} |
+| $60 | {{calc:fee:poshmark:60}} | {{calc:net:poshmark:60}} | {{calc:net:vinted:60}} |
+| $100 | {{calc:fee:poshmark:100}} | {{calc:net:poshmark:100}} | {{calc:net:vinted:100}} |
 
-The flat fee and the percentage land almost exactly at $15, so a $15 item pays $3.00 while a $14.99 item pays ${{rates.poshmark.min_commission}}. Listing at $14.99 nets you $12.04; listing at $15 nets $12.00. A one-cent price cut is worth five cents of fee at exactly this boundary, and it is the only place in the six-marketplace set where pricing one cent lower leaves you with more.
+## The step at the $15 line
 
-## What Vinted's zero costs you
+Poshmark's flat fee and its percentage meet almost exactly at ${{rates.poshmark.commission_threshold_price}}. A $14.99 item pays {{calc:fee:poshmark:14.99}} and leaves {{calc:net:poshmark:14.99}}. A $15 item pays {{calc:fee:poshmark:15}} and leaves {{calc:net:poshmark:15}}. Listing one cent lower earns five cents more, at this boundary and nowhere else on Poshmark.
 
-Fees are only half the trade. Poshmark has a decade-deep US fashion audience, offer and bundle mechanics that move inventory, and live selling. Vinted's US marketplace is newer, and inventory moves mostly through search and browse. If a sale closes on either, Vinted pays dramatically better: on that $60 jacket the difference is $12. The platform with the buyer who actually wants your item still wins the transaction; the fee gap decides it when both would sell.
+eBay has a step of the same kind at $10. An order of $10 or less carries a per-order fee of {{rates.ebay.per_order_fixed_under_10}}, and an order one cent over $10 carries {{rates.ebay.per_order_fixed}}.
+
+## What Vinted's zero leaves out
+
+Fees are only half of the choice. Poshmark is built around offers, bundles and a social feed. Vinted is simpler, with buyers searching and browsing by price. If a sale closes on either platform, Vinted pays more: on a $60 jacket the difference is {{calc:gap:poshmark_vinted:60}}. The platform that has the buyer who wants your item still wins. The fee decides when both would sell.
 
 ## FAQ
 
 **Does Vinted really take nothing from sellers?**
-Seller side is $0, listing included. The 5% plus fixed buyer fee shows up in the buyer's checkout total, not your payout.
+Yes, on standard sales. Sellers pay no commission and no listing fee. The buyer's protection fee, 5% plus a fixed amount, is added to the buyer's total at checkout.
 
 **Is Poshmark's 20% charged on shipping too?**
-No. The commission is on the item price only; the buyer pays shipping to Poshmark directly.
+No. The commission is on the item price only, and the buyer pays Poshmark for shipping directly.
 
 **Is there a price where Poshmark beats Vinted on fees?**
-None that we found. The commission starts at a ${{rates.poshmark.min_commission}} floor and grows with price, so the gap widens as the item gets more expensive.
+No. Vinted's fee is zero at every price, and Poshmark's starts at a {{rates.poshmark.min_commission}} flat fee.
 
-Internal links: Poshmark fee calculator (#3) · Vinted fee calculator (#5) · how much Poshmark takes (#13) · how much Vinted takes (#27) · fees comparison table (#8)
+**Which pays more, Poshmark or Vinted?**
+By fees, Vinted at every price. On a $60 item Poshmark leaves {{calc:net:poshmark:60}} and Vinted leaves {{calc:net:vinted:60}}.
+
+**What is Poshmark's fee on a small sale?**
+A flat {{rates.poshmark.min_commission}} on items under ${{rates.poshmark.commission_threshold_price}}, in place of the percentage.
+
+Internal links: Poshmark fee calculator (#3) · Vinted fee calculator (#5) · how much Poshmark takes (#13) · how much Vinted takes (#27) · Poshmark fee under $15 (#50) · fees comparison table (#8)

@@ -1,17 +1,21 @@
 import FeeCalculator from '../../../components/FeeCalculator';
 import CalculatorFaq from '../../../components/CalculatorFaq';
+import CalculatorRelated from '../../../components/CalculatorRelated';
 import { loadPlatform, money } from '../../../lib/rates';
 import { jsonLd, webAppJsonLd, breadcrumbJsonLd, og } from '../../../lib/seo';
 
+const PATH = '/calculators/poshmark/';
+const TITLE = 'Poshmark Fee Calculator — How Much Does Poshmark Charge?';
+
 export const metadata = {
-  title: 'Poshmark Fee Calculator — How Much Does Poshmark Charge?',
+  title: TITLE,
   description:
     'How much does Poshmark charge per sale? See the commission structure, what you keep, and the payout math — based on the official fee policy, nothing guessed.',
-  alternates: { canonical: '/calculators/poshmark' },
+  alternates: { canonical: PATH },
   openGraph: og({
-    title: 'Poshmark Fee Calculator — How Much Does Poshmark Charge?',
+    title: TITLE,
     description: 'See what Poshmark takes and what you keep on each sale.',
-    path: '/calculators/poshmark',
+    path: PATH,
   }),
 };
 
@@ -25,7 +29,7 @@ export default function Page() {
         },
         {
           q: 'What percent does Poshmark take?',
-          a: `${rates.final_value_percent}% of the item price — you keep 80%. On sales under $15 the flat ${money(rates.min_commission)} commission applies instead.`,
+          a: `${rates.final_value_percent}% of the item price — you keep ${100 - Number(rates.final_value_percent)}%. On sales under $15 the flat ${money(rates.min_commission)} commission applies instead.`,
         },
       ]
     : [];
@@ -34,13 +38,14 @@ export default function Page() {
       {jsonLd([
         webAppJsonLd({
           name: 'Poshmark Fee Calculator',
-          path: '/calculators/poshmark',
+          path: PATH,
           description: 'Calculate Poshmark commission and net payout for a sale price.',
         }),
-        breadcrumbJsonLd([['Home', '/'], ['Poshmark fee calculator', '/calculators/poshmark']]),
+        breadcrumbJsonLd([['Home', '/'], ['Poshmark fee calculator', PATH]]),
       ])}
       <FeeCalculator label="Poshmark" rates={rates} />
       <CalculatorFaq label="Poshmark" faqs={faqs} />
+      <CalculatorRelated platformKey="poshmark" label="Poshmark" />
     </>
   );
 }

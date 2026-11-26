@@ -4,6 +4,9 @@ primary_keyword: how much does etsy take per sale
 secondary_keywords: [etsy fees per sale]
 config_deps: [rates.etsy.listing_fee, rates.etsy.final_value_percent, rates.etsy.payment_percent, rates.etsy.payment_fixed]
 batch: 4
+title: How Much Does Etsy Take Per Sale? (2026 Fee Breakdown)
+description: Etsy takes a {{rates.etsy.final_value_percent}}% transaction fee, payment processing of {{rates.etsy.payment_percent}}% + {{rates.etsy.payment_fixed}}, and {{rates.etsy.listing_fee}} to list each item. See the full fee at six order sizes.
+updated: 2026-11-26
 ---
 
 # How Much Does Etsy Take Per Sale?
@@ -16,7 +19,7 @@ Intro: Short answer: Etsy takes three automatic lines on most sales — a `{{rat
 3. **Payment processing:** `{{rates.etsy.payment_percent}}% + ${{rates.etsy.payment_fixed}}` on the order total.
 
 ## The optional fourth line
-Offsite Ads: if the sale came from an ad Etsy placed off-site, an extra percentage applies, banded by your shop's annual revenue. That scenario has its own calculator (linked below) because the attribution rules matter as much as the rate.
+Offsite Ads: if the sale came from an ad Etsy placed off-site, an extra 12% or 15% fee can apply. That line is left out of the table below, which covers the three fees on an ordinary sale.
 
 ## Six sale totals on current rates
 

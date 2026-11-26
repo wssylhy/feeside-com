@@ -1,37 +1,64 @@
 ---
 page_type: compare
 primary_keyword: ebay vs vinted fees
-secondary_keywords: [sell clothes ebay or vinted]
-config_deps: [rates.ebay.final_value_percent, rates.ebay.per_order_fixed, rates.ebay.payment_percent, rates.ebay.payment_fixed, rates.vinted.final_value_percent, rates.vinted.per_order_fixed]
-batch: 4
+secondary_keywords: [sell clothes ebay or vinted, vinted vs ebay, which is cheaper ebay or vinted]
+config_deps: [rates.ebay.final_value_percent, rates.ebay.per_order_fixed, rates.ebay.per_order_fixed_under_10, rates.ebay.listing_fee_free_per_month, rates.ebay.listing_fee, rates.vinted.final_value_percent, rates.vinted.listing_fee]
+batch: 9
+title: eBay vs Vinted Fees: Which Leaves You More?
+description: Vinted charges sellers nothing on standard sales. eBay takes {{rates.ebay.final_value_percent}}% of the sale total plus a per-order fee. Side by side at four prices with the buyer paying shipping.
+updated: 2026-11-26
 ---
 
-# eBay vs Vinted Fees: Where Clothes Keep More
+# eBay vs Vinted Fees: Which Leaves You More?
 
-Intro: This comparison is really about two philosophies. eBay charges a full fee stack — `{{rates.ebay.final_value_percent}}%` final value fee (shipping included), `{{rates.ebay.per_order_fixed}}` per-order fixed fee, payment processing `{{rates.ebay.payment_percent}}% + ${{rates.ebay.payment_fixed}}` — and gives you the largest general marketplace in return. Vinted charges sellers nothing on standard listings and leans on buyer-side fees. The calculators below put your exact price on both sides. *(交互区由组件渲染)*
+Intro: Vinted charges sellers no commission, no per-order fee and no listing fee on standard sales. eBay takes {{rates.ebay.final_value_percent}}% of the total amount of the sale, shipping included, plus {{rates.ebay.per_order_fixed}} per order ({{rates.ebay.per_order_fixed_under_10}} when the order is $10 or less). On the same item, Vinted leaves you more every time, by exactly the amount of eBay's fee. What eBay's fee buys is a marketplace that lists almost every category.
 
-## How the eBay side works
-Three lines on every sale: percentage on the total including shipping, the fixed per-order add-on, and processing. In exchange: auction and offer formats, global reach, and deep category search — the tools that matter when an item needs finding.
+## The two fee structures
 
-## How the Vinted side works
-Your payout is your price. The buyer pays protection and shipping at checkout; your only optional costs are boosts and label upgrades. The trade: a smaller, fashion-focused audience and simpler selling tools.
+Vinted takes nothing from the seller on a standard sale. The buyer pays Vinted a protection fee and the shipping cost at checkout. Optional boosts are the only seller-side cost.
 
-## Worked example (example only)
-A $30 jacket: eBay's three lines vs Vinted's one (or zero). The net gap is the fee answer; the question that remains is which platform actually sells the item at your price — the fee you never pay is the one on the sale that never happens.
+eBay charges {{rates.ebay.final_value_percent}}% of the total amount of the sale, which includes the shipping the buyer pays, plus a per-order fee of {{rates.ebay.per_order_fixed}} ({{rates.ebay.per_order_fixed_under_10}} on orders of $10 or less). Your first {{rates.ebay.listing_fee_free_per_month}} listings each month are free to post, and after that each listing costs {{rates.ebay.listing_fee}}. A few categories, such as sneakers and handbags, carry their own percentages.
 
-## Which fits your closet
-- **Everyday clothes, fast turnover:** Vinted's zero-commission side usually wins the math in the under-$30 band.
-- **Branded, rare, or higher-ticket pieces:** eBay's reach can realize prices Vinted's audience won't — run the numbers at the higher price before assuming.
-- **Time cost matters too:** Vinted's single-line simplicity means faster pricing decisions across a big closet.
+## The same items on both platforms
+
+| Item price | Shipping the buyer pays | eBay fee | eBay leaves you | Vinted leaves you |
+| --- | --- | --- | --- | --- |
+| $15 | $6 | {{calc:fee:ebay:15:6}} | {{calc:net:ebay:15:6}} | {{calc:net:vinted:15:6}} |
+| $30 | $8 | {{calc:fee:ebay:30:8}} | {{calc:net:ebay:30:8}} | {{calc:net:vinted:30:8}} |
+| $100 | $8 | {{calc:fee:ebay:100:8}} | {{calc:net:ebay:100:8}} | {{calc:net:vinted:100:8}} |
+| $200 | $10 | {{calc:fee:ebay:200:10}} | {{calc:net:ebay:200:10}} | {{calc:net:vinted:200:10}} |
+
+"Leaves you" is the item price minus the fee. On Vinted the shipping money goes straight to Vinted, so the whole item price is yours. On eBay the shipping money passes through your payout and is charged a fee on the way.
+
+## Cheap items
+
+eBay lowers its per-order fee to {{rates.ebay.per_order_fixed_under_10}} on orders of $10 or less. Even with that, Vinted leaves more.
+
+| Item price (no shipping) | eBay fee | eBay leaves you | Vinted leaves you |
+| --- | --- | --- | --- |
+| $9 | {{calc:fee:ebay:9}} | {{calc:net:ebay:9}} | {{calc:net:vinted:9}} |
+| $20 | {{calc:fee:ebay:20}} | {{calc:net:ebay:20}} | {{calc:net:vinted:20}} |
+| $50 | {{calc:fee:ebay:50}} | {{calc:net:ebay:50}} | {{calc:net:vinted:50}} |
+
+## What the fees leave out
+
+Vinted is a fashion marketplace for clothing, shoes and accessories. eBay lists almost every category and runs auctions as well as fixed-price listings. Everyday clothing that Vinted's buyers are browsing for is hard to beat at a zero fee. An item that Vinted does not list, or one that buyers hunt for by name, has a market only on eBay.
 
 ## FAQ
+
 **Sell clothes on eBay or Vinted?**
-Under ~$30, Vinted's fee edge is usually decisive; above that, eBay's reach can pay for its stack. Both calculators on this page settle the fee half at your price.
+By fees, Vinted, at any price. eBay earns its fee on clothing that its buyers search for by name, where a higher sale price can more than cover the fee.
 
 **Does Vinted really charge sellers nothing?**
-Standard listings: no seller commission — buyer-side fees fund the platform. *(以平台最新公告为准)*
+Yes, on standard sales. Sellers pay no commission and no listing fee. The buyer pays Vinted's protection fee.
 
-**Why is eBay's fee higher than Vinted's advertised cost?**
-Vinted's model moves the cost to the buyer at checkout; eBay's comes out of your payout. The comparison here is seller-net, which is the side you control.
+**Why does eBay cost more than Vinted?**
+eBay charges the seller: a percentage of the sale total plus a per-order fee. Vinted charges the buyer a protection fee at checkout instead, and takes nothing from the seller.
 
-Internal links: Vinted fee calculator (005-vinted-fee-calculator) · eBay fee calculator (002-ebay-fee-calculator) · Vinted vs Depop fees (12-vinted-vs-depop-fees) · Vinted UK fees (20-vinted-fees-uk)
+**Does eBay charge fees on shipping?**
+Yes. eBay's percentage applies to the total amount of the sale, which includes the shipping the buyer pays.
+
+**Does Vinted's buyer protection fee come out of my payout?**
+No. It is added to the buyer's total at checkout and never reduces what you receive.
+
+Internal links: Vinted fee calculator (#5) · eBay fee calculator (#2) · how much Vinted takes (#27) · how much eBay takes (#9) · Vinted buyer fees (#47) · Poshmark vs eBay fees (#1) · where to sell clothes online (#32)

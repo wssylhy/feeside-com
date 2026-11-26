@@ -4,6 +4,8 @@ primary_keyword: etsy listing fee
 secondary_keywords: [how much does etsy charge to list, etsy 0.20 listing fee]
 config_deps: [rates.etsy.listing_fee, rates.etsy.final_value_percent, rates.etsy.payment_percent, rates.etsy.payment_fixed]
 batch: 9
+description: Etsy charges {{rates.etsy.listing_fee}} to list each item, for four months or until it sells. See what renewals cost a shop with slow stock.
+updated: 2026-11-26
 ---
 
 # What Is the Etsy Listing Fee?

@@ -4,6 +4,8 @@ primary_keyword: etsy transaction fee
 secondary_keywords: [what is etsy transaction fee, etsy 6.5 fee]
 config_deps: [rates.etsy.final_value_percent, rates.etsy.payment_percent, rates.etsy.payment_fixed, rates.etsy.listing_fee]
 batch: 8
+description: Etsy's transaction fee is {{rates.etsy.final_value_percent}}% of the item price plus shipping and gift wrap. See the full fee stack worked out on a $36 order.
+updated: 2026-11-26
 ---
 
 # What Is the Etsy Transaction Fee?

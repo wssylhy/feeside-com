@@ -1,0 +1,131 @@
+# =============================================================================
+# config/ebay-categories.yaml — eBay final value fees by category
+#
+# Source: eBay's official "Selling fees" help page (meta.source_url), collected
+# by the rates-scan workflow on a US runner (meta.collected, run meta.run_id).
+# Two independent extractions of the archived page agree: the textified page
+# and a cell-by-cell parse of the page's <table> HTML.
+#
+# RULES (same as rates.yaml):
+#   - NEVER fill a number from model memory. Only the archived official page.
+#   - meta.verified flips to true ONLY after a human [核] against the live page.
+#     Until then the page shows the "not yet cross-checked by hand" label.
+#   - Rows eBay words as a flat switch ("9% if the sale is over $2,000") carry
+#     model: quoted — the page quotes eBay's wording and never computes them.
+# =============================================================================
+
+meta:
+  source_url: https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822
+  collected: "2026-11-24"
+  run_id: 45305958188
+  verified: false
+
+insertion:
+  standard: "First 250 listings free per month, then $0.35 per listing"
+
+categories:
+  most:
+    label: "Most categories (including eBay Motors Parts & Accessories)"
+    insertion: standard
+    model: portion
+    per_order_fee: true
+    tier1_rate: 13.6
+    tier1_cap: 7500
+    tier2_rate: 2.35
+    display: "13.6% on the total amount of the sale up to $7,500, 2.35% on the portion over $7,500"
+  media:
+    label: "Books & Magazines, Movies & TV, Music"
+    insertion: standard
+    model: portion
+    per_order_fee: true
+    tier1_rate: 15.3
+    tier1_cap: 7500
+    tier2_rate: 2.35
+    display: "15.3% on the total amount of the sale up to $7,500, 2.35% on the portion over $7,500"
+  coins:
+    label: "Coins & Paper Money (except Bullion)"
+    insertion: standard
+    model: portion
+    per_order_fee: true
+    tier1_rate: 13.25
+    tier1_cap: 7500
+    tier2_rate: 2.35
+    display: "13.25% on the total amount of the sale up to $7,500, 2.35% on the portion over $7,500"
+  bullion:
+    label: "Coins & Paper Money > Bullion"
+    insertion: standard
+    model: quoted
+    low_rate: 13.6
+    threshold: 7500
+    high_rate: 7
+    display: "13.6% if the total amount of the sale is $7,500 or less, 7% if it is over $7,500"
+  handbags:
+    label: "Clothing, Shoes & Accessories > Women > Women's Bags & Handbags"
+    insertion: standard
+    model: quoted
+    low_rate: 15
+    threshold: 2000
+    high_rate: 9
+    display: "15% if the total amount of the sale is $2,000 or less, 9% if it is over $2,000"
+  cards:
+    label: "Select collectibles: comic books and memorabilia, non-sport trading cards, sports trading cards, collectible card games"
+    insertion: standard
+    model: portion
+    per_order_fee: true
+    tier1_rate: 13.25
+    tier1_cap: 7500
+    tier2_rate: 2.35
+    display: "13.25% on the total amount of the sale up to $7,500, 2.35% on the portion over $7,500"
+  jewelry:
+    label: "Jewelry & Watches (except Watches, Parts & Accessories)"
+    insertion: standard
+    model: quoted
+    low_rate: 15
+    threshold: 5000
+    high_rate: 9
+    display: "15% if the total amount of the sale is $5,000 or less, 9% if it is over $5,000"
+  watches:
+    label: "Jewelry & Watches > Watches, Parts & Accessories"
+    insertion: standard
+    model: portion
+    per_order_fee: true
+    tier1_rate: 15
+    tier1_cap: 1000
+    tier2_rate: 6.5
+    tier2_cap: 7500
+    tier3_rate: 3
+    display: "15% on the total amount of the sale up to $1,000, 6.5% on the portion over $1,000 up to $7,500, 3% on the portion over $7,500"
+  nft:
+    label: "NFT categories"
+    insertion: standard
+    model: quoted
+    flat_rate: 5
+    display: "5% on the total amount of the sale"
+  industrial:
+    label: "Select Business & Industrial categories (heavy equipment, commercial printing presses, food trucks and carts)"
+    insertion: "$20 per listing"
+    model: portion
+    per_order_fee: true
+    tier1_rate: 3
+    tier1_cap: 15000
+    tier2_rate: 0.5
+    display: "3% on the total amount of the sale up to $15,000, 0.5% on the portion over $15,000"
+  guitars:
+    label: "Musical Instruments & Gear > Guitars & Basses"
+    insertion: "Free"
+    model: portion
+    per_order_fee: true
+    tier1_rate: 6.7
+    tier1_cap: 7500
+    tier2_rate: 2.35
+    display: "6.7% on the total amount of the sale up to $7,500, 2.35% on the portion over $7,500"
+  sneakers:
+    label: "Men's and women's athletic shoes"
+    insertion: "Free if the starting price is $150 or more"
+    model: threshold
+    threshold: 150
+    low_rate: 13.6
+    low_per_order_fee: true
+    high_rate: 8
+    high_per_order_fee: false
+    display: "8% if the total amount of the sale is $150 or more (the per-order fee is not charged), 13.6% if it is under $150"

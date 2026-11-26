@@ -1,17 +1,21 @@
 import FeeCalculator from '../../../components/FeeCalculator';
 import CalculatorFaq from '../../../components/CalculatorFaq';
+import CalculatorRelated from '../../../components/CalculatorRelated';
 import { loadPlatform, money } from '../../../lib/rates';
 import { jsonLd, webAppJsonLd, breadcrumbJsonLd, og } from '../../../lib/seo';
 
+const PATH = '/calculators/depop/';
+const TITLE = 'Depop Fee Calculator — How Much Does Depop Charge?';
+
 export const metadata = {
-  title: 'Depop Fee Calculator — How Much Does Depop Charge?',
+  title: TITLE,
   description:
     "How much does Depop charge sellers? Enter a sale price and see Depop's fee structure and your net payout, from a config verified against the official fee page.",
-  alternates: { canonical: '/calculators/depop' },
+  alternates: { canonical: PATH },
   openGraph: og({
-    title: 'Depop Fee Calculator — How Much Does Depop Charge?',
+    title: TITLE,
     description: 'See Depop fees and your net payout before you list.',
-    path: '/calculators/depop',
+    path: PATH,
   }),
 };
 
@@ -34,13 +38,14 @@ export default function Page() {
       {jsonLd([
         webAppJsonLd({
           name: 'Depop Fee Calculator',
-          path: '/calculators/depop',
+          path: PATH,
           description: 'Calculate Depop selling fees and net payout for a sale price.',
         }),
-        breadcrumbJsonLd([['Home', '/'], ['Depop fee calculator', '/calculators/depop']]),
+        breadcrumbJsonLd([['Home', '/'], ['Depop fee calculator', PATH]]),
       ])}
       <FeeCalculator label="Depop" rates={rates} />
       <CalculatorFaq label="Depop" faqs={faqs} />
+      <CalculatorRelated platformKey="depop" label="Depop" />
     </>
   );
 }

@@ -4,11 +4,14 @@ primary_keyword: mercari shipping costs 2026
 secondary_keywords: [mercari shipping rates, marketplace shipping fees comparison]
 config_deps: [rates.mercari.final_value_percent, rates.etsy.final_value_percent, rates.ebay.final_value_percent]
 batch: 3
+title: Mercari Shipping Costs 2026: The Full Rate Chart
+description: Mercari's prepaid label prices effective October 19, 2026: all 31 weights and six services from the official chart, plus which marketplaces charge their fee on shipping.
+updated: 2026-11-26
 ---
 
 # Mercari Shipping Costs 2026: The Full Rate Chart (USPS, UPS, FedEx)
 
-Intro: Mercari's prepaid labels are usually the cheapest way to ship a reseller package — but the official rate chart is buried in the help center and hard to read. Below is the complete chart, transcribed from Mercari's official help page, effective **10/19/2026**. Then the part most sellers miss: which marketplaces take a commission **on the shipping itself**, because that quietly changes which platform pays you more.
+Intro: Mercari's prepaid labels are discounted below the carriers' retail prices, but the official rate chart is buried in the help center and hard to read. Below is the complete chart, transcribed from Mercari's official help page, effective **10/19/2026**. Then the part most sellers miss: which marketplaces take a commission **on the shipping itself**, because that quietly changes which platform pays you more.
 
 ## The full Mercari prepaid label chart (effective 10/19/2026)
 
@@ -72,9 +75,9 @@ Numbers from each platform's official fee page, cross-checked before publishing 
 ## What this means for which platform you pick
 
 - **Heavy or cheap-to-ship items** (small, light, sturdy): Vinted's zero commission keeps the whole payout — shipping is the buyer's problem there.
-- **Something heavy on Mercari**: the 20–50 lb tier jumps hard ($35.99–$67.99 best). Price it into the item; and remember Mercari's 10% also takes a cut of whatever shipping you charge.
-- **eBay**: the 13.6% eats part of your shipping charge too — on freight-heavy items that line alone can beat the item commission.
-- Run your exact item through the calculators below — averages lie, your zip code and package weight do not.
+- **Something heavy on Mercari**: the 20 lb row starts at $35.99 on the best rate (UPS Ground, UPS Economy, FedEx Home Delivery and USPS Ground Advantage all list it), and the cheapest best rate reaches $50.99 at 50 lb. USPS Priority Mail sits far above the rest, at $67.99 for 20 lb. Price the label into the item, and remember Mercari's 10% also takes a cut of the shipping.
+- **eBay**: its {{rates.ebay.final_value_percent}}% applies to the shipping the buyer pays as well as the item. When the shipping costs more than the item, eBay's fee on the shipping is larger than its fee on the item.
+- Run your exact item through the calculators below. Label prices depend on weight, size and distance.
 
 ## FAQ
 
@@ -82,7 +85,7 @@ Numbers from each platform's official fee page, cross-checked before publishing 
 Usually the buyer, at checkout — the seller buys a discounted prepaid label from the chart above and Mercari adds the shipping cost to the buyer's total. You can also offer free shipping and price it into the item, but the 10% selling fee applies to the combined amount either way.
 
 **What is the cheapest Mercari shipping label in 2026?**
-For packages under 1 lb, USPS Ground Advantage at the best rate: $5.39–$7.99. Above 2 lb, UPS SurePost takes over as the budget option ($8.49 at 2 lb) until it caps out at 5 lb.
+At a quarter pound up to 1 lb, USPS Ground Advantage is cheapest at the best rate: $5.39 rising to $7.99. From 2 lb to 5 lb, UPS SurePost and UPS Economy share the lowest price ($8.49 at 2 lb, $9.39 at 5 lb). From 6 lb to 10 lb, UPS Economy is the lowest ($10.49 to $12.49).
 
 **Does Mercari's selling fee include shipping?**
 Yes — the 10% selling fee applies to the item price **plus buyer-paid shipping** on listings created or updated since January 6, 2025.

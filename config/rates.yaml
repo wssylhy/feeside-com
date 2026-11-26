@@ -22,8 +22,11 @@ platforms:
     per_order_fixed_under_10: 0.3   # orders ≤$10 tier — user [核] vs live page 2026-10-31 (zh+en), artifact run 40940390452
     payment_percent: 0          # Actions scan: bundled into FVF (zero-match)
     payment_fixed: 0            # Actions scan: bundled into FVF (zero-match)
-    listing_fee: 0.35           # Actions scan 2026-10-28
-    fee_base: item_plus_shipping   # 官方「total amount of the sale」含买家运费（009 指南已表述，官方页原文）
+    listing_fee: 0.35           # Actions scan 2026-10-28 — 每条 listing 的 insertion fee，仅在用完当月免费额度后收（见下一字段）
+    listing_fee_free_per_month: 250   # 官方原文「Every month, you get up to 250 zero insertion fee listings」（Actions 采集 run 45305958188，2026-11-24，官方 Selling fees 页存档）；用完额度后 $0.35/listing，每次主动 relist 再收一次
+    fee_base: item_plus_shipping   # 官方「total amount of the sale」含买家运费（009 指南已表述，官方页原文）；官方 2026-11-24 存档另载：该口径还含代收销售税（税不建模）
+    shipping_in_payout: true    # 买家付的运费经由 eBay 进入卖家收款（官方：total amount of the sale 含 shipping costs collected from the buyer）
+    tax_in_fee_base: true      # 官方（2026-11-24 存档）：total amount of the sale 还含代收销售税（官方例：$400 成交含 6% 税按 $424 计 13.6%）；税率因州而异，站内不建模，仅在计算器注明
     source_url: https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822   # Actions run 40606889836
     scraped_date: "2026-10-28"  # Actions run 40606889836
     verified: true              # human [核] 2026-10-31 PASSED — user verified 13.6/0.30/0.40/0.35 against live official page (zh)
@@ -32,6 +35,7 @@ platforms:
     min_commission: 2.95      # 官方：<$15 固定佣金 $2.95
     commission_threshold_price: 15   # 官方两档为阶跃：<$15 → $2.95；≥$15 → 20%（2026-11-18 起精确阶跃，替代 max 近似）
     fee_base: item_only       # 官方原文：fee 从 final order price 扣除；买家运费直付 Poshmark（固定标签费），永不进入卖家收款 → 费基=商品价（2026-11-18 live 核验）
+    shipping_in_payout: false  # 同上：买家把标签费直接付给 Poshmark，运费永不进入卖家收款（官方 terms#fee-policy，2026-11-18）
     per_order_fixed: 0          # 无独立每单费
     per_order_fixed_under_10: null  # 待 Actions 采集（无该档位则保持 null）
     payment_percent: 0          # Poshmark 无独立支付处理费（运费标签内置）
@@ -48,6 +52,7 @@ platforms:
     payment_fixed: 0            # 同上
     listing_fee: 0              # Mercari 上架永远免费
     fee_base: item_plus_shipping   # 官方原文「item price + buyer-paid shipping」（2026-11-18 官方页 live 复核 verbatim）
+    shipping_in_payout: true    # 买家付的运费经由 Mercari 结账进入卖家余额（官方：fee applies to the item plus the label，2026-11-12 转贴原文）
     source_url: "https://www.mercari.com/help/"  # 用户 2026-11-12 转贴官方 Fees on Mercari 页（更新 2026-10-23）
     scraped_date: "2026-11-12"  # 官方页获取日
     verified: true              # 用户转贴官方费率页全文核验
@@ -59,6 +64,7 @@ platforms:
     payment_fixed: 0            # 无
     listing_fee: 0              # 基础上架免费
     fee_base: item_plus_shipping   # 卖家侧全 0，费基无实际影响（字段为 schema 完整性而设）
+    shipping_in_payout: false   # 买家在结账时把运费和保护费直接付给 Vinted，卖家到手=挂价（2026-11-12 用户转贴官方说明）
     source_url: "https://www.vinted.com/help"  # 用户 2026-11-12 官方原文转贴
     scraped_date: "2026-11-12"  # 官方文本获取日
     verified: true              # 用户转贴官方原文核验
@@ -69,10 +75,12 @@ platforms:
     payment_percent: 3.3        # Depop Payments (Stripe) US：3.3% + $0.45，按商品价+运费计
     payment_fixed: 0.45         # 同上
     listing_fee: 0              # Depop 无上架费
+    boosting_percent: 12        # Depop 官方政策（用户 2026-11-12/13 转贴）：Boosting 为可选推广费，按 boosted 销售额收 12%；不进计算器主公式，仅在 Boosting 指南页用于算账
     fee_base: item_plus_shipping   # 官方 Fee Basis 列原文：「item sale price plus shipping costs and any applicable taxes」（税不建模，2026-11-18 官方页 live 核验）
+    shipping_in_payout: true    # 买家付的运费经由 Depop Payments 进入卖家收款（官方 Fee Basis 同上）
+    tax_in_fee_base: true      # 官方 Fee Basis 原文含「any applicable taxes」；税不建模，仅在计算器注明
     source_url: "https://depophelp.zendesk.com/hc/en-gb/articles/360001791127-Seller-fees-and-charges"  # 官方文章直达（2026-11-18 用户 Chrome live 提取）
-    scraped_date: "2026-11-18"  # 官方页 live 复核日（数值不变，费基当日核验）
-    scraped_date: "2026-11-12"  # 官方政策获取日
+    scraped_date: "2026-11-18"  # 官方页 live 复核日（数值不变，费基当日核验；数值首核 2026-11-12）
     verified: true              # 用户转贴官方政策原文核验
   etsy:
     final_value_percent: 6.5    # Actions 采集 (run 42623676473, 2026-11-09) — "transaction fee of 6.5% of the price you display"; 另 run 42108258363 (11-05, 不同快照 20261024151150) 独立采到同值 = 双路一致；payment 字段见 legal/etsy-payments 迁移注记
@@ -82,6 +90,7 @@ platforms:
     payment_fixed: 0.25         # 同上
     listing_fee: 0.2            # Actions 采集 (run 42623676473) — "a listing fee of $0.20 USD for each item"
     fee_base: item_plus_shipping   # 官方：6.5% 于 item + shipping + gift wrap（2026-11-12 转贴全文核验）
+    shipping_in_payout: true    # 买家付的运费经由 Etsy Payments 结算给卖家（官方 Etsy Payments 口径，2026-11-12 转贴）
     source_url: "https://web.archive.org/web/20260609230637id_/https://www.etsy.com/legal/fees/"  # Actions 采集源（存档官方页）
     scraped_date: "2026-11-09"  # Actions 采集日
     verified: true              # 用户 2026-11-12 转贴官方 legal/fees 全文核验：6.5% + $0.20 与 Actions 双路一致

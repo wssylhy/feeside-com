@@ -4,6 +4,9 @@ primary_keyword: how much does poshmark take
 secondary_keywords: [poshmark commission, poshmark seller fees, poshmark selling fees]
 config_deps: [rates.poshmark.final_value_percent, rates.poshmark.min_commission, rates.poshmark.commission_threshold_price]
 batch: 3
+title: How Much Does Poshmark Take Per Sale? (2026 Fee Breakdown)
+description: Poshmark takes {{rates.poshmark.final_value_percent}}% of the item price on sales of ${{rates.poshmark.commission_threshold_price}} or more, and a flat {{rates.poshmark.min_commission}} under that. No processing fee, no listing fee. See the fee at six item prices.
+updated: 2026-11-26
 ---
 
 # How Much Does Poshmark Take Per Sale?

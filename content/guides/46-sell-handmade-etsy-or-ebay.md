@@ -4,6 +4,8 @@ primary_keyword: sell handmade on etsy or ebay
 secondary_keywords: [etsy vs ebay for handmade, where to sell handmade items]
 config_deps: [rates.etsy.final_value_percent, rates.etsy.payment_percent, rates.etsy.payment_fixed, rates.etsy.listing_fee, rates.ebay.final_value_percent]
 batch: 9
+description: Etsy takes {{rates.etsy.final_value_percent}}% plus processing and a listing fee. eBay takes {{rates.ebay.final_value_percent}}% of the sale total plus a per-order fee. See which leaves more on a $50 handmade piece.
+updated: 2026-11-26
 ---
 
 # Selling Handmade: Etsy or eBay?

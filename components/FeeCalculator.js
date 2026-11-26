@@ -1,50 +1,35 @@
 'use client';
 
 import { useState } from 'react';
+import { computeFees, money, sellerReceivesShipping } from '../lib/fees';
 
 const PENDING_NOTE =
   'Fee data is pending collection and cross-check — numbers unlock as soon as they pass.';
 
-function money(n) {
-  return '$' + n.toFixed(2);
-}
-
 // Client calculator. Receives one platform's rates from a server component;
-// renders numbers ONLY when the config supplies them, never otherwise.
+// renders numbers ONLY when the config supplies them, never otherwise. All
+// math lives in lib/fees.js (shared with the compare table and the guides).
 export default function FeeCalculator({ label, rates }) {
   const [price, setPrice] = useState('');
   const [shipping, setShipping] = useState('0');
+  const [paidListings, setPaidListings] = useState(false);
 
   const r = rates || {};
   const hasCore = r.final_value_percent != null && r.payment_percent != null;
+  const receivesShip = sellerReceivesShipping(r);
 
   const p = parseFloat(price) || 0;
   const s = parseFloat(shipping) || 0;
-  const gross = p + s;
-
-  // Commission base follows each platform's official policy (r.fee_base):
-  // item_plus_shipping = item + buyer-paid shipping (eBay/Mercari/Etsy/Depop);
-  // item_only = item price only — buyer-paid shipping never enters the
-  // seller's payout (Poshmark: buyers pay the label fee straight to Poshmark).
-  const fvBase = r.fee_base === 'item_only' ? p : gross;
-  const thr = r.commission_threshold_price != null ? Number(r.commission_threshold_price) : null;
-  let fv = fvBase * ((r.final_value_percent || 0) / 100);
-  // Two-tier schedule (e.g. Poshmark official: under $15 → flat $2.95;
-  // $15 and above → 20%), followed by the min-commission clamp.
+  const out = hasCore ? computeFees(r, p, s, { paidListings }) : null;
   const minC = r.min_commission;
-  if (thr != null && minC != null) {
-    fv = p < thr ? minC : fv;
-  } else if (minC != null && fv < minC) {
-    fv = minC;
-  }
-  // Small-order tier (e.g. eBay: ≤$10 → $0.30, >$10 → $0.40). Tier applies to
-  // the sale total incl. shipping, matching the marketplace's own definition.
-  const smallTier = r.per_order_fixed_under_10;
-  const tiered = gross <= 10 && smallTier != null;
-  const fixed = tiered ? smallTier : r.per_order_fixed || 0;
-  const pay = gross * ((r.payment_percent || 0) / 100) + (r.payment_fixed || 0);
-  const listing = r.listing_fee || 0;
-  const net = gross - fv - fixed - pay - listing;
+  const thr = r.commission_threshold_price != null ? Number(r.commission_threshold_price) : null;
+
+  const fvLabel =
+    `Final value fee (${r.final_value_percent}%` +
+    (r.fee_base === 'item_only' ? ' of the item price' : ' of the sale total') +
+    (minC != null ? (thr != null ? `, flat ${money(minC)} under $${thr}` : `, min ${money(minC)}`) : '') +
+    ')';
+  const freeListings = Number(r.listing_fee_free_per_month) || 0;
 
   return (
     <div className="card">
@@ -67,28 +52,60 @@ export default function FeeCalculator({ label, rates }) {
             onChange={(e) => setPrice(e.target.value)}
           />
         </label>
-        <label>
-          Shipping charged (USD)
-          <input
-            inputMode="decimal"
-            value={shipping}
-            disabled={!hasCore}
-            onChange={(e) => setShipping(e.target.value)}
-          />
-        </label>
+        {receivesShip ? (
+          <label>
+            Shipping charged (USD)
+            <input
+              inputMode="decimal"
+              value={shipping}
+              disabled={!hasCore}
+              onChange={(e) => setShipping(e.target.value)}
+            />
+          </label>
+        ) : (
+          <p className="meta-line ship-note">
+            The buyer pays shipping straight to {label}, so it never enters your payout.
+          </p>
+        )}
       </div>
 
-      {hasCore && (
+      {out && (
         <>
           <table className="breakdown">
             <tbody>
-              <tr><td>Final value fee ({r.final_value_percent}%{r.fee_base === 'item_only' ? ' of item price' : ''}{minC != null ? (thr != null ? ', flat ' + money(minC) + ' under $' + thr : ', min ' + money(minC)) : ''})</td><td className="num">−{money(fv)}</td></tr>
-              <tr><td>Fixed fee per order{tiered ? ' (≤$10 order)' : ''}</td><td className="num">−{money(fixed)}</td></tr>
-              <tr><td>Payment processing ({r.payment_percent}%)</td><td className="num">−{money(pay)}</td></tr>
-              <tr><td>Listing fee</td><td className="num">−{money(listing)}</td></tr>
+              <tr><td>{fvLabel}</td><td className="num">−{money(out.fv)}</td></tr>
+              <tr><td>Fixed fee per order{out.tiered ? ' (order of $10 or less)' : ''}</td><td className="num">−{money(out.fixed)}</td></tr>
+              <tr><td>Payment processing ({r.payment_percent}%)</td><td className="num">−{money(out.pay)}</td></tr>
+              {freeListings ? (
+                <tr>
+                  <td>
+                    Insertion fee
+                    <label className="toggle">
+                      <input
+                        type="checkbox"
+                        checked={paidListings}
+                        onChange={(e) => setPaidListings(e.target.checked)}
+                      />
+                      I&apos;ve used up my {freeListings} free listings this month
+                    </label>
+                  </td>
+                  <td className="num">−{money(out.listing)}</td>
+                </tr>
+              ) : (
+                <tr><td>Listing fee</td><td className="num">−{money(out.listing)}</td></tr>
+              )}
             </tbody>
           </table>
-          <p className="net">You keep: <strong>{money(net)}</strong></p>
+          {p > 0 ? (
+            <p className="net">You keep: <strong>{money(out.net)}</strong></p>
+          ) : (
+            <p className="net meta-line">Enter a price to see what you keep.</p>
+          )}
+          {receivesShip && s > 0 && (
+            <p className="meta-line">
+              Includes the {money(s)} shipping charged. The cost of the label is not deducted.
+            </p>
+          )}
         </>
       )}
 
@@ -98,6 +115,12 @@ export default function FeeCalculator({ label, rates }) {
         {r.scraped_date ? 'data from ' + r.scraped_date : 'no data yet'}
         {r.source_url ? <> · <a href={r.source_url}>official source</a></> : null}
       </p>
+      {r.tax_in_fee_base === true && (
+        <p className="meta-line">
+          {label} also applies its percentage to the sales tax collected on the order. Tax varies by
+          state and is not included here, so the real fee runs a little higher.
+        </p>
+      )}
     </div>
   );
 }

@@ -1,41 +1,54 @@
 ---
 page_type: compare
 primary_keyword: etsy vs vinted fees
-secondary_keywords: [vinted fees vs etsy, sell on etsy or vinted]
+secondary_keywords: [vinted fees vs etsy, sell on etsy or vinted, which is cheaper etsy or vinted]
 config_deps: [rates.etsy.final_value_percent, rates.etsy.payment_percent, rates.etsy.payment_fixed, rates.etsy.listing_fee, rates.vinted.final_value_percent]
-batch: 7
+batch: 9
+title: Etsy vs Vinted Fees: Which Leaves You More?
+description: Etsy takes {{rates.etsy.final_value_percent}}% plus payment processing and a listing fee. Vinted takes nothing from sellers on standard sales. Side by side at three item prices, and which items can go on both.
+updated: 2026-11-26
 ---
 
-# Etsy vs Vinted Fees: The Craft Stack Against Zero
+# Etsy vs Vinted Fees: Which Leaves You More?
 
-Intro: Etsy takes {{rates.etsy.final_value_percent}}% transaction on item plus shipping, adds {{rates.etsy.payment_percent}}% and ${{rates.etsy.payment_fixed}} for payment processing, and charges ${{rates.etsy.listing_fee}} per listing. Vinted charges sellers nothing on any sale; the buyer pays a protection fee at checkout. On fees alone the comparison is not close, and the interesting question is why these two platforms are rarely substitutes at all. *(渲染自 config；派生数按 verified 费率复算)*
+Intro: Etsy takes a {{rates.etsy.final_value_percent}}% transaction fee on the item price plus shipping, adds {{rates.etsy.payment_percent}}% + {{rates.etsy.payment_fixed}} for payment processing, and charges {{rates.etsy.listing_fee}} to list each item. Vinted charges sellers nothing on standard sales. The buyer pays a protection fee at checkout instead. On fees alone Vinted leaves more at every price. What the two platforms will list is what makes them rarely substitutes for each other.
+
+## The two fee structures
+
+Etsy charges three lines: {{rates.etsy.listing_fee}} per listing, a {{rates.etsy.final_value_percent}}% transaction fee on the item price plus shipping and gift wrap, and payment processing of {{rates.etsy.payment_percent}}% + {{rates.etsy.payment_fixed}} on the same amount.
+
+Vinted charges sellers no commission, no per-order fee and no listing fee on standard sales. The buyer pays Vinted a protection fee and the shipping cost at checkout.
 
 ## Side by side at three item prices
 
-Fees on current verified rates, item plus shipping for Etsy, listing price for Vinted:
-- $18 item: Etsy $1.96, you keep $16.04; Vinted keeps you $18.00.
-- $46 item: Etsy $4.62, you keep $41.38; Vinted keeps you $46.00.
-- $100 item: Etsy $9.75, you keep $90.25; Vinted keeps you $100.00.
+| Item price | Etsy fee | Etsy leaves you | Vinted leaves you |
+| --- | --- | --- | --- |
+| $18 | {{calc:fee:etsy:18}} | {{calc:net:etsy:18}} | {{calc:net:vinted:18}} |
+| $46 | {{calc:fee:etsy:46}} | {{calc:net:etsy:46}} | {{calc:net:vinted:46}} |
+| $100 | {{calc:fee:etsy:100}} | {{calc:net:etsy:100}} | {{calc:net:vinted:100}} |
 
-Etsy's ${{rates.etsy.listing_fee}} listing fee sits on top of every number above, one per listing per four months.
+Shipping is left out. Etsy's {{rates.etsy.listing_fee}} listing fee is left out as well: it is charged once per listing, sold or unsold.
 
 ## Vinted's zero is paid for by the buyer
 
-The seller keeps the full listing price because the platform's revenue comes from the buyer: a protection fee (5% plus a fixed amount, tax included) appears in the buyer's checkout. You price the item, the buyer covers the platform. On a $46 dress you keep all $46, while the same dress on Etsy returns $41.38 after its stack.
+The seller keeps the full listing price because the platform's revenue comes from the buyer. A protection fee, 5% plus a fixed amount with tax included, appears in the buyer's checkout. On a $46 dress you keep all $46, while the same dress on Etsy returns {{calc:net:etsy:46}} after its fees.
 
-## Eligibility decides before fees do
+## Which items can go where
 
-The two audiences barely overlap. Etsy requires handmade goods, vintage items 20 years or older, or craft supplies, and its buyers search deliberately for those categories. Vinted is secondhand fashion, modern brands included, browsed feed-style by price. A hand-knitted cardigan can only be an Etsy listing; a Zara dress from last year can only be a Vinted listing. True vintage sits in both, and there the fee gap is the tiebreaker: $54.05 versus $46.00 kept on a $100 vintage coat is not a small difference.
+The two audiences barely overlap. Etsy's categories are handmade goods, vintage items 20 years or older, and craft supplies. Vinted is secondhand fashion, modern brands included, browsed feed-style by price. A hand-knitted cardigan belongs on Etsy. A dress from a high-street brand belongs on Vinted. Vintage sits in both, and there the fee decides: on a $100 vintage coat Etsy leaves {{calc:net:etsy:100}} and Vinted leaves {{calc:net:vinted:100}}.
 
 ## FAQ
 
 **Does Vinted charge sellers anything at all?**
-Nothing on the sale. No commission, no listing fee, no processing line. The buyer-side protection fee is the platform's revenue.
+Nothing on a standard sale. No commission, no listing fee, no processing fee. The buyer's protection fee is the platform's revenue.
 
 **What does Etsy cost on an $18 sale?**
-$1.96 in transaction and processing fees on current rates, plus ${{rates.etsy.listing_fee}} for the listing itself.
+{{calc:fee:etsy:18}} in transaction and processing fees, plus {{rates.etsy.listing_fee}} for the listing itself.
 
 **Can the same item go on both platforms?**
-Only true vintage, 20 years or older. Modern manufactured clothing fits Vinted and is against Etsy's marketplace rules; handmade goods fit Etsy and have no audience on Vinted.
+Vintage, 20 years or older, fits both. Handmade fits Etsy's categories. Modern secondhand clothing fits Vinted.
 
-Internal links: Etsy fee calculator (#7) · Vinted fee calculator (#5) · how much Etsy takes (#16) · how much Vinted takes (#27) · fees comparison table (#8)
+**Which is cheaper, Etsy or Vinted?**
+Vinted, at every price, because it takes nothing from the seller. Etsy's fee on an item is {{calc:fee:etsy:50}} at $50 and {{calc:fee:etsy:100}} at $100, before its listing fee.
+
+Internal links: Etsy fee calculator (#7) · Vinted fee calculator (#5) · how much Etsy takes (#16) · how much Vinted takes (#27) · Etsy listing fee (#45) · fees comparison table (#8)

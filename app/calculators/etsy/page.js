@@ -1,17 +1,21 @@
 import FeeCalculator from '../../../components/FeeCalculator';
 import CalculatorFaq from '../../../components/CalculatorFaq';
+import CalculatorRelated from '../../../components/CalculatorRelated';
 import { loadPlatform, money } from '../../../lib/rates';
 import { jsonLd, webAppJsonLd, breadcrumbJsonLd, og } from '../../../lib/seo';
 
+const PATH = '/calculators/etsy/';
+const TITLE = 'Etsy Fee Calculator — How Much Does Etsy Charge? (2026)';
+
 export const metadata = {
-  title: 'Etsy Fee Calculator — How Much Does Etsy Charge? (2026)',
+  title: TITLE,
   description:
     'How much does Etsy charge per sale? See the transaction fee, payment processing fee and listing fee, then what lands in your payout. Config-verified numbers only.',
-  alternates: { canonical: '/calculators/etsy' },
+  alternates: { canonical: PATH },
   openGraph: og({
-    title: 'Etsy Fee Calculator — How Much Does Etsy Charge? (2026)',
+    title: TITLE,
     description: 'See Etsy fees and your net payout before you list.',
-    path: '/calculators/etsy',
+    path: PATH,
   }),
 };
 
@@ -34,13 +38,14 @@ export default function Page() {
       {jsonLd([
         webAppJsonLd({
           name: 'Etsy Fee Calculator',
-          path: '/calculators/etsy',
+          path: PATH,
           description: 'Calculate Etsy selling fees and net payout for a sale price.',
         }),
-        breadcrumbJsonLd([['Home', '/'], ['Etsy fee calculator', '/calculators/etsy']]),
+        breadcrumbJsonLd([['Home', '/'], ['Etsy fee calculator', PATH]]),
       ])}
       <FeeCalculator label="Etsy" rates={rates} />
       <CalculatorFaq label="Etsy" faqs={faqs} />
+      <CalculatorRelated platformKey="etsy" label="Etsy" />
     </>
   );
 }

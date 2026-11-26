@@ -4,6 +4,9 @@ primary_keyword: how much does mercari take
 secondary_keywords: [mercari fees per sale, mercari selling fees]
 config_deps: [rates.mercari.final_value_percent, rates.mercari.payment_percent, rates.mercari.payment_fixed]
 batch: 4
+title: How Much Does Mercari Take Per Sale? (2026)
+description: Mercari takes a flat {{rates.mercari.final_value_percent}}% of what the buyer pays, shipping included when a Mercari label is used. There is no payment processing fee and no listing fee. See the fee at six sale totals.
+updated: 2026-11-26
 ---
 
 # How Much Does Mercari Take Per Sale?

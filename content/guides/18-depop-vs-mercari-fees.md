@@ -1,36 +1,65 @@
 ---
 page_type: compare
 primary_keyword: depop vs mercari fees
-secondary_keywords: [depop or mercari for sneakers]
-config_deps: [rates.depop.final_value_percent, rates.depop.payment_percent, rates.depop.payment_fixed, rates.mercari.final_value_percent, rates.mercari.payment_percent, rates.mercari.payment_fixed]
-batch: 4
+secondary_keywords: [depop or mercari for sneakers, mercari vs depop, which has lower fees]
+config_deps: [rates.depop.final_value_percent, rates.depop.payment_percent, rates.depop.payment_fixed, rates.mercari.final_value_percent]
+batch: 9
+title: Depop vs Mercari Fees: Which Leaves You More?
+description: Mercari takes {{rates.mercari.final_value_percent}}% of the item price plus shipping. Depop takes {{rates.depop.payment_percent}}% + {{rates.depop.payment_fixed}} for payment processing and no commission from US sellers. Side by side at four prices, plus the one case where Mercari is cheaper.
+updated: 2026-11-26
 ---
 
-# Depop vs Mercari Fees: Same Sale, Two Payouts
+# Depop vs Mercari Fees: Which Leaves You More?
 
-Intro: Depop and Mercari both stack two fee lines, and their shapes look similar on paper — Depop: `{{rates.depop.final_value_percent}}%` + processing `{{rates.depop.payment_percent}}% + ${{rates.depop.payment_fixed}}`; Mercari: `{{rates.mercari.final_value_percent}}%` + processing `{{rates.mercari.payment_percent}}% + ${{rates.mercari.payment_fixed}}`. The real difference shows in the totals at your price point, and in who buys there. Run both calculators below with the same price. *(交互区由组件渲染)*
+Intro: Mercari takes {{rates.mercari.final_value_percent}}% of the item price plus the shipping the buyer pays. Depop takes {{rates.depop.payment_percent}}% + {{rates.depop.payment_fixed}} of the same amount, and no commission from US sellers. Depop's fee is lower on every sale above about $7, and the gap widens with the price. Mercari is cheaper only on very small sales, where Depop's fixed {{rates.depop.payment_fixed}} weighs more than Mercari's percentage.
 
-## Where the structures actually differ
-- **The split between the lines:** each platform divides its percentage between selling fee and processing differently — the combined effective rate is the number to compare, not either line alone.
-- **Fee base:** both apply to the buyer's total under standard label flows; check each platform's current label policy for edge cases. *(以平台最新公告为准)*
-- **What is NOT in the math:** audience. Depop's streetwear/fashion feed and Mercari's general-goods catalog realize different prices for the same item — fees settle half the decision.
+## The two fee structures
 
-## Worked example (example only)
-A $90 sneaker sale, buyer pays shipping: both platforms print a two-line breakdown and a net. Whichever net is higher wins the fee half; the audience half is yours to judge by category fit.
+Mercari charges one line: {{rates.mercari.final_value_percent}}% of the item price plus shipping when a Mercari label is used. Listing is free, and payment processing is part of that percentage rather than a separate fee.
 
-## Which fits your item
-- **Sneakers and streetwear:** Depop's culture can carry a premium — check whether it survives the fee stack at your price.
-- **General goods, electronics, housewares:** Mercari's breadth usually fits better; its fee stack is the whole comparison.
-- **Either way:** the effective-percentage line in each calculator is the honest comparator.
+Depop charges sellers in the US no selling commission. Its one line is Depop Payments processing: {{rates.depop.payment_percent}}% + {{rates.depop.payment_fixed}}, charged on the item price plus shipping. Listing is free here too.
+
+## The same items on both platforms
+
+| Item price | Shipping | Depop fee | Depop leaves you | Mercari fee | Mercari leaves you |
+| --- | --- | --- | --- | --- | --- |
+| $14 | $6 | {{calc:fee:depop:14:6}} | {{calc:net:depop:14:6}} | {{calc:fee:mercari:14:6}} | {{calc:net:mercari:14:6}} |
+| $50 | $7 | {{calc:fee:depop:50:7}} | {{calc:net:depop:50:7}} | {{calc:fee:mercari:50:7}} | {{calc:net:mercari:50:7}} |
+| $90 | $10 | {{calc:fee:depop:90:10}} | {{calc:net:depop:90:10}} | {{calc:fee:mercari:90:10}} | {{calc:net:mercari:90:10}} |
+| $200 | $12 | {{calc:fee:depop:200:12}} | {{calc:net:depop:200:12}} | {{calc:fee:mercari:200:12}} | {{calc:net:mercari:200:12}} |
+
+"Leaves you" is the item price minus the fee, with the shipping money treated as passing through to pay for the label.
+
+## Where Mercari is cheaper
+
+Depop's fixed {{rates.depop.payment_fixed}} is a large share of a tiny sale. Around $7 the two fees cross.
+
+| Sale total | Depop fee | Mercari fee | Lower fee |
+| --- | --- | --- | --- |
+| $4 | {{calc:fee:depop:4}} | {{calc:fee:mercari:4}} | Mercari |
+| $6 | {{calc:fee:depop:6}} | {{calc:fee:mercari:6}} | Mercari |
+| $7 | {{calc:fee:depop:7}} | {{calc:fee:mercari:7}} | Depop |
+| $10 | {{calc:fee:depop:10}} | {{calc:fee:mercari:10}} | Depop |
+
+## What the fees leave out
+
+Depop is a fashion app with a feed built around streetwear and vintage. Mercari sells a much wider range, including electronics, home goods and collectibles. An item that fits Depop's audience may sell there at a better price. An item outside fashion has no real audience on Depop at all.
 
 ## FAQ
-**Depop or Mercari for sneakers?**
-Fee-wise they are close; the deciding factor is usually which audience pays your asking price. Run both calculators at your real price, then judge the reach.
 
 **Which has lower fees, Depop or Mercari?**
-Compare the combined effective lines rendered from our verified config — the answer shifts by price band.
+Depop on any sale above about $7. Mercari on smaller ones, because Depop's fixed {{rates.depop.payment_fixed}} costs more than {{rates.mercari.final_value_percent}}% of a very small amount.
+
+**Depop or Mercari for sneakers?**
+By fees, Depop. A $90 pair with $10 of shipping leaves {{calc:net:depop:90:10}} on Depop and {{calc:net:mercari:90:10}} on Mercari. Whether Depop's buyers pay the asking price is the other half of the question.
 
 **Do both charge payment processing separately?**
-Yes — both stack a processing line on top of their selling fee, both rendered above.
+Only Depop shows it as its own line. On Mercari, payment processing is part of the {{rates.mercari.final_value_percent}}% selling fee on listings created or updated since January 6, 2025.
 
-Internal links: Depop fee calculator (006-depop-fee-calculator) · Mercari fee calculator (004-mercari-fee-calculator) · Vinted vs Depop fees (12-vinted-vs-depop-fees)
+**Does Depop charge a selling fee?**
+Not for sellers in the US, the UK and Australia. The 10% selling fee applies to sellers elsewhere. A US seller pays payment processing only.
+
+**Does Mercari charge listing fees?**
+No. Listing on Mercari is free, and the {{rates.mercari.final_value_percent}}% selling fee is charged only when an item sells.
+
+Internal links: Depop fee calculator (#6) · Mercari fee calculator (#4) · how much Depop takes (#28) · how much Mercari takes (#17) · Vinted vs Depop fees (#12) · Mercari vs Etsy fees (#35) · fees comparison table (#8)

@@ -1,34 +1,61 @@
 ---
 page_type: compare
 primary_keyword: where to sell cheap items online
-secondary_keywords: [best app to sell items under $20]
-config_deps: [rates.poshmark.per_order_fixed, rates.poshmark.final_value_percent, rates.mercari.final_value_percent, rates.mercari.payment_percent, rates.mercari.payment_fixed, rates.vinted.final_value_percent, rates.ebay.final_value_percent, rates.ebay.per_order_fixed]
-batch: 5
+secondary_keywords: [best app to sell items under 20, where to sell cheap items, selling fees on small items]
+config_deps: [rates.* 全表]
+batch: 9
+platforms: [ebay, poshmark, mercari, vinted, depop, etsy]
+title: Where to Sell Cheap Items Online: Fees Under $20
+description: Under $20, fixed fees decide the payout. See what eBay, Poshmark, Mercari, Vinted, Depop and Etsy each leave you on a $5, $8, $12 and $18 sale, and which app has the lowest fees.
+updated: 2026-11-26
 ---
 
-# Where to Sell Cheap Items Online: The Sub-$20 Reality Check
+# Where to Sell Cheap Items Online: The Sub-$20 Fee Check
 
-Intro: Under $20, fee structure matters more than anywhere else — a fixed fee that is invisible on a $150 sale is a double-digit share on a $12 one. This page ranks the practical answer by platform for the sub-$20 band: Vinted's zero seller commission, Poshmark's flat `{{rates.poshmark.per_order_fixed}}` under $15, Mercari's stacked percentages, eBay's fixed-fee line. The calculators below let you test the exact $5-$20 range where these structures diverge most. *(交互区由组件渲染；排序叙述基于费率结构逻辑，具体数字渲染自 config)*
+Intro: A fixed fee that hardly shows on a $150 sale takes a large share of a $10 one. Under $20, the payout depends less on percentages than on which platforms charge a flat fee per order or per sale. The table below shows what each of the six marketplaces leaves you on four small sales, calculated from the same verified rates as the calculators.
 
-## Why cheap items are a different game
-Three structural facts decide the sub-$20 band. First, **flat fees dominate**: any per-order fixed amount is proportionally heaviest here. Second, **stacking compounds**: platforms with two percentage lines take their biggest relative bite on small totals. Third, **buyer-side fees shift demand**: where the buyer pays protection (Vinted), your price stays clean but the buyer's total grows — which can cap what a cheap item will actually sell for.
+## What a small sale leaves you
 
-## The sub-$20 ranking logic (structure, not promises)
-- **Zero-commission platforms first:** if sellers pay nothing on standard listings (Vinted), the entire fee question disappears from your side of the trade.
-- **Flat-fee platforms next:** Poshmark's flat fee under $15 is predictable — at $12 it takes a known share; the calculator prints the exact percentage.
-- **Stacked-percentage platforms last:** Mercari's two lines (and eBay's fixed-fee line under the standard regime) take their largest relative share at the bottom of the price range — viable, but check the effective rate line before pricing.
+{{table:payouts:5,8,12,18}}
 
-## Worked example (example only)
-The same $12 item on four platforms: one takes nothing from the seller, one takes a flat fee, two take stacked percentages. The calculators show four nets and four effective percentages — the spread at $12 is wider than at $50, which is the whole reason this page exists.
+Shipping is left out. Listing fees are left out too: Etsy charges {{rates.etsy.listing_fee}} per listing, and eBay's insertion fee applies only after a seller has used the {{rates.ebay.listing_fee_free_per_month}} free listings each month.
+
+## Who keeps you the most
+
+{{table:best:5,8,12,18}}
+
+## Why the order comes out this way
+
+- Vinted charges sellers nothing on standard sales, so it is first at every price.
+- Poshmark's flat {{rates.poshmark.min_commission}} on sales under ${{rates.poshmark.commission_threshold_price}} is the same dollars on a $5 item as on a $14 one. At $5 that is most of the price. At ${{rates.poshmark.commission_threshold_price}} the percentage takes over, and {{rates.poshmark.final_value_percent}}% is still the highest rate of the six.
+- Depop charges {{rates.depop.payment_percent}}% plus a fixed {{rates.depop.payment_fixed}}. The fixed part weighs heavily at $5 and much less at $18.
+- Mercari's flat {{rates.mercari.final_value_percent}}% has no fixed part, so it costs less than Depop below about $7 and more above.
+- Etsy's two percentages plus a fixed {{rates.etsy.payment_fixed}} put it just behind Mercari at each of these four prices.
+- eBay is second to last at every price in the table, ahead of Poshmark only.
+
+## eBay's small-order tier
+
+Orders of $10 or less carry a per-order fee of {{rates.ebay.per_order_fixed_under_10}} instead of {{rates.ebay.per_order_fixed}}. On a $9 sale eBay takes {{calc:fee:ebay:9}} and leaves you {{calc:net:ebay:9}}.
+
+## What the order leaves out
+
+Fees are one half of the answer. A platform with no buyers for your item pays nothing at any fee. Vinted, Depop and Poshmark sell fashion. Mercari and eBay list almost everything. Etsy sells handmade, vintage and craft supplies. For a cheap item outside fashion, Mercari is the lowest-fee platform that lists it.
 
 ## FAQ
-**Best app to sell items under $20?**
-Structurally: zero-commission first, flat-fee second, stacked-percentage last — but verify at your exact price with the calculators, and weigh reach: a fee-free listing on a platform with no buyers nets exactly zero.
 
-**Where to sell cheap items online without fees eating everything?**
-Start with the zero-commission column in the comparison table, then check whether the platform's audience buys your category at your price.
+**Best app to sell items under $20?**
+By fees, Vinted for anything it lists. After that, Mercari below about $7 and Depop above it. For an item outside fashion, Mercari has the lowest fees of the platforms that list it.
+
+**Where can I sell cheap items with the lowest fees?**
+Vinted, which charges sellers nothing on standard sales and asks the buyer to pay a protection fee instead.
 
 **Is eBay worth it for cheap items?**
-Run the calculator: the fixed per-order line is proportionally heavy under $20; eBay's reach can still win when the item is rare enough to command search demand.
+On fees alone eBay is second to last of the six under $20. It lists every category and has a wide reach, so for a cheap item that people search for by name, the extra fee may buy a sale the others would not make.
 
-Internal links: Marketplace fees comparison (008-fees-comparison-table) · Vinted fee calculator (005-vinted-fee-calculator) · Poshmark fee calculator (003-poshmark-fee-calculator) · Mercari fee calculator (004-mercari-fee-calculator)
+**Why does Poshmark pay so little on a cheap item?**
+Sales under ${{rates.poshmark.commission_threshold_price}} carry a flat {{rates.poshmark.min_commission}} fee instead of a percentage. On a $5 item that leaves {{calc:net:poshmark:5}}.
+
+**Is Mercari good for cheap items?**
+Its flat {{rates.mercari.final_value_percent}}% has no fixed fee, which makes it the cheapest of the five platforms that charge sellers on the smallest sales.
+
+Internal links: fees comparison table (#8) · Vinted fee calculator (#5) · Poshmark fee calculator (#3) · Mercari fee calculator (#4) · eBay fee calculator (#2) · Depop fee calculator (#6) · Etsy fee calculator (#7) · cheapest selling app (#40) · Poshmark fee under $15 (#50)

@@ -1,17 +1,21 @@
 import FeeCalculator from '../../../components/FeeCalculator';
 import CalculatorFaq from '../../../components/CalculatorFaq';
+import CalculatorRelated from '../../../components/CalculatorRelated';
 import { loadPlatform } from '../../../lib/rates';
 import { jsonLd, webAppJsonLd, breadcrumbJsonLd, og } from '../../../lib/seo';
 
+const PATH = '/calculators/mercari/';
+const TITLE = 'Mercari Fee Calculator — How Much Does Mercari Charge? (2026)';
+
 export const metadata = {
-  title: 'Mercari Fee Calculator — How Much Does Mercari Charge? (2026)',
+  title: TITLE,
   description:
     'How much does Mercari charge to sell? Enter your price and see the selling fee and your net payout before you list, from a config verified against the official fee page.',
-  alternates: { canonical: '/calculators/mercari' },
+  alternates: { canonical: PATH },
   openGraph: og({
-    title: 'Mercari Fee Calculator — How Much Does Mercari Charge? (2026)',
+    title: TITLE,
     description: 'See the Mercari selling fee and your net payout before you list.',
-    path: '/calculators/mercari',
+    path: PATH,
   }),
 };
 
@@ -34,13 +38,14 @@ export default function Page() {
       {jsonLd([
         webAppJsonLd({
           name: 'Mercari Fee Calculator',
-          path: '/calculators/mercari',
+          path: PATH,
           description: 'Calculate Mercari selling fees and net payout for a sale price.',
         }),
-        breadcrumbJsonLd([['Home', '/'], ['Mercari fee calculator', '/calculators/mercari']]),
+        breadcrumbJsonLd([['Home', '/'], ['Mercari fee calculator', PATH]]),
       ])}
       <FeeCalculator label="Mercari" rates={rates} />
       <CalculatorFaq label="Mercari" faqs={faqs} />
+      <CalculatorRelated platformKey="mercari" label="Mercari" />
     </>
   );
 }

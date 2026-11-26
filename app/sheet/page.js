@@ -1,45 +1,42 @@
 import { loadRates, PLATFORM_LABELS, money } from '../../lib/rates';
+import { computeFees } from '../../lib/fees';
 import { jsonLd, breadcrumbJsonLd, og, SITE } from '../../lib/seo';
-// /sheet — printable one-page fee comparison (the paid PDF is generated from
-// this page; the site version is free and always current). Charter gate: only
-// platforms with verified:true rates render numbers. Anything less renders the
-// pending state — the sheet is never sold with unverified numbers on it.
+// /sheet — free one-page fee comparison (the paid PDF is generated from
+// /sheet/print). Charter gate: only platforms with verified:true rates render
+// numbers. Anything less renders the pending state — the sheet is never sold
+// with unverified numbers on it. Per-sale math comes from lib/fees.js, the
+// same function the calculators use.
+
+const PATH = '/sheet/';
 
 export const metadata = {
   title: 'Marketplace Fee Comparison 2026 — 6 Resale Platforms, One Page',
   description:
-    'Resale marketplace fee comparison for 2026: seller fees across eBay, Poshmark, Mercari, Vinted, Depop and Etsy on one printable page. Same sale, six marketplaces, net proceeds side by side.',
-  alternates: { canonical: '/sheet' },
+    'Resale marketplace fee comparison for 2026: seller fees across eBay, Poshmark, Mercari, Vinted, Depop and Etsy on one page, plus a printable 5-page PDF. Same sale, six marketplaces, net proceeds side by side.',
+  alternates: { canonical: PATH },
   openGraph: og({
     title: 'Marketplace Fee Comparison 2026 — 6 Resale Platforms',
-    description: 'Same sale, six marketplaces — fees and net proceeds on one printable page.',
-    path: '/sheet',
+    description: 'Same sale, six marketplaces — fees and net proceeds on one page.',
+    path: PATH,
   }),
 };
-
-// Per-sale fee basis (insertion/listing fees excluded — they bill per
-// listing, not per sale; noted in the fine print). min_commission clamps the
-// commission side only (Poshmark: flat $2.95 on small sales).
-function perSaleFees(r, gross) {
-  let fv = (gross * (r.final_value_percent || 0)) / 100;
-  if (r.min_commission != null && fv < r.min_commission) fv = r.min_commission;
-  const fixed =
-    gross <= 10 && r.per_order_fixed_under_10 != null
-      ? r.per_order_fixed_under_10
-      : r.per_order_fixed || 0;
-  const pay = (gross * (r.payment_percent || 0)) / 100 + (r.payment_fixed || 0);
-  return fv + fixed + pay;
-}
 
 function fixedFeeCell(r) {
   if (r.per_order_fixed == null) return '—';
   if (r.per_order_fixed_under_10 != null && r.per_order_fixed_under_10 !== r.per_order_fixed) {
-    return `${money(r.per_order_fixed_under_10)} ≤$10 · ${money(r.per_order_fixed)} >$10`;
+    return `${money(r.per_order_fixed_under_10)} on orders of $10 or less · ${money(r.per_order_fixed)} above`;
   }
-  return money(r.per_order_fixed);
+  return r.per_order_fixed ? money(r.per_order_fixed) : 'none';
 }
 
-const DEMO_PRICES = [8, 15, 50, 150];
+function listingCell(r) {
+  if (!r.listing_fee) return 'free';
+  return r.listing_fee_free_per_month
+    ? `${money(r.listing_fee)} after ${r.listing_fee_free_per_month} free listings a month`
+    : `${money(r.listing_fee)} per listing`;
+}
+
+const DEMO_PRICES = [8, 15, 30, 50, 100, 150];
 
 export default function SheetPage() {
   const rates = loadRates().platforms || {};
@@ -50,12 +47,14 @@ export default function SheetPage() {
   }));
   const verified = platforms.filter((p) => p.r.verified && p.r.final_value_percent != null);
   const ready = verified.length >= 2;
+  const latest = verified.map((v) => v.r.scraped_date).filter(Boolean).sort().pop();
+  const freeListings = verified.find((p) => p.r.listing_fee_free_per_month && p.r.listing_fee);
+  // Per-sale fees on the item price, shipping excluded, listing fees excluded.
+  const keepAt = (r, price) => computeFees(r, price, 0, { excludeListing: true });
 
   return (
     <>
-      {jsonLd([
-        breadcrumbJsonLd([['Home', '/'], ['Fee comparison sheet', '/sheet']]),
-      ])}
+      {jsonLd([breadcrumbJsonLd([['Home', '/'], ['Fee comparison sheet', PATH]])])}
       <style>{`
         .sheet { max-width: 960px; margin: 0 auto; }
         .sheet h1 { font-size: 1.9rem; letter-spacing: 0.02em; margin-bottom: 0.2rem; }
@@ -87,30 +86,27 @@ export default function SheetPage() {
         <h1>WHO TAKES THE SMALLEST CUT?</h1>
         <p className="sub">
           6 marketplaces · 1 page · rates verified against official pages
-          {verified.length > 0
-            ? ` as of ${verified.map((v) => v.r.scraped_date).filter(Boolean).sort().pop()}`
-            : ''}
+          {latest ? ` as of ${latest}` : ''}
         </p>
 
         <div className="buy">
           <div className="buy-copy">
-            <h2>Get the printable fee sheet — $1</h2>
+            <h2>Get the full fee reference as a PDF — $1</h2>
             <p>
-              All six marketplaces on one page — and all six verified against
-              each platform&apos;s official fee page
-              {verified.length > 0
-                ? ` as of ${verified.map((v) => v.r.scraped_date).filter(Boolean).sort().pop()}`
-                : ''}
-              . No tab-hopping, no stale numbers: it&apos;s the same data our
-              free calculators use, laid out for print or your phone. When a
-              marketplace changes its fees, the sheet is re-verified and the
-              updated copy is yours free.
+              The free table below is the summary. The $1 PDF is the full 5-page reference: every
+              fee line for all six marketplaces, a payout table at six price points, a
+              walkthrough of each platform with the math shown, the shipping rules that change the
+              answer, and the source link and check date behind every number. All six platforms
+              verified against their official fee pages{latest ? ` as of ${latest}` : ''}. When a
+              marketplace changes its fees, the PDF is re-verified and the updated copy is yours
+              free.
             </p>
             <ul className="inside">
-              <li>Every fee line for all six marketplaces, from official pages</li>
-              <li>Same-sale payout comparison at $8 / $15 / $50 / $150</li>
-              <li>Pick-a-platform cheat table for common price points</li>
-              <li>Source links and the verification date printed on the sheet</li>
+              <li>Every fee line for all six marketplaces, with what counts toward each fee</li>
+              <li>Each platform explained, with worked examples you can check line by line</li>
+              <li>Same-sale payouts at $8 / $15 / $30 / $50 / $100 / $150 and which platform keeps you the most</li>
+              <li>Whether each platform takes a cut of shipping, plus Mercari&apos;s prepaid label prices</li>
+              <li>Every official source link and the date each rate was checked</li>
             </ul>
             <img
               className="preview no-print"
@@ -119,7 +115,7 @@ export default function SheetPage() {
             />
           </div>
           <a className="buy-btn" href="/buy/" target="_blank" rel="noopener">
-            Buy the printable sheet — $1
+            Buy the PDF fee reference — $1
           </a>
           <p className="footnote">
             The interactive calculators on this site stay free and always current.
@@ -155,7 +151,7 @@ export default function SheetPage() {
                   {verified.map((p) => (
                     <td key={p.key}>
                       {p.r.final_value_percent}% of{' '}
-                      {p.r.fee_base === 'item_only' ? 'item price' : 'sale total'}
+                      {p.r.fee_base === 'item_only' ? 'item price' : 'sale total (item + shipping)'}
                       {p.r.min_commission != null
                         ? ` (flat ${money(p.r.min_commission)}${p.r.commission_threshold_price != null ? ` under $${p.r.commission_threshold_price}` : ''})`
                         : ''}
@@ -172,23 +168,21 @@ export default function SheetPage() {
                 </tr>
                 <tr>
                   <td>Payment processing</td>
-                  {verified.map((p) =>
-                    p.r.payment_percent != null || p.r.payment_fixed != null ? (
-                      <td key={p.key}>
-                        {p.r.payment_percent || p.r.payment_fixed
-                          ? `${p.r.payment_percent}% + ${money(p.r.payment_fixed || 0)}`
-                          : 'included in selling fee'}
-                      </td>
-                    ) : (
-                      <td key={p.key}>—</td>
-                    )
-                  )}
+                  {verified.map((p) => (
+                    <td key={p.key} className="num">
+                      {p.r.payment_percent || p.r.payment_fixed
+                        ? `${p.r.payment_percent}% + ${money(p.r.payment_fixed || 0)}`
+                        : p.key === 'vinted'
+                          ? 'none'
+                          : 'none separate'}
+                    </td>
+                  ))}
                 </tr>
                 <tr>
                   <td>Listing / insertion fee</td>
                   {verified.map((p) => (
                     <td key={p.key} className="num">
-                      {p.r.listing_fee != null ? money(p.r.listing_fee) : 'free'}
+                      {listingCell(p.r)}
                     </td>
                   ))}
                 </tr>
@@ -208,15 +202,15 @@ export default function SheetPage() {
               <tbody>
                 {DEMO_PRICES.map((price) => (
                   <tr key={price}>
-                    <td>${price}</td>
+                    <td className="num">${price}</td>
                     {verified.map((p) => {
-                      const fees = perSaleFees(p.r, price);
+                      const c = keepAt(p.r, price);
                       return (
                         <td key={p.key} className="num">
-                          {money(price - fees)}
+                          {money(c.net)}
                           <span className="footnote">
                             {' '}
-                            ({((fees / price) * 100).toFixed(1)}% fees)
+                            ({((c.fee / price) * 100).toFixed(1)}% fees)
                           </span>
                         </td>
                       );
@@ -239,14 +233,14 @@ export default function SheetPage() {
               <tbody>
                 {DEMO_PRICES.map((price) => {
                   const ranked = verified
-                    .map((p) => ({ p, keep: price - perSaleFees(p.r, price) }))
+                    .map((p) => ({ p, keep: keepAt(p.r, price).net }))
                     .sort((a, b) => b.keep - a.keep);
                   const best = ranked[0];
                   const second = ranked[1];
                   const note =
                     price < 15
-                      ? 'Flat minimum commissions bite hardest under $15 — check the small-sale column above'
-                      : 'Shipping costs often decide the deal — compare those before you list';
+                      ? 'Flat minimum commissions bite hardest under $15 — check the small-sale row above'
+                      : 'Shipping rules differ by platform and can move these lines — see the shipping column of the fee table';
                   return (
                     <tr key={price}>
                       <td className="num">${price}</td>
@@ -264,9 +258,12 @@ export default function SheetPage() {
             <p className="footnote">
               Basis: sale price only (shipping excluded); per-sale fees only —
               listing/insertion fees bill per listing and are shown separately
-              above. Numbers from each platform&apos;s official fee page, collected
-              {verified.length > 0 ? ' ' + verified.map((v) => v.r.scraped_date).filter(Boolean).sort().pop() : ''}{' '}
-              by automated scan and cross-checked by hand. Sources:{' '}
+              above
+              {freeListings
+                ? ` (${freeListings.label}: the insertion fee applies only after a seller has used the ${freeListings.r.listing_fee_free_per_month} free listings each month)`
+                : ''}
+              . Numbers from each platform&apos;s official fee page, last checked{' '}
+              {latest ? latest : 'on the dates linked below'} and cross-checked by hand. Sources:{' '}
               {verified.map((p, i) => (
                 <span key={p.key}>
                   {i > 0 && ' · '}

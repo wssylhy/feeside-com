@@ -4,6 +4,8 @@ primary_keyword: who pays shipping on mercari
 secondary_keywords: [mercari shipping fees for sellers, does the seller pay shipping on mercari]
 config_deps: [rates.mercari.final_value_percent]
 batch: 9
+description: The buyer pays shipping on Mercari, but Mercari's {{rates.mercari.final_value_percent}}% selling fee is charged on the item price plus that shipping. See what a cheaper label saves.
+updated: 2026-11-26
 ---
 
 # Who Pays Shipping on Mercari?

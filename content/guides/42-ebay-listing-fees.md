@@ -1,36 +1,65 @@
 ---
 page_type: qa
 primary_keyword: ebay listing fees
-secondary_keywords: [how much does ebay charge to list, ebay insertion fee]
-config_deps: [rates.ebay.listing_fee, rates.ebay.final_value_percent]
-batch: 8
+secondary_keywords: [how much does ebay charge to list, ebay insertion fee, how many free listings on ebay, is it free to list on ebay]
+config_deps: [rates.ebay.listing_fee, rates.ebay.listing_fee_free_per_month, rates.ebay.final_value_percent, rates.ebay.per_order_fixed, rates.ebay.per_order_fixed_under_10]
+batch: 9
+title: eBay Listing Fees: {{rates.ebay.listing_fee_free_per_month}} Free Listings a Month, Then {{rates.ebay.listing_fee}}
+description: How many free listings eBay gives you each month, what a listing costs after that, when relisting costs money again, and how the insertion fee compares with eBay's selling fees.
+updated: 2026-11-26
 ---
 
-# eBay Listing Fees: What You Pay Before Anything Sells
+# eBay Listing Fees: {{rates.ebay.listing_fee_free_per_month}} Free Listings a Month, Then {{rates.ebay.listing_fee}}
 
-Intro: Most of eBay's cost only appears when something sells, but listing has its own small line: the insertion fee, `{{rates.ebay.listing_fee}}` per listing per 30-day cycle on whatever listings are not covered by a free allowance. It is charged whether the item sells or not. *(渲染自 config；月度免费额度以卖家后台为准)*
+Intro: Listing on eBay is free for most casual sellers. Every seller gets up to {{rates.ebay.listing_fee_free_per_month}} zero-insertion-fee listings a month. After that each listing costs {{rates.ebay.listing_fee}}, charged when the listing is created and not refunded if the item does not sell. The rules below are taken from eBay's Selling fees page, collected November 24, 2026.
 
-## What the insertion fee covers
+## The allowance
 
-One insertion fee covers one listing for 30 days in a single category. List the same item in a second category and that is a second insertion. Let the 30 days lapse without a sale and relisting starts a new cycle with a new fee. Renewals and adding certain upgrades (subtitle, extra photos on some categories) bill separately.
+eBay's wording is that every month you get up to {{rates.ebay.listing_fee_free_per_month}} zero insertion fee listings, or more if you have an eBay Store. Listings inside that allowance cost nothing to post. A seller who lists fewer than {{rates.ebay.listing_fee_free_per_month}} items in a month pays no insertion fees at all.
 
-## The allowance most sellers never notice
+## What happens after the allowance
 
-eBay gives most sellers a monthly allowance of listings that carry no insertion fee at all, and the size of that allowance depends on your account and category history. The practical way to know yours: Seller Hub → Payments → fees, where every insertion charge is itemized. If your allowance covers your volume, the listing fee never touches you and eBay's cost is purely the selling-side percentage.
+Once the free listings are used up, eBay's insertion fee rules apply:
 
-## Putting it next to the selling fees
+- {{rates.ebay.listing_fee}} per listing, per category. List an item in two categories and the insertion fee for the second category is always charged.
+- Charged for the original listing and each time you choose to relist the item.
+- Not refunded if the item does not sell.
+- Charged once per listing when a listing holds several items or variations.
 
-The insertion fee is flat and small: `{{rates.ebay.listing_fee}}` against a selling fee of `{{rates.ebay.final_value_percent}}%` plus a per-order fixed fee on the sale. On a fast sale, the listing fee is rounding error. On a slow item that relists four times before moving, it adds up to four of them, roughly a dollar and a half of sunk cost before the sale happens. That is the real reason stale listings deserve a price check more than they deserve another relist.
+## Good 'Til Cancelled listings
+
+Good 'Til Cancelled listings are fixed-price listings that renew automatically once per calendar month. eBay charges the insertion fee, if one applies, when the item is first listed and again each time it renews. Each renewal counts toward the monthly free listings, so a Good 'Til Cancelled listing inside the allowance renews for free.
+
+## What extra listings cost
+
+| Listings beyond the free allowance in a month | Insertion fees |
+| --- | --- |
+| 5 | {{calc:listings:ebay:5}} |
+| 50 | {{calc:listings:ebay:50}} |
+| 100 | {{calc:listings:ebay:100}} |
+
+## Next to the selling fees
+
+The insertion fee is small beside what eBay takes when the item sells. The final value fee is {{rates.ebay.final_value_percent}}% of the total amount of the sale plus {{rates.ebay.per_order_fixed}} per order ({{rates.ebay.per_order_fixed_under_10}} on orders of $10 or less). On a $60 sale that comes to {{calc:fee:ebay:60}}. An item relisted three times beyond the allowance costs {{calc:listings:ebay:4}} in insertion fees before it sells, four times {{rates.ebay.listing_fee}}.
 
 ## FAQ
 
+**How many free listings do you get on eBay?**
+Up to {{rates.ebay.listing_fee_free_per_month}} zero-insertion-fee listings a month, or more if you have an eBay Store.
+
 **How much does eBay charge to list an item?**
-`{{rates.ebay.listing_fee}}` per listing per 30-day cycle for listings beyond your free monthly allowance. Many sellers list inside the allowance and never pay an insertion fee.
+Nothing until you have used the {{rates.ebay.listing_fee_free_per_month}} free listings in a month. After that, {{rates.ebay.listing_fee}} per listing.
 
-**Do I get the insertion fee back if the item sells?**
-No, and it is not refunded for unsold listings either. It is a flat publishing cost per cycle.
+**Do you pay if your item doesn't sell on eBay?**
+Not inside the free allowance. Beyond it, the {{rates.ebay.listing_fee}} insertion fee is charged when you list and is not refunded if the item does not sell.
 
-**Is the insertion fee charged per photo or per item?**
-Per listing. Photos are free on standard listings; paid upgrades like subtitles bill separately.
+**Do you pay again to relist on eBay?**
+Beyond the free allowance, yes. eBay charges the insertion fee for the original listing and each time you choose to relist. Inside the allowance, relists are free.
 
-Internal links: eBay fee calculator (#2) · how much eBay takes (#9) · best time to list on eBay (#38) · fees comparison table (#8)
+**Is it free to list in two categories on eBay?**
+No. An insertion fee is always charged for the second category.
+
+**How many photos can you add to an eBay listing for free?**
+Up to 24, with zoom and enlarge. Scheduling a listing to start later is free as well.
+
+Internal links: eBay fee calculator (#2) · how much eBay takes (#9) · eBay fees by category (#48) · best time to list on eBay (#38) · fees comparison table (#8)
